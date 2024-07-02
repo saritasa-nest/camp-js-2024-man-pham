@@ -36,6 +36,8 @@
   width: 100%;
   aspect-ratio: 2/3;
   border-radius: 24px;
+  border-width: 1px;
+  border-color: rgba(0 0 0 / 15%);
   overflow: hidden;
 }
 
@@ -47,4 +49,48 @@
 
 .book-card__content {
   margin-top: 8px;
+}
+
+/* Filter */
+.filter__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.filter__form .search-bar {
+  display: flex;
+  padding: 8px 16px;
+  border-radius: 16px;
+  gap: 8px;
+  background-color: var(--surface-overlay-color);
+  align-items: center;
+}
+
+.filter__form .search-bar svg {
+  width: 24px;
+  height: 24px;
+}
+
+.filter__form .search-bar .search-bar__input {
+  flex: 1;
+}
+
+.filter__form .search-bar .search-bar__input input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
+
+.filter__select {
+  padding: 8px 16px;
+  border-radius: 16px;
+  background-color: var(--surface-overlay-color);
+}
+
+.filter__select select {
+  border: none;
+  background-color: transparent;
+  width: 100%;
 }

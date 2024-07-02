@@ -1,7 +1,7 @@
 :root {
   /* Color */
   --surface-color: rgba(255 255 255 / 100%);
-  --surface-overlay-color: rgba(255 255 255 / 5%);
+  --surface-overlay-color: rgba(0 0 0 / 5%);
   --on-surface-color: rgba(0 0 0 / 100%);
   --on-surface-dim-color: rgba(0 0 0 / 50%);
   --primary-color: rgba(241 89 36 / 100%);
