@@ -58,6 +58,7 @@ input[type="checkbox"] {
     flex-direction: column;
     gap: 40px;
     justify-content: start;
+    height: fit-content;
     align-items: end;
   }
 

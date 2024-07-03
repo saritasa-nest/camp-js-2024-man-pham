@@ -42,6 +42,7 @@
 
 .book-card {
   width: 180px;
+  overflow: hidden;
 }
 
 .book-card__cover {
@@ -59,23 +60,20 @@
 }
 
 .book-card__content {
+  width: 100%;
   margin-top: 8px;
   overflow: hidden;
-  width: 100%;
 }
 
 .book-card__name {
-  overflow: hidden;
-  width: 100%;
   display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  white-space: wrap;
+  text-overflow: ellipsis;
 }
 
-.divider {
-  display: none;
-}
 /* Filter */
 .sidebar {
   width: 320px;
@@ -108,8 +106,8 @@
 }
 
 .filter__form .search-bar svg {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  aspect-ratio: 1/1;
 }
 
 .filter__form .search-bar .search-bar__input input {
@@ -130,6 +128,10 @@
   width: 100%;
 }
 
+.filter__checkbox {
+  height: fit-content;
+}
+
 /* Tablet and mobile */
 @media only screen and (max-width: 786px) {
   .content-wrapper {
@@ -139,16 +141,17 @@
   .sidebar {
     order: 1;
     width: 100%;
-    position: relative;
+    position: static;
     padding-bottom: 24px;
     border-bottom: 1px solid var(--border-color);
   }
 
   .sidebar .filter__wrapper {
-    position: relative;
+    position: static;
   }
+
   .sidebar .filter {
-    position: relative;
+    position: static;
     width: 100%;
   }
 
