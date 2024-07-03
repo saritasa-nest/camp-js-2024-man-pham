@@ -113,8 +113,8 @@
 
 .filter__form .search-bar .search-bar__input input {
   background-color: transparent;
+  width: 100%;
   outline: none;
-  flex: 1;
   border: none;
 }
 
