@@ -80,11 +80,11 @@
   position: relative;
 }
 
-.sidebar .filter__wrapper {
+.sidebar__filter-wrapper {
   position: absolute;
 }
 
-.sidebar .filter {
+.sidebar__filter {
   position: fixed;
   width: 320px;
 }
@@ -154,11 +154,11 @@
     border-bottom: 1px solid var(--border-color);
   }
 
-  .sidebar .filter__wrapper {
+  .sidebar__filter-wrapper {
     position: static;
   }
 
-  .sidebar .filter {
+  .sidebar__filter {
     position: static;
     width: 100%;
   }
@@ -168,9 +168,14 @@
   }
 }
 @media only screen and (max-width: 990px) and (min-width: 768px) {
-  .sidebar .filter__form {
+  .filter .filter__form {
     flex-direction: row;
     align-items: center;
+  }
+
+  .filter__form .filter__select,
+  .filter__form .search-bar {
+    flex: 1;
   }
 }
 
@@ -184,7 +189,7 @@
     width: 100%;
   }
 
-  .sidebar .filter__form {
+  .filter .filter__form {
     flex-direction: column;
     align-items: start;
   }

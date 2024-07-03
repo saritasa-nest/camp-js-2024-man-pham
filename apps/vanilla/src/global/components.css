@@ -1,5 +1,5 @@
 /* Header */
-header {
+.header {
   height: 64px;
   display: flex;
   align-items: center;
@@ -7,7 +7,7 @@ header {
 }
 
 /* Footer */
-footer {
+.footer {
   border-top: 1px solid var(--border-color);
   height: 128px;
   padding: var(--spacing-lg) 0;
@@ -15,12 +15,12 @@ footer {
   justify-content: space-between;
 }
 
-footer .content-left {
+.footer__information {
   display: flex;
   gap: var(--spacing-xl);
 }
 
-footer .content-left__link {
+.footer__link {
   color: var(--on-surface-color);
 }
 
@@ -43,7 +43,7 @@ input[type="checkbox"] {
 }
 
 @media only screen and (max-width: 767px) {
-  footer {
+  .footer {
     flex-direction: column;
     gap: var(--spacing-xxl);
     justify-content: start;
@@ -51,7 +51,7 @@ input[type="checkbox"] {
     align-items: end;
   }
 
-  footer .content-left {
+  .footer__information {
     gap: 0;
     width: 100%;
     justify-content: space-between;

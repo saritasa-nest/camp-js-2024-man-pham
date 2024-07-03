@@ -7,7 +7,7 @@
     <title>Vite App</title>
   </head>
   <body class="container">
-    <header>
+    <header class="header">
       <h1 class="font-logo">📚 Books app</h1>
     </header>
     <main class="content-wrapper">
@@ -110,8 +110,8 @@
 
       <!-- Sidebar -->
       <aside class="sidebar">
-        <div class="filter__wrapper">
-          <section class="filter">
+        <div class="sidebar__filter-wrapper">
+          <section class="sidebar__filter filter">
             <h2 class="font-subtitle">FILTERS</h2>
             <form action="" class="filter__form">
               <div class="search-bar">
@@ -122,30 +122,30 @@
                 </span>
               </div>
               <div class="filter__select">
-                <select class="font-body" name="filter">
-                  <option selected disabled value="">Choose sort field</option>
-                  <option value="1">Long</option>
+                <select class="font-body">
+                  <option selected disabled value="1">Choose sort field</option>
+                  <option value="2">Long</option>
                 </select>
               </div>
-              <div class="">
-                <input type="checkbox" name="show-comic" checked="checked" />
-                <label for="" class="font-body">Show comics</label>
-              </div>
+              <label class="font-body">
+                <input type="checkbox" name="show-comic" />
+                Show comics</label
+              >
             </form>
           </section>
         </div>
       </aside>
     </main>
 
-    <footer>
-      <div class="content-left">
-        <span class="content-left__copyright">
+    <footer class="footer">
+      <div class="footer__information">
+        <span class="footer__copyright">
           <span class="font-logo">Book apps</span>
           <span class="font-body">© 2023</span>
         </span>
-        <a href="" class="content-left__link font-body">GitHub</a>
+        <a href="" class="footer__link font-body">GitHub</a>
       </div>
-      <div class="content-right">
+      <div class="footer__actions">
         <span class="font-body-small">Go to top ↑</span>
       </div>
     </footer>
