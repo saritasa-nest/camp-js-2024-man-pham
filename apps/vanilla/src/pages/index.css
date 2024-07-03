@@ -1,5 +1,6 @@
 @import url("../global/index.css");
 
+/* Desktop */
 .container {
   display: flex;
   flex-direction: column;
@@ -69,7 +70,6 @@
 
 .sidebar .filter__wrapper {
   position: absolute;
-  top: 0;
 }
 
 .sidebar .filter {
@@ -114,4 +114,29 @@
   border: none;
   background-color: transparent;
   width: 100%;
+}
+
+/* Tablet and mobile */
+@media only screen and (max-width: 786px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    order: 1;
+    width: 100%;
+    position: relative;
+  }
+
+  .sidebar .filter__wrapper {
+    position: relative;
+  }
+  .sidebar .filter {
+    position: relative;
+    width: 100%;
+  }
+
+  .book-display {
+    order: 2;
+  }
 }
