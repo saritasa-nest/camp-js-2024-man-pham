@@ -65,7 +65,7 @@
 /* Filter */
 .sidebar {
   width: 320px;
-  position: sticky;
+  position: relative;
 }
 
 .sidebar .filter__wrapper {
