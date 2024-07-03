@@ -100,6 +100,7 @@
   display: flex;
   padding: 8px 16px;
   border-radius: 16px;
+  max-width: 100%;
   gap: 8px;
   background-color: var(--surface-overlay-color);
   align-items: center;
@@ -119,6 +120,7 @@
 .filter__select {
   padding: 8px 16px;
   border-radius: 16px;
+  width: 100%;
   background-color: var(--surface-overlay-color);
 }
 
@@ -155,6 +157,11 @@
     width: 100%;
   }
 
+  .sidebar .filter__form {
+    flex-direction: row;
+    align-items: center;
+  }
+
   .book-display {
     order: 2;
   }
@@ -170,5 +177,14 @@
 
   .book-card {
     width: 100%;
+  }
+
+  .sidebar .filter__form {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .filter__form .filter__select {
+    flex: 1;
   }
 }
