@@ -5,37 +5,37 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 .content-wrapper {
   display: flex;
-  gap: 24px;
+  gap: var(--spacing-lg);
 }
 
 /* Book related */
 .book-display {
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: var(--spacing-xxl);
   flex: 1;
 }
 
 .book-group {
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-sm);
   flex-direction: column;
 }
 
 .book-group__heading {
   position: sticky;
   background: var(--surface-color);
-  padding: 16px 0;
+  padding: var(--spacing-md) 0;
   top: 0;
 }
 
 .book-group__list {
-  gap: 16px;
+  gap: var(--spacing-md);
   display: flex;
   flex-wrap: wrap;
 }
@@ -61,7 +61,7 @@
 
 .book-card__content {
   width: 100%;
-  margin-top: 8px;
+  margin-top: var(--spacing-sm);
   overflow: hidden;
 }
 
@@ -92,16 +92,16 @@
 .filter__form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-top: 24px;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
 }
 
 .filter__form .search-bar {
   display: flex;
-  padding: 8px 16px;
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 16px;
   max-width: 100%;
-  gap: 8px;
+  gap: var(--spacing-sm);
   background-color: var(--surface-overlay-color);
   align-items: center;
 }
@@ -118,9 +118,9 @@
 }
 
 .filter__select {
-  padding: 8px 16px;
+  padding: var(--spacing-sm) var(--spacing-md);
   border-radius: 16px;
-  width: 100%;
+  max-width: 100%;
   background-color: var(--surface-overlay-color);
 }
 
@@ -144,7 +144,7 @@
     order: 1;
     width: 100%;
     position: static;
-    padding-bottom: 24px;
+    padding-bottom: var(--spacing-lg);
     border-bottom: 1px solid var(--border-color);
   }
 
@@ -171,7 +171,7 @@
 @media only screen and (max-width: 360px) {
   .book-group__list {
     display: grid;
-    gap: 16px;
+    gap: var(--spacing-md);
     grid-template-columns: repeat(2, 1fr);
   }
 

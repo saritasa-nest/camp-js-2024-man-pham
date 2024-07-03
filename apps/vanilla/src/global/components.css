@@ -10,14 +10,14 @@ header {
 footer {
   border-top: 1px solid var(--border-color);
   height: 128px;
-  padding: 24px 0;
+  padding: var(--spacing-lg) 0;
   display: flex;
   justify-content: space-between;
 }
 
 footer .content-left {
   display: flex;
-  gap: 32px;
+  gap: var(--spacing-xl);
 }
 
 footer .content-left__link {
@@ -56,7 +56,7 @@ input[type="checkbox"] {
 @media only screen and (max-width: 360px) {
   footer {
     flex-direction: column;
-    gap: 40px;
+    gap: var(--spacing-xxl);
     justify-content: start;
     height: fit-content;
     align-items: end;
