@@ -10,7 +10,6 @@
 .content-wrapper {
   display: flex;
   gap: 24px;
-  position: relative;
 }
 
 /* Book related */
@@ -18,6 +17,7 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
+  flex: 1;
 }
 
 .book-group {
@@ -62,9 +62,19 @@
 }
 
 /* Filter */
-.book-filter {
+.sidebar {
   width: 320px;
-  right: 0;
+  position: sticky;
+}
+
+.sidebar .filter__wrapper {
+  position: absolute;
+  top: 0;
+}
+
+.sidebar .filter {
+  position: fixed;
+  width: 320px;
 }
 
 .filter__form {
@@ -86,10 +96,6 @@
 .filter__form .search-bar svg {
   width: 24px;
   height: 24px;
-}
-
-.filter__form .search-bar .search-bar__input {
-  flex: 1;
 }
 
 .filter__form .search-bar .search-bar__input input {
