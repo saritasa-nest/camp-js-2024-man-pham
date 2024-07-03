@@ -52,3 +52,18 @@ input[type="checkbox"] {
     max-width: 272px;
   }
 }
+
+@media only screen and (max-width: 360px) {
+  footer {
+    flex-direction: column;
+    gap: 40px;
+    justify-content: start;
+    align-items: end;
+  }
+
+  footer .content-left {
+    gap: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
