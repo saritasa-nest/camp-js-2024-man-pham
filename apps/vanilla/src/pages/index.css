@@ -190,8 +190,8 @@
     align-items: start;
   }
 
-  .filter__form .filter__select,
-  .filter__form .search-bar {
+  .filter__select,
+  .filter__search-bar {
     width: 100%;
   }
 }
