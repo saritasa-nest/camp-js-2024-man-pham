@@ -59,10 +59,6 @@
   width: 100%;
 }
 
-.select::placeholder {
-  color: red;
-}
-
 /* Checkbox input */
 .checkbox-control {
   display: block;
@@ -92,7 +88,7 @@
   transform: translateY(-50%);
   width: var(--check-mark-size);
   aspect-ratio: 1/1;
-  padding: 2px;
+  padding: 3px;
   border-radius: 4px;
   border: 2px solid var(--border-color);
 }
