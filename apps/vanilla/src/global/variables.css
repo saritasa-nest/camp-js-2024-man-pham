@@ -16,9 +16,9 @@
   --spacing-xxl: 40px;
 
   /* Font size */
-  --font-size-md: 16px;
-  --font-size-lg: 18px;
-  --font-size-xl: 20px;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
 
   /* Line height */
   --line-height-md: 24px;
