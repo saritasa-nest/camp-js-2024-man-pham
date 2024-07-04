@@ -71,7 +71,7 @@
 }
 
 /* -- Checkbox input -- */
-.checkbox-control {
+.checkbox {
   display: block;
   position: relative;
   padding-left: 36px;
@@ -81,7 +81,7 @@
 }
 
 /* Hide the browser's default checkbox */
-.checkbox-control input {
+.checkbox__input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -90,7 +90,7 @@
 }
 
 /* Create a custom checkbox */
-.checkmark {
+.checkbox__inner {
   --check-mark-size: 20px;
 
   position: absolute;
@@ -104,7 +104,7 @@
   border: 2px solid var(--border-color);
 }
 
-.checkbox-control .checkmark::after {
+.checkbox__inner::after {
   content: "";
   display: none;
   width: 100%;
@@ -114,12 +114,12 @@
 }
 
 /* Show the box border when checked */
-.checkbox-control input:checked ~ .checkmark {
+.checkbox__input:checked ~ .checkbox__inner {
   border-color: var(--primary-color);
 }
 
 /* Show the inside box when checked */
-.checkbox-control input:checked ~ .checkmark::after {
+.checkbox__input:checked ~ .checkbox__inner::after {
   display: block;
 }
 
