@@ -56,7 +56,7 @@
 }
 
 .book-card__cover img {
-  object-fit: fill;
+  object-fit: cover;
   width: 100%;
   height: 100%;
 }
@@ -100,7 +100,7 @@
   margin-top: var(--spacing-lg);
 }
 
-.filter__form .search-bar {
+.filter__search-bar {
   display: flex;
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-md);
@@ -110,7 +110,7 @@
   align-items: center;
 }
 
-.filter__form .search-bar .search-bar__input input {
+.search-bar__input input {
   background-color: transparent;
   width: 100%;
   outline: none;
