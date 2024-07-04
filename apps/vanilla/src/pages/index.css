@@ -48,7 +48,7 @@
 .book-card__cover {
   max-width: 100%;
   aspect-ratio: 2/3;
-  border-radius: 24px;
+  border-radius: var(--border-radius-lg);
   border: 1px solid var(--border-color);
   overflow: hidden;
 }
@@ -76,8 +76,10 @@
 
 /* Filter */
 .sidebar {
-  width: 320px;
+  --sidebar-width: 320px;
+
   position: relative;
+  width: var(--sidebar-width);
 }
 
 .sidebar__filter-wrapper {
@@ -86,7 +88,7 @@
 
 .sidebar__filter {
   position: fixed;
-  width: 320px;
+  width: var(--sidebar-width);
 }
 
 .filter__form {
@@ -99,16 +101,11 @@
 .filter__form .search-bar {
   display: flex;
   padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 16px;
+  border-radius: var(--border-radius-md);
   max-width: 100%;
   gap: var(--spacing-sm);
   background-color: var(--surface-overlay-color);
   align-items: center;
-}
-
-.filter__form .search-bar svg {
-  width: 18px;
-  aspect-ratio: 1/1;
 }
 
 .filter__form .search-bar .search-bar__input input {
@@ -120,7 +117,7 @@
 
 .filter__select {
   padding: var(--spacing-sm) var(--spacing-md);
-  border-radius: 16px;
+  border-radius: var(--border-radius-md);
   max-width: 100%;
   background-color: var(--surface-overlay-color);
 }
@@ -136,6 +133,7 @@
 }
 
 @media only screen and (max-width: 990px) {
+  /* Book related */
   .book-group__list {
     display: grid;
     gap: var(--spacing-md);
@@ -146,6 +144,7 @@
     flex-direction: column;
   }
 
+  /* Filter */
   .sidebar {
     order: 1;
     width: 100%;
@@ -167,6 +166,7 @@
     order: 2;
   }
 }
+
 @media only screen and (max-width: 990px) and (min-width: 768px) {
   .filter .filter__form {
     flex-direction: row;
