@@ -41,22 +41,33 @@
 }
 
 /* Select */
-.select-control {
+.select-wrapper {
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-md);
   max-width: 100%;
   background-color: var(--surface-overlay-color);
 }
 
-.select {
-  /* for Firefox */
-  -moz-appearance: none;
+.select-control {
+  position: relative;
+}
 
-  /* for Chrome */
-  -webkit-appearance: none;
+.select {
+  appearance: none;
   border: none;
   background-color: transparent;
   width: 100%;
+}
+
+.select:invalid {
+  color: var(--on-surface-dim-color);
+}
+
+.select__img {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Checkbox input */

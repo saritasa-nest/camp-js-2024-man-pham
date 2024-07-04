@@ -121,11 +121,14 @@
                 <input type="text" class="font-body" name="search" placeholder="e.g. “Refactoring”" />
               </span>
             </div>
-            <div class="filter__select select-control">
-              <select class="select font-body">
-                <option selected disabled value="">Choose sort field</option>
-                <option value="1">Long</option>
-              </select>
+            <div class="filter__select select-wrapper">
+              <div class="select-control">
+                <select required class="select font-body">
+                  <option hidden value="">Choose sort field</option>
+                  <option value="1">Long</option>
+                </select>
+                <img class="select__img" src="./assets/icons/ChevronDown.svg" alt="" />
+              </div>
             </div>
             <label class="checkbox-control">
               <input type="checkbox" name="show-comic" />
