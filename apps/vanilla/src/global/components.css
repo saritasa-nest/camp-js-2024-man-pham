@@ -116,6 +116,24 @@
   display: block;
 }
 
+/* Search bar */
+.search-bar {
+  display: flex;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  max-width: 100%;
+  gap: var(--spacing-sm);
+  background-color: var(--surface-overlay-color);
+  align-items: center;
+}
+
+.search-bar__input input {
+  background-color: transparent;
+  width: 100%;
+  outline: none;
+  border: none;
+}
+
 /* Container */
 .container {
   max-width: var(--container-max-width);
