@@ -84,10 +84,6 @@
   width: var(--sidebar-width);
 }
 
-.sidebar__filter-wrapper {
-  position: absolute;
-}
-
 .sidebar__filter {
   position: fixed;
   width: var(--sidebar-width);
