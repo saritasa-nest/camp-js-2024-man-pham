@@ -35,13 +35,15 @@
 }
 
 .book-group__list {
+  --min-card-width: 180px;
+  --min-card-width-mobile: 148px;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width), 1fr));
   gap: var(--spacing-md);
-  display: flex;
-  flex-wrap: wrap;
 }
 
 .book-card {
-  width: 180px;
   overflow: hidden;
 }
 
@@ -135,9 +137,7 @@
 @media only screen and (max-width: 990px) {
   /* Book related */
   .book-group__list {
-    display: grid;
     gap: var(--spacing-md);
-    grid-template-columns: repeat(4, 1fr);
   }
 
   .content-wrapper {
@@ -181,10 +181,6 @@
 
 /* Smaller than tablet but larger than mobile */
 @media only screen and (max-width: 767px) {
-  .book-group__list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .book-card {
     width: 100%;
   }
@@ -203,6 +199,6 @@
 /* Mobile */
 @media only screen and (max-width: 490px) {
   .book-group__list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(var(--min-card-width-mobile), 1fr));
   }
 }
