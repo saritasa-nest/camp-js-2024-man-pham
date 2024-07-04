@@ -1,4 +1,4 @@
-/* Header */
+/* -- Header -- */
 .header {
   height: var(--header-height);
   display: flex;
@@ -6,7 +6,7 @@
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Footer */
+/* -- Footer -- */
 .footer {
   border-top: 1px solid var(--border-color);
   height: var(--footer-height);
@@ -40,7 +40,7 @@
   }
 }
 
-/* Select */
+/* -- Select -- */
 .select-wrapper {
   padding: var(--spacing-sm) var(--spacing-md);
   border-radius: var(--border-radius-md);
@@ -70,7 +70,7 @@
   transform: translateY(-50%);
 }
 
-/* Checkbox input */
+/* -- Checkbox input -- */
 .checkbox-control {
   display: block;
   position: relative;
@@ -123,7 +123,7 @@
   display: block;
 }
 
-/* Search bar */
+/* -- Search bar -- */
 .search-bar {
   display: flex;
   padding: var(--spacing-sm) var(--spacing-md);
@@ -141,7 +141,7 @@
   border: none;
 }
 
-/* Container */
+/* -- Container -- */
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
