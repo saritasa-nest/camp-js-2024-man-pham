@@ -22,9 +22,19 @@ const GenresPageComponent: FC = () => {
 	return (
 		<>
 			<h1>Genres</h1>
-			{genres.map(genre => <GenreCard key={genre.id} genre={genre} />)}
+			{genres.map(genre => (
+				<GenreCard key={genre.id} genre={genre} />
+			))}
 		</>
 	);
 };
 
+/**
+ * Memoized GenrePage component.
+ *
+ * Memoizes the GenrePage Component to optimize rendering performance by
+ * preventing unnecessary re-renders when props do not change.
+ *
+ * @constant
+ */
 export const GenresPage = memo(GenresPageComponent);
