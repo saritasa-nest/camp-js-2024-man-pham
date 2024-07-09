@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 import { CONFIG } from './config';
 
-export const http = axios.create({
+/** HTTP client instance for making API requests. */
+export const http: AxiosInstance = axios.create({
 	baseURL: CONFIG.apiUrl,
 });
