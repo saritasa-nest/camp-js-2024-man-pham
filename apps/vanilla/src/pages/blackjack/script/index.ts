@@ -3,7 +3,7 @@ type Subscriber<T> = {
 };
 
 class Publisher<T> {
-	private readonly subscribers: Subscriber<T>[] = [];
+	private subscribers: Subscriber<T>[] = [];
 
 	public subscribe(subscriber: Subscriber<T>): void {
 		const subIdx = this.getSubscriberIndex(subscriber);
@@ -19,6 +19,10 @@ class Publisher<T> {
 		}
 	}
 
+	protected subscribersCount(): number {
+		return this.subscribers.length;
+	}
+
 	public notify(message: T): void {
 		this.subscribers.forEach(subcriber => subcriber.update(message));
 	}
@@ -26,6 +30,10 @@ class Publisher<T> {
 	private getSubscriberIndex(subscriber: Subscriber<T>): number {
 		return this.subscribers.findIndex(sub => sub === subscriber);
 	}
+}
+
+class PlayerTurnResult {
+	public constructor(public playerIndex: number, public diceResult: number) {}
 }
 
 class DiceGenerator extends Publisher<number> {
@@ -36,7 +44,28 @@ class DiceGenerator extends Publisher<number> {
 		this.sidesCount = sidesCount;
 	}
 
-	roll(): number {
-		return Math.floor(Math.random() * this.sidesCount) + 1;
+	public roll(): number {
+		const diceResult = Math.floor(Math.random() * this.sidesCount) + 1;
+		this.notify(diceResult);
+
 	}
+}
+
+class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
+	private currentPlayerIndex = 0;
+
+	public update(diceResult: number): void {
+		const turnResult = new PlayerTurnResult(this.currentPlayerIndex, diceResult);
+		this.notify(turnResult);
+		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.subscribersCount();
+	}
+}
+
+class Player implements Subscriber<PlayerTurnResult> {
+	private diceResult: number[] = [];
+
+	public result: Publisher<number[]> = new Publisher<number[]>();
+
+	public winStatus: Publisher<boolean> = new Publisher<boolean>();
+
 }
