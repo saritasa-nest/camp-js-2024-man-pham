@@ -1,6 +1,6 @@
-interface Subscriber<T> {
+type Subscriber<T> = {
 	update(message: T): void;
-}
+};
 
 class Publisher<T> {
 	private readonly subscribers: Subscriber<T>[] = [];
@@ -25,5 +25,18 @@ class Publisher<T> {
 
 	private getSubscriberIndex(subscriber: Subscriber<T>): number {
 		return this.subscribers.findIndex(sub => sub === subscriber);
+	}
+}
+
+class DiceGenerator extends Publisher<number> {
+	private sidesCount: number;
+
+	private constructor(sidesCount: number) {
+		super();
+		this.sidesCount = sidesCount;
+	}
+
+	roll(): number {
+		return Math.floor(Math.random() * this.sidesCount) + 1;
 	}
 }
