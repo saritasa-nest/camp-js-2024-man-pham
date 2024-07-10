@@ -1,16 +1,28 @@
 import { Subscriber } from './pattern';
 
 export class ResultDisplayer implements Subscriber<number[]> {
-	private allDiceResult: number[] = [];
-
-	public constructor(private element: HTMLElement | null) {}
+	private diceResults: number[] = [];
+	private totalScore: number = 0;
+	public constructor(private resultElement: HTMLElement | null, private totalScoreElement: HTMLElement | null) {}
 
 	private render() {
-		if (this.element) this.element.innerText = `${this.allDiceResult.join(', ')}`;
+		if (this.resultElement) this.resultElement.innerText = `${this.diceResults.join(', ')}`;
+		if (this.totalScoreElement) this.totalScoreElement.innerText = `${this.totalScore}`;
 	}
 
-	update(diceResult: number[]): void {
-		this.allDiceResult.push(...diceResult);
+	private calculateResult() {
+		this.totalScore = this.diceResults.reduce((result, current) => result + current, 0);
+	}
+
+	update(playerDiceResults: number[]): void {
+		this.diceResults = playerDiceResults;
+		this.calculateResult();
 		this.render();
+	}
+
+	updateWinStatus(winStatus: boolean) {
+		if (winStatus && this.resultElement && this.totalScoreElement) {
+			this.resultElement.classList.add(`${this.resultElement.className}--win`);
+		}
 	}
 }
