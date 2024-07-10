@@ -7,11 +7,12 @@ export class PlayerTurnResult {
 
 export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
 	private currentPlayerIndex = 0;
+	private playerCount = 2;
 
 	public update(diceResult: number): void {
 		const turnResult = new PlayerTurnResult(this.currentPlayerIndex, diceResult);
 		this.notify(turnResult);
-		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.subscribersCount();
+		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
 	}
 
 	public next() {
