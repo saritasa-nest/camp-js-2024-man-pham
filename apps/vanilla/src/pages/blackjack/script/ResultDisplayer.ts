@@ -7,7 +7,7 @@ export class ResultDisplayer implements Subscriber<number[]> {
 
 	private render() {
 		if (this.resultElement) this.resultElement.innerText = `${this.diceResults.join(', ')}`;
-		if (this.totalScoreElement) this.totalScoreElement.innerText = `${this.totalScore}`;
+		if (this.totalScoreElement) this.totalScoreElement.innerText = ` - ${this.totalScore}`;
 	}
 
 	private calculateResult() {
@@ -22,7 +22,7 @@ export class ResultDisplayer implements Subscriber<number[]> {
 
 	updateWinStatus(winStatus: boolean) {
 		if (winStatus && this.resultElement && this.totalScoreElement) {
-			this.resultElement.classList.add(`${this.resultElement.className}--win`);
+			this.resultElement.classList.add('win');
 		}
 	}
 }

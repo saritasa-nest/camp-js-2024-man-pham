@@ -1,1 +1,10 @@
 @import url("../../global/index.css");
+
+.dice-result {
+	margin: var(--spacing-md) 0;
+	display: block;
+}
+
+.dice-result.win {
+	background: var(--primary-color);
+}
