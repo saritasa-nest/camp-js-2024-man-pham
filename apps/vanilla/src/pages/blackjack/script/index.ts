@@ -6,7 +6,7 @@ import { TurnGenerator } from './TurnGenerator';
 import { WinStatusDisplayer } from './WinStatusDisplayer';
 
 const diceResultElement = document.getElementById('dice-cap')!;
-const diceTotalScoreElement = document.getElementById('dice-result')!;
+const diceTotalScoreElement = document.getElementById('dice-total')!;
 
 const player1ResultsElement = document.getElementById('player1-dice')!;
 const player1TotalScoreElement = document.getElementById('player1-total')!;
