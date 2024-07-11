@@ -8,9 +8,7 @@ class Displayer<T> implements Subscriber<T> {
 	protected containerElement: HTMLElement | null = null;
 
 	public constructor(name: string) {
-		this.containerElement = document.createElement('div');
-		this.containerElement.id = name;
-		this.containerElement.classList.add('displayer');
+		this.containerElement = document.getElementById(name);
 	}
 
 	update(message: T): void {}
@@ -22,10 +20,14 @@ export class ResultDisplayer extends Displayer<ResultData> {
 
 	public constructor(name: string) {
 		super(name);
+
+		this.containerElement = document.createElement('div');
+		this.containerElement.id = name;
+		this.containerElement.classList.add('displayer');
+
 		const wrapper = document.getElementById('wrapper');
 		if (this.containerElement) wrapper?.appendChild(this.containerElement);
 
-		document.createElement('div').classList.add('displayer');
 		this.resultElement = document.createElement('div');
 		this.totalScoreElement = document.createElement('span');
 
@@ -44,5 +46,17 @@ export class ResultDisplayer extends Displayer<ResultData> {
 
 	override update(resultData: ResultData): void {
 		this.render({ ...resultData });
+	}
+}
+
+export class WinStatusDisplayer extends Displayer<boolean> {
+	public constructor(name: string) {
+		super(name);
+	}
+	override update(winStatus: boolean): void {
+		if (winStatus) {
+			this.containerElement?.classList.add('win');
+			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
+		}
 	}
 }
