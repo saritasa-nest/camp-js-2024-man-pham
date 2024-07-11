@@ -1,6 +1,6 @@
 import { Attender } from './Attender';
 import { Publisher } from './pattern';
-import { ResultData } from './ResultDisplayer';
+import { ResultData } from './Displayers';
 import { PlayerTurnResult } from './TurnGenerator';
 
 export class Player extends Attender {

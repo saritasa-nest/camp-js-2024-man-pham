@@ -1,5 +1,5 @@
 import { Attender } from './Attender';
-import { ResultData } from './ResultDisplayer';
+import { ResultData } from './Displayers';
 import { PlayerTurnResult } from './TurnGenerator';
 
 export class Debbuger extends Attender {
