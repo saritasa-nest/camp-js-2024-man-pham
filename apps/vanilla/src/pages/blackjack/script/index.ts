@@ -4,9 +4,14 @@ import { ResultDisplayer, WinStatusDisplayer } from './Displayers';
 import { Player } from './Player';
 import { TurnGenerator } from './TurnGenerator';
 
+/**
+ * The Blackjack game application.
+ */
 class App {
 	private playerCount = 2;
+
 	private diceGenerator = DiceGenerator.getInstance();
+
 	private turnGenerator: TurnGenerator;
 
 	public constructor() {
@@ -19,7 +24,7 @@ class App {
 		const players = this.createPlayers();
 
 		this.turnGenerator.subscribe(debbugerTool);
-		players.forEach((player) => {
+		players.forEach(player => {
 			this.turnGenerator.subscribe(player);
 		});
 
@@ -41,17 +46,20 @@ class App {
 			});
 	}
 
-	public roll() {
+	/**
+	 * Perform the actions for the next player.
+	 */
+	public roll(): void {
 		this.turnGenerator.next();
 	}
 }
 
 const app = new App();
 
-window.onload = function () {
+window.onload = function() {
 	const rollButton = document.getElementById('button-roll');
 	if (rollButton) {
-		rollButton.onclick = function () {
+		rollButton.onclick = function() {
 			app.roll();
 		};
 	}

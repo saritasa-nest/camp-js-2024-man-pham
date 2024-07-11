@@ -1,10 +1,23 @@
+/**
+ * Subscriber interface.
+ */
 export type Subscriber<T> = {
+
+	/**
+	 * @param message The data that the subscriber needs to update.
+	 */
 	update(message: T): void;
 };
 
+/**
+ * Publisher class.
+ */
 export class Publisher<T> {
 	private subscribers: Subscriber<T>[] = [];
 
+	/**
+	 * @param subscriber The one who subscribe to the publisher.
+	 */
 	public subscribe(subscriber: Subscriber<T>): void {
 		const subcriberIndex = this.getSubscriberIndex(subscriber);
 		if (subcriberIndex === -1) {
@@ -12,6 +25,9 @@ export class Publisher<T> {
 		}
 	}
 
+	/**
+	 * @param subscriber The subscriber needs to be remove.
+	 */
 	public unsubscribe(subscriber: Subscriber<T>): void {
 		const subcriberIndex = this.getSubscriberIndex(subscriber);
 		if (subcriberIndex !== -1) {
@@ -19,15 +35,19 @@ export class Publisher<T> {
 		}
 	}
 
-	protected subscribersCount(): number {
-		return this.subscribers.length;
-	}
-
+	/**
+	 * Notify to the subscribers when there subcribed data has some changes.
+	 * @param message The data which is send to the subscribers.
+	 */
 	public notify(message: T): void {
-		this.subscribers.forEach((subcriber) => subcriber.update(message));
+		this.subscribers.forEach(subcriber => subcriber.update(message));
 	}
 
+	/**
+	 * Get the current subscriber position.
+	 * @param subscriber The chosen subscriber.
+	 */
 	private getSubscriberIndex(subscriber: Subscriber<T>): number {
-		return this.subscribers.findIndex((sub) => sub === subscriber);
+		return this.subscribers.findIndex(sub => sub === subscriber);
 	}
 }
