@@ -1,31 +1,58 @@
 import { Debbuger } from './Debugger';
 import { DiceGenerator } from './DiceGenerator';
-import { ResultDisplayer } from './Displayers';
+import { ResultDisplayer, WinStatusDisplayer } from './Displayers';
 import { Player } from './Player';
 import { TurnGenerator } from './TurnGenerator';
 
-const rollButton = document.getElementById('button-roll')!;
+class App {
+	private playerCount = 2;
+	private diceGenerator = DiceGenerator.getInstance();
+	private turnGenerator: TurnGenerator;
 
-const debbugerTool = new Debbuger();
-const player1 = new Player(0);
-const player2 = new Player(1);
+	public constructor() {
+		this.turnGenerator = new TurnGenerator(this.playerCount);
 
-const turnGenerator = new TurnGenerator();
-turnGenerator.subscribe(player1);
-turnGenerator.subscribe(player2);
-turnGenerator.subscribe(debbugerTool);
+		const debbugerTool = new Debbuger();
+		const debuggerDisplayer = new ResultDisplayer('debugger');
+		debbugerTool.result.subscribe(debuggerDisplayer);
 
-const diceGenerator = DiceGenerator.getInstance();
-diceGenerator.subscribe(turnGenerator);
+		const players = this.createPlayers();
 
-const debuggerDisplayer = new ResultDisplayer('Debugger');
-const player1Displayer = new ResultDisplayer('player1');
-const player2Displayer = new ResultDisplayer('player2');
+		this.turnGenerator.subscribe(debbugerTool);
+		players.forEach((player) => {
+			this.turnGenerator.subscribe(player);
+		});
 
-debbugerTool.result.subscribe(debuggerDisplayer);
-player1.result.subscribe(player1Displayer);
-player2.result.subscribe(player2Displayer);
+		this.diceGenerator.subscribe(this.turnGenerator);
+	}
 
-rollButton.addEventListener('click', () => {
-	turnGenerator.next();
-});
+	private createPlayers(): Player[] {
+		return Array(this.playerCount)
+			.fill(null)
+			.map((_, index) => {
+				const player = new Player(index);
+				const playerDisplayer = new ResultDisplayer(`player${index + 1}`);
+				const playerWinStatusDisplayer = new WinStatusDisplayer(`player${index + 1}`);
+
+				player.result.subscribe(playerDisplayer);
+				player.winStatus.subscribe(playerWinStatusDisplayer);
+
+				return player;
+			});
+	}
+
+	public roll() {
+		this.turnGenerator.next();
+	}
+}
+
+const app = new App();
+
+window.onload = function () {
+	const rollButton = document.getElementById('button-roll');
+	if (rollButton) {
+		rollButton.onclick = function () {
+			app.roll();
+		};
+	}
+};
