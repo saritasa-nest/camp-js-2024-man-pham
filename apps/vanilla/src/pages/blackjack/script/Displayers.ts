@@ -1,4 +1,4 @@
-import { Subscriber } from './pattern';
+import { Subscriber } from "../models";
 
 /**
  * Used to prepresent the data for the displayers to render.
@@ -31,19 +31,19 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	public constructor(name: string) {
 		super(name);
 
-		this.containerElement = document.createElement('div');
+		this.containerElement = document.createElement("div");
 		this.containerElement.id = name;
-		this.containerElement.classList.add('displayer');
+		this.containerElement.classList.add("displayer");
 
-		const wrapper = document.getElementById('wrapper');
+		const wrapper = document.getElementById("wrapper");
 		if (this.containerElement) {
 			wrapper?.appendChild(this.containerElement);
 		}
 
-		this.resultElement = document.createElement('div');
-		this.totalScoreElement = document.createElement('span');
+		this.resultElement = document.createElement("div");
+		this.totalScoreElement = document.createElement("span");
 
-		const heading = document.createElement('h2');
+		const heading = document.createElement("h2");
 		heading.textContent = name;
 		heading.appendChild(this.totalScoreElement);
 
@@ -57,7 +57,7 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	 */
 	private render(data: ResultData): void {
 		if (this.resultElement) {
-			this.resultElement.innerText = `${data.dicesOrder.join(', ')}`;
+			this.resultElement.innerText = `${data.dicesOrder.join(", ")}`;
 		}
 		if (this.totalScoreElement) {
 			this.totalScoreElement.innerText = ` - ${data.totalScore}`;
@@ -87,8 +87,8 @@ export class WinStatusDisplayer extends Displayer implements Subscriber<boolean>
 	 */
 	public update(winStatus: boolean): void {
 		if (winStatus) {
-			this.containerElement?.classList.add('win');
-			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
+			this.containerElement?.classList.add("win");
+			(document.getElementById("button-roll") as HTMLButtonElement).disabled = true;
 		}
 	}
 }

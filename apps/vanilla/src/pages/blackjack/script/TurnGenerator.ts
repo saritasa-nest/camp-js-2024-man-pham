@@ -1,5 +1,5 @@
-import { Publisher, Subscriber } from './pattern';
-import { DiceGenerator } from './DiceGenerator';
+import { Publisher, Subscriber } from "../models";
+import { DiceGenerator } from "./DiceGenerator";
 
 /**
  * The class which contain the result after the dice is rolled.

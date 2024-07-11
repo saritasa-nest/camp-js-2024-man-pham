@@ -1,4 +1,4 @@
-import { Publisher } from './pattern';
+import { Publisher } from "../models";
 
 /**
  * The dice value generator.

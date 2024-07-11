@@ -20,10 +20,9 @@ class App {
 		const debbugerTool = new Debbuger();
 		const debuggerDisplayer = new ResultDisplayer('debugger');
 		debbugerTool.result.subscribe(debuggerDisplayer);
+		this.turnGenerator.subscribe(debbugerTool);
 
 		const players = this.createPlayers();
-
-		this.turnGenerator.subscribe(debbugerTool);
 		players.forEach(player => {
 			this.turnGenerator.subscribe(player);
 		});

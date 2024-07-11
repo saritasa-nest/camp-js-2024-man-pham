@@ -1,7 +1,7 @@
-import { Attender } from './Attender';
-import { Publisher, Subscriber } from './pattern';
-import { ResultData } from './Displayers';
-import { PlayerTurnResult } from './TurnGenerator';
+import { Attender } from "./Attender";
+import { Subscriber, Publisher } from "../models";
+import { ResultData } from "./Displayers";
+import { PlayerTurnResult } from "./TurnGenerator";
 
 const WIN_SCORE = 21;
 
