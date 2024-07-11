@@ -4,7 +4,7 @@ import { Publisher } from './pattern';
  * The dice value generator.
  */
 export class DiceGenerator extends Publisher<number> {
-	private sidesCount: number;
+	private readonly sidesCount: number;
 
 	private static instance: DiceGenerator;
 
@@ -17,9 +17,9 @@ export class DiceGenerator extends Publisher<number> {
 	 * Generate a dice.
 	 * @returns Return a instance of DiceGenerator.
 	 */
-	public static getInstance(): DiceGenerator {
+	public static getInstance(sideNumber = 6): DiceGenerator {
 		if (DiceGenerator.instance == null) {
-			DiceGenerator.instance = new DiceGenerator(6);
+			DiceGenerator.instance = new DiceGenerator(sideNumber);
 		}
 		return DiceGenerator.instance;
 	}

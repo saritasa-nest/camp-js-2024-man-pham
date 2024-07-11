@@ -8,11 +8,11 @@ import { TurnGenerator } from './TurnGenerator';
  * The Blackjack game application.
  */
 class App {
-	private playerCount = 2;
+	private readonly playerCount = 2;
 
-	private diceGenerator = DiceGenerator.getInstance();
+	private readonly diceGenerator = DiceGenerator.getInstance();
 
-	private turnGenerator: TurnGenerator;
+	private readonly turnGenerator: TurnGenerator;
 
 	public constructor() {
 		this.turnGenerator = new TurnGenerator(this.playerCount);

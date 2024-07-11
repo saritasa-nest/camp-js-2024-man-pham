@@ -18,6 +18,10 @@ export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscr
 		super();
 	}
 
+	private moveToNextPlayer(): void {
+		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
+	}
+
 	/**
 	 * Send the dice result to the players.
 	 * @param diceResult The value of the dice after being rolled.
@@ -25,7 +29,7 @@ export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscr
 	public update(diceResult: number): void {
 		const turnResult = new PlayerTurnResult(this.currentPlayerIndex, diceResult);
 		this.notify(turnResult);
-		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
+		this.moveToNextPlayer();
 	}
 
 	/**
