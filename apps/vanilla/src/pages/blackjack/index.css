@@ -5,6 +5,6 @@
 	display: block;
 }
 
-.displayer.win {
+.displayer_win {
 	background: var(--primary-color);
 }

@@ -14,42 +14,57 @@ class Displayer {
 	public constructor(name: string) {
 		this.containerElement = document.getElementById(name);
 	}
+
+	/**
+	 * Generate the displayer's HTML elements.
+	 * @param htmlString Is the string template for the element.
+	 * @returns Return the element.
+	 */
+	protected createElement(htmlString: string): HTMLElement {
+		const div = document.createElement('div');
+		div.innerHTML = htmlString.trim();
+		return div.firstChild as HTMLElement;
+	}
 }
 
 /** The displayer to display the attender's result (the list of the dices, the total value of the dices). */
 export class ResultDisplayer extends Displayer implements Subscriber<ResultData> {
-	private readonly resultElement: HTMLElement;
+	private readonly resultElement: HTMLElement | null = null;
 
-	private readonly totalScoreElement: HTMLElement;
+	private readonly totalScoreElement: HTMLElement | null = null;
 
 	public constructor(name: string) {
 		super(name);
 
-		this.containerElement = document.createElement('div');
-		this.containerElement.id = name;
-		this.containerElement.classList.add('displayer');
+		this.containerElement = this.createResultDisplayerElement(name);
 
 		const wrapper = document.getElementById('wrapper');
 		if (this.containerElement) {
 			wrapper?.appendChild(this.containerElement);
 		}
 
-		this.resultElement = document.createElement('div');
-		this.totalScoreElement = document.createElement('span');
+		this.resultElement = document.getElementById(`${name}-dice-results`);
+		this.totalScoreElement = document.getElementById(`${name}-score`);
 
-		const heading = document.createElement('h2');
-		heading.textContent = name;
-		heading.appendChild(this.totalScoreElement);
+	}
 
-		this.containerElement?.appendChild(heading);
-		this.containerElement?.appendChild(this.resultElement);
+	private createResultDisplayerElement(name: string): HTMLElement {
+		return this.createElement(
+			`<article id="${name}" class="displayer">
+			   	<div class="displayer__heading">
+                	 <h2 class="displayer__name">${name}</h2>
+					 <span id="${name}-score" class="displayer__score"></span>
+				</div>
+				<div id="${name}-dice-results" class="displayer__dice-results"></div>
+            </article>`,
+		);
 	}
 
 	/**
 	 * Update the attender's information.
 	 * @param data The newly updated data.
 	 */
-	private render(data: ResultData): void {
+	private renderNewResult(data: ResultData): void {
 		if (this.resultElement) {
 			this.resultElement.innerText = `${data.dicesOrder.join(', ')}`;
 		}
@@ -63,7 +78,7 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	 * @param resultData The data which is sent from the publisher (the attender).
 	 */
 	public update(resultData: ResultData): void {
-		this.render({ ...resultData });
+		this.renderNewResult({ ...resultData });
 	}
 }
 
@@ -79,7 +94,7 @@ export class WinStatusDisplayer extends Displayer implements Subscriber<boolean>
 	 */
 	public update(winStatus: boolean): void {
 		if (winStatus) {
-			this.containerElement?.classList.add('win');
+			this.containerElement?.classList.add('displayer_win');
 			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
 		}
 	}

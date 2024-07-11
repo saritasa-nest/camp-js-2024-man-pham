@@ -16,9 +16,9 @@ export class DiceGenerator extends Publisher<number> {
 	 * @param sidesCount The amount of the dice's side.
 	 * @returns Return a instance of DiceGenerator.
 	 */
-	public static getInstance(sidesCount: number = 6): DiceGenerator {
+	public static getInstance(): DiceGenerator {
 		if (DiceGenerator.instance == null) {
-			DiceGenerator.instance = new DiceGenerator(sidesCount);
+			DiceGenerator.instance = new DiceGenerator(6);
 		}
 		return DiceGenerator.instance;
 	}
