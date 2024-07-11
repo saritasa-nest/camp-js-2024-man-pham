@@ -1,8 +1,6 @@
-import { Publisher } from "../models";
+import { Publisher } from '../models';
 
-/**
- * The dice value generator.
- */
+/** The dice value generator. */
 export class DiceGenerator extends Publisher<number> {
 	private readonly sidesCount: number;
 
@@ -15,18 +13,17 @@ export class DiceGenerator extends Publisher<number> {
 
 	/**
 	 * Generate a dice.
+	 * @param sidesCount The amount of the dice's side.
 	 * @returns Return a instance of DiceGenerator.
 	 */
-	public static getInstance(sideNumber = 6): DiceGenerator {
+	public static getInstance(sidesCount: number = 6): DiceGenerator {
 		if (DiceGenerator.instance == null) {
-			DiceGenerator.instance = new DiceGenerator(sideNumber);
+			DiceGenerator.instance = new DiceGenerator(sidesCount);
 		}
 		return DiceGenerator.instance;
 	}
 
-	/**
-	 * Roll the dice to return a score.
-	 */
+	/** Roll the dice to return a score. */
 	public roll(): void {
 		const diceResult = Math.floor(Math.random() * this.sidesCount) + 1;
 		this.notify(diceResult);

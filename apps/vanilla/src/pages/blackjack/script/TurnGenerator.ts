@@ -1,16 +1,13 @@
-import { Publisher, Subscriber } from "../models";
-import { DiceGenerator } from "./DiceGenerator";
+import { Publisher, Subscriber } from '../models';
 
-/**
- * The class which contain the result after the dice is rolled.
- */
+import { DiceGenerator } from './DiceGenerator';
+
+/** The class which contain the result after the dice is rolled. */
 export class PlayerTurnResult {
 	public constructor(public playerIndex: number, public diceResult: number) {}
 }
 
-/**
- * The class that control the game (get the result from the dice and announce it to the players).
- */
+/** The class that control the game (get the result from the dice and announce it to the players). */
 export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
 	private currentPlayerIndex = 0;
 
@@ -32,9 +29,7 @@ export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscr
 		this.moveToNextPlayer();
 	}
 
-	/**
-	 * Perform the rolling action for the next player.
-	 */
+	/** Perform the rolling action for the next player. */
 	public next(): void {
 		DiceGenerator.getInstance().roll();
 	}

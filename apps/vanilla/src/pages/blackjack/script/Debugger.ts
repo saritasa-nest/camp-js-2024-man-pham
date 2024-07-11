@@ -1,11 +1,10 @@
-import { Attender } from "./Attender";
-import { ResultData } from "./Displayers";
-import { Subscriber } from "../models";
-import { PlayerTurnResult } from "./TurnGenerator";
+import { Subscriber } from '../models';
 
-/**
- * The Debugger class which tracks the whole game.
- */
+import { Attender } from './Attender';
+import { ResultData } from './Displayers';
+import { PlayerTurnResult } from './TurnGenerator';
+
+/** The Debugger class which tracks the whole game. */
 export class Debbuger extends Attender implements Subscriber<PlayerTurnResult> {
 	/**
 	 * Save the dice results and the total value of all the dices.

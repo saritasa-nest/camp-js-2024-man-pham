@@ -4,9 +4,7 @@ import { ResultDisplayer, WinStatusDisplayer } from './Displayers';
 import { Player } from './Player';
 import { TurnGenerator } from './TurnGenerator';
 
-/**
- * The Blackjack game application.
- */
+/** The Blackjack game application. */
 class App {
 	private readonly playerCount = 2;
 
@@ -45,9 +43,7 @@ class App {
 			});
 	}
 
-	/**
-	 * Perform the actions for the next player.
-	 */
+	/** Perform the actions for the next player. */
 	public roll(): void {
 		this.turnGenerator.next();
 	}

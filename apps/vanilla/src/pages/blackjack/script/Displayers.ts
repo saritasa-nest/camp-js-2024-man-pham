@@ -1,15 +1,11 @@
-import { Subscriber } from "../models";
+import { Subscriber } from '../models';
 
-/**
- * Used to prepresent the data for the displayers to render.
- */
+/** Used to represent the data for the displayers to render. */
 export class ResultData {
 	public constructor(public dicesOrder: number[], public totalScore: number) {}
 }
 
-/**
- * The Displayer class which used to display the attender's information in the game.
- */
+/** The Displayer class which used to display the attender's information in the game. */
 class Displayer {
 	/**
 	 * The element which wrap the attender's related HTML elements. */
@@ -20,9 +16,7 @@ class Displayer {
 	}
 }
 
-/**
- * The displayer to display the attender's result (the list of the dices, the total value of the dices).
- */
+/** The displayer to display the attender's result (the list of the dices, the total value of the dices). */
 export class ResultDisplayer extends Displayer implements Subscriber<ResultData> {
 	private readonly resultElement: HTMLElement;
 
@@ -31,19 +25,19 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	public constructor(name: string) {
 		super(name);
 
-		this.containerElement = document.createElement("div");
+		this.containerElement = document.createElement('div');
 		this.containerElement.id = name;
-		this.containerElement.classList.add("displayer");
+		this.containerElement.classList.add('displayer');
 
-		const wrapper = document.getElementById("wrapper");
+		const wrapper = document.getElementById('wrapper');
 		if (this.containerElement) {
 			wrapper?.appendChild(this.containerElement);
 		}
 
-		this.resultElement = document.createElement("div");
-		this.totalScoreElement = document.createElement("span");
+		this.resultElement = document.createElement('div');
+		this.totalScoreElement = document.createElement('span');
 
-		const heading = document.createElement("h2");
+		const heading = document.createElement('h2');
 		heading.textContent = name;
 		heading.appendChild(this.totalScoreElement);
 
@@ -57,7 +51,7 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	 */
 	private render(data: ResultData): void {
 		if (this.resultElement) {
-			this.resultElement.innerText = `${data.dicesOrder.join(", ")}`;
+			this.resultElement.innerText = `${data.dicesOrder.join(', ')}`;
 		}
 		if (this.totalScoreElement) {
 			this.totalScoreElement.innerText = ` - ${data.totalScore}`;
@@ -73,22 +67,20 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	}
 }
 
-/**
- * The displayer used to announce the player who wins the game.
- */
+/** The displayer which is used to announce the player who wins the game. */
 export class WinStatusDisplayer extends Displayer implements Subscriber<boolean> {
 	public constructor(name: string) {
 		super(name);
 	}
 
 	/**
-	 * Peform actions to show the winner.
+	 * Perform actions to show the winner.
 	 * @param winStatus The winning status of the specific player.
 	 */
 	public update(winStatus: boolean): void {
 		if (winStatus) {
-			this.containerElement?.classList.add("win");
-			(document.getElementById("button-roll") as HTMLButtonElement).disabled = true;
+			this.containerElement?.classList.add('win');
+			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
 		}
 	}
 }
