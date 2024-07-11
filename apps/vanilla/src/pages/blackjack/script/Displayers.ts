@@ -23,6 +23,7 @@ class Displayer<T> implements Subscriber<T> {
 	 * A blank function for the specific displayer to inherit.
 	 * @param message The data that the displayers need.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty-function
 	public update(message: T): void {}
 }
 

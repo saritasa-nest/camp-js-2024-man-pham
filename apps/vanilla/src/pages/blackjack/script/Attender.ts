@@ -34,5 +34,6 @@ export class Attender implements Subscriber<PlayerTurnResult> {
 	 * A blank function which will be extended by the inherit classes.
 	 * @param message The turn result of the player.
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-empty-function
 	public update(message: PlayerTurnResult): void {}
 }
