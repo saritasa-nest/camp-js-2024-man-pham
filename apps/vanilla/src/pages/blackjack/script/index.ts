@@ -1,8 +1,8 @@
-import { Debbuger } from './Debugger';
-import { DiceGenerator } from './DiceGenerator';
-import { ResultDisplayer, WinStatusDisplayer } from './Displayers';
-import { Player } from './Player';
-import { TurnGenerator } from './TurnGenerator';
+import { Debbuger } from './debugger';
+import { DiceGenerator } from './dice-generator';
+import { ResultDisplayer, WinStatusDisplayer } from './displayers';
+import { Player } from './player';
+import { TurnGenerator } from './turn-generator';
 
 /** The Blackjack game application. */
 class App {

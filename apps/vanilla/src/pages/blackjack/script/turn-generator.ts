@@ -1,6 +1,6 @@
 import { Publisher, Subscriber } from '../models';
 
-import { DiceGenerator } from './DiceGenerator';
+import { DiceGenerator } from './dice-generator';
 
 /** The class which contain the result after the dice is rolled. */
 export class PlayerTurnResult {

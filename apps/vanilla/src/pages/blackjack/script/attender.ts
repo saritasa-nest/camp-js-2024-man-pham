@@ -1,7 +1,7 @@
 import { Publisher } from '../models';
 
-import { ResultData } from './Displayers';
-import { PlayerTurnResult } from './TurnGenerator';
+import { ResultData } from './displayers';
+import { PlayerTurnResult } from './turn-generator';
 
 /**  Attender class is used to prepresent the members that subscribed to the game (e.g players, debugger...). */
 export class Attender {

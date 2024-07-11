@@ -1,2 +1,2 @@
-export * from './Subscriber';
-export * from './Publisher';
+export * from './subscriber';
+export * from './publisher';

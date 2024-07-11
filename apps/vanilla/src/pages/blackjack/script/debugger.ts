@@ -1,8 +1,8 @@
 import { Subscriber } from '../models';
 
-import { Attender } from './Attender';
-import { ResultData } from './Displayers';
-import { PlayerTurnResult } from './TurnGenerator';
+import { Attender } from './attender';
+import { ResultData } from './displayers';
+import { PlayerTurnResult } from './turn-generator';
 
 /** The Debugger class which tracks the whole game. */
 export class Debbuger extends Attender implements Subscriber<PlayerTurnResult> {
