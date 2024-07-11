@@ -1,11 +1,12 @@
 import { Subscriber, Publisher } from './pattern';
+import { ResultData, ResultDisplayer } from './ResultDisplayer';
 import { PlayerTurnResult } from './TurnGenerator';
 
 export class Player implements Subscriber<PlayerTurnResult> {
 	private diceResult: number[] = [];
 	private totalScore: number = 0;
 
-	public result: Publisher<number[]> = new Publisher<number[]>();
+	public result: Publisher<ResultData> = new Publisher<ResultData>();
 	public winStatus: Publisher<boolean> = new Publisher<boolean>();
 
 	public constructor(private playerIndex: number) {}
@@ -18,8 +19,8 @@ export class Player implements Subscriber<PlayerTurnResult> {
 		if (turnResult.playerIndex === this.playerIndex) {
 			this.diceResult.push(turnResult.diceResult);
 			this.calculateTotalDice();
+			this.result.notify(new ResultData(this.diceResult, this.totalScore));
 		}
-		this.result.notify(this.diceResult);
 		if (this.totalScore >= 21) {
 			this.winStatus.notify(true);
 		}

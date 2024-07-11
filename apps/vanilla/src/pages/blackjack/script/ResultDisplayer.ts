@@ -1,22 +1,18 @@
 import { Subscriber } from './pattern';
 
-export class ResultDisplayer implements Subscriber<number[]> {
-	private diceResults: number[] = [];
-	private totalScore: number = 0;
+export class ResultData {
+	constructor(public dicesOrder: number[], public totalScore: number) {}
+}
+
+export class ResultDisplayer implements Subscriber<ResultData> {
 	public constructor(private resultElement: HTMLElement | null, private totalScoreElement: HTMLElement | null) {}
 
-	private render() {
-		if (this.resultElement) this.resultElement.innerText = `${this.diceResults.join(', ')}`;
-		if (this.totalScoreElement) this.totalScoreElement.innerText = ` - ${this.totalScore}`;
+	private render(data: ResultData) {
+		if (this.resultElement) this.resultElement.innerText = `${data.dicesOrder.join(', ')}`;
+		if (this.totalScoreElement) this.totalScoreElement.innerText = ` - ${data.totalScore}`;
 	}
 
-	private calculateResult() {
-		this.totalScore = this.diceResults.reduce((result, current) => result + current, 0);
-	}
-
-	update(playerDiceResults: number[]): void {
-		this.diceResults = playerDiceResults;
-		this.calculateResult();
-		this.render();
+	update(resultData: ResultData): void {
+		this.render({ ...resultData });
 	}
 }

@@ -1,15 +1,12 @@
-import { Subscriber } from './pattern';
+import { Publisher, Subscriber } from './pattern';
+import { ResultData } from './ResultDisplayer';
 import { PlayerTurnResult } from './TurnGenerator';
 
-export class DebuggerDisplayer implements Subscriber<PlayerTurnResult> {
+export class Debbuger implements Subscriber<PlayerTurnResult> {
 	private diceResults: number[] = [];
 	private totalScore: number = 0;
-	public constructor(private resultElement: HTMLElement | null, private totalScoreElement: HTMLElement | null) {}
 
-	private render() {
-		if (this.resultElement) this.resultElement.innerText = `${this.diceResults.join(', ')}`;
-		if (this.totalScoreElement) this.totalScoreElement.innerText = ` - ${this.totalScore}`;
-	}
+	public result: Publisher<ResultData> = new Publisher<ResultData>();
 
 	private calculateResult() {
 		this.totalScore = this.diceResults.reduce((result, current) => result + current, 0);
@@ -18,6 +15,6 @@ export class DebuggerDisplayer implements Subscriber<PlayerTurnResult> {
 	update(playerDiceResult: PlayerTurnResult): void {
 		this.diceResults.push(playerDiceResult.diceResult);
 		this.calculateResult();
-		this.render();
+		this.result.notify(new ResultData(this.diceResults, this.totalScore));
 	}
 }
