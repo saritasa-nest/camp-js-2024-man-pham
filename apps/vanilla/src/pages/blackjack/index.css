@@ -11,7 +11,7 @@
 .content {
 	--content-box-shadow: rgb(100 100 111 / 20%) 0 7px 29px 0;
 
-	width: 40%;
+	min-width: 40%;
 	box-shadow: var(--content-box-shadow);
 	padding: var(--spacing-lg);
 	border-radius: var(--border-radius-lg);
@@ -27,11 +27,13 @@
 
 .displayer {
 	--displayer-background-color: rgb(250 250 250);
+	--displayer-box-shadow: rgb(50 50 93 / 25%) 0 2px 5px -1px, rgb(0 0 0 / 30%) 0 1px 3px -1px;
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	box-shadow: var(--displayer-box-shadow);
 	gap: var(--spacing-md);
 	margin: var(--spacing-md) 0;
 	padding: var(--spacing-md);
@@ -73,5 +75,6 @@
 
 .content__button:disabled {
 	background-color: var(--on-surface-dim-color);
+	pointer-events: none;
 	opacity: 0.5;
 }
