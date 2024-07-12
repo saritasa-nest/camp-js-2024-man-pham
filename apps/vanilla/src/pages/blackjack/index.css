@@ -69,12 +69,11 @@
 	font-weight: var(--font-weight-bold);
 	text-transform: capitalize;
 	cursor: pointer;
-	outline: none;
 	border: none;
 }
 
 .content__button:disabled {
 	background-color: var(--on-surface-dim-color);
-	pointer-events: none;
+	cursor: not-allowed;
 	opacity: 0.5;
 }
