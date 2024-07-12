@@ -15,6 +15,13 @@ export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscr
 		super();
 	}
 
+	/**
+	 * Advances the turn to the next player in the game.
+	 *
+	 * This method increments the current player's index by one, and then
+	 * uses the modulo operator to wrap around to the first player if the
+	 * end of the player list is reached.
+	 */
 	private moveToNextPlayer(): void {
 		this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.playerCount;
 	}
