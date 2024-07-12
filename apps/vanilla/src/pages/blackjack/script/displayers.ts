@@ -44,7 +44,6 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 
 		this.resultElement = document.getElementById(`${name}-dice-results`);
 		this.totalScoreElement = document.getElementById(`${name}-score`);
-
 	}
 
 	private createResultDisplayerElement(name: string): HTMLElement {
