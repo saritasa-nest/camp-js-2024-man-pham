@@ -1,3 +1,5 @@
+import { isButtonElement } from '@js-camp/vanilla/type-guard/button';
+
 import { Subscriber } from '../models';
 
 /** Used to represent the data for the displayers to render. */
@@ -94,8 +96,11 @@ export class WinStatusDisplayer extends Displayer implements Subscriber<boolean>
 	public update(winStatus: boolean): void {
 		if (winStatus) {
 			this.containerElement?.classList.add('displayer_win');
-			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
-			(document.getElementById('button-roll') as HTMLButtonElement).innerText = 'We have a winner 🥳';
+			const rollButton = document.getElementById('button-roll');
+			if (isButtonElement(rollButton)) {
+				rollButton.disabled = true;
+				rollButton.innerText = 'We have a winner 🥳';
+			}
 		}
 	}
 }
