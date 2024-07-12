@@ -1,5 +1,7 @@
 import { isButtonElement } from '@js-camp/vanilla/type-guard/button';
 
+import { isHTMLElement } from '@js-camp/vanilla/type-guard/element';
+
 import { Subscriber } from '../models';
 
 /** Used to represent the data for the displayers to render. */
@@ -21,10 +23,14 @@ class Displayer {
 	 * @param htmlString Is the string template for the element.
 	 * @returns Return the element.
 	 */
-	protected createElement(htmlString: string): HTMLElement {
+	protected createElement(htmlString: string): HTMLElement | null {
 		const div = document.createElement('div');
 		div.innerHTML = htmlString.trim();
-		return div.firstChild as HTMLElement;
+
+		if (isHTMLElement(div.firstChild)) {
+			return div.firstChild;
+		}
+		return null;
 	}
 }
 
@@ -48,13 +54,13 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 		this.totalScoreElement = document.getElementById(`${name}-score`);
 	}
 
-	private createResultDisplayerElement(name: string): HTMLElement {
+	private createResultDisplayerElement(name: string): HTMLElement | null {
 		return this.createElement(
 			`<article id="${name}" class="displayer">
-			   	<div>
-                	 <h2 class="displayer__heading">${name}
+				<div>
+                	<h2 class="displayer__heading">${name}
 						<span id="${name}-score"></span>
-					 </h2>
+					</h2>
 				</div>
 				<div id="${name}-dice-results" class="displayer__dice-results"></div>
             </article>`,
