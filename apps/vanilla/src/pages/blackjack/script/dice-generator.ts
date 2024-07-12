@@ -13,7 +13,6 @@ export class DiceGenerator extends Publisher<number> {
 
 	/**
 	 * Generate a dice.
-	 * @param sidesCount The amount of the dice's side.
 	 * @returns Return a instance of DiceGenerator.
 	 */
 	public static getInstance(): DiceGenerator {
