@@ -17,6 +17,7 @@ class App {
 
 		const debbugerTool = new Debbuger();
 		const debuggerDisplayer = new ResultDisplayer('debugger');
+
 		debbugerTool.result.subscribe(debuggerDisplayer);
 		this.turnGenerator.subscribe(debbugerTool);
 
@@ -35,7 +36,6 @@ class App {
 				const player = new Player(index);
 				const playerDisplayer = new ResultDisplayer(`player${index + 1}`);
 				const playerWinStatusDisplayer = new WinStatusDisplayer(`player${index + 1}`);
-
 				player.result.subscribe(playerDisplayer);
 				player.winStatus.subscribe(playerWinStatusDisplayer);
 

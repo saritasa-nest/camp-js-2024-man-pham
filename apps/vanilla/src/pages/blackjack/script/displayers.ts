@@ -7,8 +7,7 @@ export class ResultData {
 
 /** The Displayer class which used to display the attender's information in the game. */
 class Displayer {
-	/**
-	 * The element which wrap the attender's related HTML elements. */
+	/** The element which wrap the attender's related HTML elements. */
 	protected containerElement: HTMLElement | null = null;
 
 	public constructor(name: string) {
@@ -51,9 +50,10 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	private createResultDisplayerElement(name: string): HTMLElement {
 		return this.createElement(
 			`<article id="${name}" class="displayer">
-			   	<div class="displayer__heading">
-                	 <h2 class="displayer__name">${name}</h2>
-					 <span id="${name}-score" class="displayer__score"></span>
+			   	<div>
+                	 <h2 class="displayer__heading">${name}
+						<span id="${name}-score"></span>
+					 </h2>
 				</div>
 				<div id="${name}-dice-results" class="displayer__dice-results"></div>
             </article>`,
@@ -96,6 +96,7 @@ export class WinStatusDisplayer extends Displayer implements Subscriber<boolean>
 		if (winStatus) {
 			this.containerElement?.classList.add('displayer_win');
 			(document.getElementById('button-roll') as HTMLButtonElement).disabled = true;
+			(document.getElementById('button-roll') as HTMLButtonElement).innerText = 'We have a winner 🥳';
 		}
 	}
 }

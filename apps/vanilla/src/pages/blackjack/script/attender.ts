@@ -3,16 +3,12 @@ import { Publisher } from '../models';
 import { ResultData } from './displayers';
 import { PlayerTurnResult } from './turn-generator';
 
-/**  Attender class is used to prepresent the members that subscribed to the game (e.g players, debugger...). */
+/**  Attender class is used to represent the members that subscribed to the game (e.g players, debugger...). */
 export class Attender {
-	/**
-	 * The array of the subscriber rolled dices.
-	 */
+	/** The array of the subscriber rolled dices. */
 	protected diceResults: number[] = [];
 
-	/**
-	 * The result publisher for the displayers.
-	 */
+	/** The result publisher for the displayers. */
 	public readonly result: Publisher<ResultData> = new Publisher<ResultData>();
 
 	/**
