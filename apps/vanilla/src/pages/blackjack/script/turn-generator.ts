@@ -11,7 +11,7 @@ export class PlayerTurnResult {
 export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
 	private currentPlayerIndex = 0;
 
-	public constructor(private playerCount: number) {
+	public constructor(private readonly playerCount: number) {
 		super();
 	}
 

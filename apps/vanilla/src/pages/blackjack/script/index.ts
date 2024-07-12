@@ -1,4 +1,4 @@
-import { Debbuger } from './debugger';
+import { Debugger } from './debugger';
 import { DiceGenerator } from './dice-generator';
 import { ResultDisplayer, WinStatusDisplayer } from './displayers';
 import { Player } from './player';
@@ -15,11 +15,11 @@ class App {
 	public constructor() {
 		this.turnGenerator = new TurnGenerator(this.playerCount);
 
-		const debbugerTool = new Debbuger();
+		const debuggerTool = new Debugger();
 		const debuggerDisplayer = new ResultDisplayer('debugger');
 
-		debbugerTool.result.subscribe(debuggerDisplayer);
-		this.turnGenerator.subscribe(debbugerTool);
+		debuggerTool.result.subscribe(debuggerDisplayer);
+		this.turnGenerator.subscribe(debuggerTool);
 
 		const players = this.createPlayers();
 		players.forEach(player => {

@@ -19,7 +19,7 @@ export class Attender {
 	}
 
 	/**
-	 * Calulate the total value of the dice values.
+	 * Calculate the total value of the dice values.
 	 * @param turnResult The result which contains the current player index and the result of a roll.
 	 */
 	protected updateDicesList(turnResult: PlayerTurnResult): void {
