@@ -22,7 +22,11 @@ export class Player extends Attender implements Subscriber<PlayerTurnResult> {
 	public update(turnResult: PlayerTurnResult): void {
 		if (turnResult.playerIndex === this.playerIndex) {
 			this.updateDicesList(turnResult);
-			this.result.notify(new ResultData(this.diceResults, this.totalScore));
+			const resultData: ResultData = {
+				dicesOrder: this.diceResults,
+				totalScore: this.totalScore,
+			};
+			this.result.notify(resultData);
 		}
 		if (this.totalScore >= WIN_SCORE) {
 			this.winStatus.notify(true);

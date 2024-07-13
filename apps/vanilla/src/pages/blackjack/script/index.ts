@@ -10,11 +10,9 @@ class App {
 
 	private readonly diceGenerator = DiceGenerator.getInstance();
 
-	private readonly turnGenerator: TurnGenerator;
+	private readonly turnGenerator = new TurnGenerator(this.playerCount);
 
 	public constructor() {
-		this.turnGenerator = new TurnGenerator(this.playerCount);
-
 		const debuggerTool = new Debugger();
 		const debuggerDisplayer = new ResultDisplayer('debugger');
 
@@ -44,8 +42,8 @@ class App {
 	}
 
 	/** Perform the actions for the next player. */
-	public roll(): void {
-		this.turnGenerator.next();
+	public playTurn(): void {
+		this.turnGenerator.playTurn();
 	}
 }
 
@@ -55,7 +53,7 @@ window.onload = function() {
 	const rollButton = document.getElementById('button-roll');
 	if (rollButton) {
 		rollButton.onclick = function() {
-			app.roll();
+			app.playTurn();
 		};
 	}
 };

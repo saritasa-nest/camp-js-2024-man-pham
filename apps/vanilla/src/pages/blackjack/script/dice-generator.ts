@@ -1,5 +1,7 @@
 import { Publisher } from '../models';
 
+const SIDES_COUNT = 6;
+
 /** The dice value generator. */
 export class DiceGenerator extends Publisher<number> {
 	private readonly sidesCount: number;
@@ -17,7 +19,7 @@ export class DiceGenerator extends Publisher<number> {
 	 */
 	public static getInstance(): DiceGenerator {
 		if (DiceGenerator.instance == null) {
-			DiceGenerator.instance = new DiceGenerator(6);
+			DiceGenerator.instance = new DiceGenerator(SIDES_COUNT);
 		}
 		return DiceGenerator.instance;
 	}

@@ -2,10 +2,15 @@ import { Publisher, Subscriber } from '../models';
 
 import { DiceGenerator } from './dice-generator';
 
-/** The class which contain the result after the dice is rolled. */
-export class PlayerTurnResult {
-	public constructor(public playerIndex: number, public diceResult: number) {}
-}
+/** Represent the result after rolling the dice. */
+export type PlayerTurnResult = {
+
+	/** The current player index. */
+	playerIndex: number;
+
+	/** The current player dice value. */
+	diceResult: number;
+};
 
 /** The class that control the game (get the result from the dice and announce it to the players). */
 export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
@@ -31,13 +36,16 @@ export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscr
 	 * @param diceResult The value of the dice after being rolled.
 	 */
 	public update(diceResult: number): void {
-		const turnResult = new PlayerTurnResult(this.currentPlayerIndex, diceResult);
+		const turnResult: PlayerTurnResult = {
+			playerIndex: this.currentPlayerIndex,
+			diceResult,
+		} ;
 		this.notify(turnResult);
 		this.moveToNextPlayer();
 	}
 
 	/** Perform the rolling action for the next player. */
-	public next(): void {
+	public playTurn(): void {
 		DiceGenerator.getInstance().roll();
 	}
 }

@@ -4,10 +4,15 @@ import { isHTMLElement } from '@js-camp/vanilla/type-guard/element';
 
 import { Subscriber } from '../models';
 
-/** Used to represent the data for the displayers to render. */
-export class ResultData {
-	public constructor(public dicesOrder: number[], public totalScore: number) {}
-}
+/** Represent the data for the displayers to render. */
+export type ResultData = {
+
+	/** The array of dice values. */
+	dicesOrder: number[];
+
+	/** The total value of all the dices. */
+	totalScore: number;
+};
 
 /** The Displayer class which used to display the attender's information in the game. */
 class Displayer {
@@ -85,16 +90,12 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	 * @param resultData The data which is sent from the publisher (the attender).
 	 */
 	public update(resultData: ResultData): void {
-		this.renderNewResult({ ...resultData });
+		this.renderNewResult(resultData);
 	}
 }
 
 /** The displayer which is used to announce the player who wins the game. */
 export class WinStatusDisplayer extends Displayer implements Subscriber<boolean> {
-	public constructor(name: string) {
-		super(name);
-	}
-
 	/**
 	 * Perform actions to show the winner.
 	 * @param winStatus The winning status of the specific player.
