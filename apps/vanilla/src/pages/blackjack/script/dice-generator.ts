@@ -1,3 +1,5 @@
+import { getRandomIntegerNumber } from '@js-camp/core/utils/get-random-integer-number';
+
 import { Publisher } from '../models';
 
 const SIDES_COUNT = 6;
@@ -26,7 +28,7 @@ export class DiceGenerator extends Publisher<number> {
 
 	/** Roll the dice to return a score. */
 	public roll(): void {
-		const diceResult = Math.floor(Math.random() * this.sidesCount) + 1;
+		const diceResult = getRandomIntegerNumber(this.sidesCount);
 		this.notify(diceResult);
 	}
 }
