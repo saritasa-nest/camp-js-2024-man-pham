@@ -8,11 +8,14 @@ const WIN_SCORE = 21;
 
 /** The Player class which inherits from the Attender class. */
 export class Player extends Attendee implements Subscriber<PlayerTurnResult> {
+	private playerIndex: number;
+
 	/** Use to announce to the displayer that the player has won. */
 	public readonly winStatus: Publisher<boolean> = new Publisher<boolean>();
 
-	public constructor(private playerIndex: number) {
+	public constructor(playerIndex: number) {
 		super();
+		this.playerIndex = playerIndex;
 	}
 
 	/**

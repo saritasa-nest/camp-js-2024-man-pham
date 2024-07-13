@@ -6,18 +6,21 @@ import { DiceGenerator } from './dice-generator';
 export type PlayerTurnResult = {
 
 	/** The current player index. */
-	playerIndex: number;
+	readonly playerIndex: number;
 
 	/** The current player dice value. */
-	diceResult: number;
+	readonly diceResult: number;
 };
 
 /** The class that control the game (get the result from the dice and announce it to the players). */
 export class TurnGenerator extends Publisher<PlayerTurnResult> implements Subscriber<number> {
 	private currentPlayerIndex = 0;
 
-	public constructor(private readonly playerCount: number) {
+	private readonly playerCount: number;
+
+	public constructor(playerCount: number) {
 		super();
+		this.playerCount = playerCount;
 	}
 
 	/**

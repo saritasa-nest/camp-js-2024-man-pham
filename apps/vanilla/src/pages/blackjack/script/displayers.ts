@@ -8,10 +8,10 @@ import { Subscriber } from '../models';
 export type ResultData = {
 
 	/** The array of dice values. */
-	dicesOrder: number[];
+	readonly dicesOrder: number[];
 
 	/** The total value of all the dices. */
-	totalScore: number;
+	readonly totalScore: number;
 };
 
 /** The Displayer class which used to display the attendee's information in the game. */
