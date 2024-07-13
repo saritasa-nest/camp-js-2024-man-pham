@@ -19,16 +19,13 @@ class App {
 		debuggerTool.result.subscribe(debuggerDisplayer);
 		this.turnGenerator.subscribe(debuggerTool);
 
-		const players = this.createPlayers();
-		players.forEach(player => {
-			this.turnGenerator.subscribe(player);
-		});
+		this.registerPlayers();
 
 		this.diceGenerator.subscribe(this.turnGenerator);
 	}
 
-	private createPlayers(): Player[] {
-		return Array(this.playerCount)
+	private registerPlayers(): void {
+		Array(this.playerCount)
 			.fill(null)
 			.map((_, index) => {
 				const player = new Player(index);
@@ -37,7 +34,7 @@ class App {
 				player.result.subscribe(playerDisplayer);
 				player.winStatus.subscribe(playerWinStatusDisplayer);
 
-				return player;
+				this.turnGenerator.subscribe(player);
 			});
 	}
 
