@@ -14,9 +14,9 @@ export type ResultData = {
 	totalScore: number;
 };
 
-/** The Displayer class which used to display the attender's information in the game. */
+/** The Displayer class which used to display the attendee's information in the game. */
 class Displayer {
-	/** The element which wrap the attender's related HTML elements. */
+	/** The element which wrap the attendee's related HTML elements. */
 	protected containerElement: HTMLElement | null = null;
 
 	public constructor(name: string) {
@@ -39,7 +39,7 @@ class Displayer {
 	}
 }
 
-/** The displayer to display the attender's result (the list of the dices, the total value of the dices). */
+/** The displayer to display the attendee's result (the list of the dices, the total value of the dices). */
 export class ResultDisplayer extends Displayer implements Subscriber<ResultData> {
 	private readonly resultElement: HTMLElement | null = null;
 
@@ -73,7 +73,7 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 	}
 
 	/**
-	 * Update the attender's information.
+	 * Update the attendee's information.
 	 * @param data The newly updated data.
 	 */
 	private renderNewResult(data: ResultData): void {
@@ -87,7 +87,7 @@ export class ResultDisplayer extends Displayer implements Subscriber<ResultData>
 
 	/**
 	 * Perform updating the data after being notified.
-	 * @param resultData The data which is sent from the publisher (the attender).
+	 * @param resultData The data which is sent from the publisher (the attendee).
 	 */
 	public update(resultData: ResultData): void {
 		this.renderNewResult(resultData);

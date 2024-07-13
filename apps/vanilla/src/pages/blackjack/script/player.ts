@@ -1,13 +1,13 @@
 import { Subscriber, Publisher } from '../models';
 
-import { Attender } from './attender';
+import { Attendee } from './attendee';
 import { ResultData } from './displayers';
 import { PlayerTurnResult } from './turn-generator';
 
 const WIN_SCORE = 21;
 
 /** The Player class which inherits from the Attender class. */
-export class Player extends Attender implements Subscriber<PlayerTurnResult> {
+export class Player extends Attendee implements Subscriber<PlayerTurnResult> {
 	/** Use to announce to the displayer that the player has won. */
 	public readonly winStatus: Publisher<boolean> = new Publisher<boolean>();
 
