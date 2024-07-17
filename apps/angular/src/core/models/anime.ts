@@ -25,13 +25,12 @@ export type TAnime = {
 	/** Id. */
 	readonly aired: TDateTimeRange;
 
-	/** Aired duration. */
+	/** Type. */
 	readonly type: AnimeTypeEnum;
 
-	/** Type. */
+	/** Status. */
 	readonly status: AnimeStatusEnum;
 
-	/** Status. */
 	/** Score. */
 	readonly score: number;
 
