@@ -1,18 +1,18 @@
 /** List of anime types. */
 export enum AnimeTypeEnum {
-	TV,
-	OVA,
-	MOVIE,
-	SPECIAL,
-	ONA,
-	MUSIC,
-	PROMOTIONAL_VIDEOS,
-	UNKNOWN,
+	Tv = 'TV',
+	Ova = 'OVA',
+	Movie = 'MOVIE',
+	Special = 'SPECIAL',
+	Ona = 'ONA',
+	Music = 'MUSIC',
+	PromotionalVideos = 'PROMOTIONAL_VIDEOS',
+	Unknown = 'UNKNOWN',
 }
 
 /** List of anime status. */
 export enum AnimeStatusEnum {
-	AIRING,
-	FINISHED,
-	NOT_YET_AIRED,
+	Airing = 'AIRING',
+	Finished = 'FINISHED',
+	NotYetAired = 'NOT_YET_AIRED',
 }
