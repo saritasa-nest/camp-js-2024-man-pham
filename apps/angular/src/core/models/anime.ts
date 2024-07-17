@@ -39,8 +39,8 @@ export type TAnime = {
 	readonly userScore: number;
 
 	/** List of studios. */
-	readonly studios: number[];
+	readonly studios: readonly number[];
 
 	/** List of genres. */
-	readonly genres: number[];
+	readonly genres: readonly number[];
 };

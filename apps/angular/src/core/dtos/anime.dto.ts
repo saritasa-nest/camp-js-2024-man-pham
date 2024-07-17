@@ -5,41 +5,41 @@ import { TDateTimeRange } from '../interfaces/datetime-range';
 export type TAnimeDto = {
 
 	/** ID. */
-	id: number;
+	readonly id: number;
 
 	/** Created date. */
-	created: string;
+	readonly created: string;
 
 	/** Modified date. */
-	modified: string;
+	readonly modified: string;
 
 	/** English title. */
-	title_eng: string;
+	readonly title_eng: string;
 
 	/** Japanese title. */
-	title_jpn: string;
+	readonly title_jpn: string;
 
 	/** Image URL. */
-	image: string;
+	readonly image: string;
 
 	/** Aired duration. */
-	aired: TDateTimeRange;
+	readonly aired: TDateTimeRange;
 
 	/** Type. */
-	type: AnimeTypeEnum;
+	readonly type: AnimeTypeEnum;
 
 	/** Status. */
-	status: AnimeStatusEnum;
+	readonly status: AnimeStatusEnum;
 
 	/** Score. */
-	score: number;
+	readonly score: number;
 
 	/** User score. */
-	user_score: number;
+	readonly user_score: number;
 
 	/** List of studios. */
-	studios: number[];
+	readonly studios: readonly number[];
 
 	/** List of genres. */
-	genres: number[];
+	readonly genres: readonly number[];
 };
