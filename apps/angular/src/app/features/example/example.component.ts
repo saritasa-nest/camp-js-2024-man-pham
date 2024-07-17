@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+
+import { Component, inject } from '@angular/core';
+
+import { Observable } from 'rxjs';
+
+import { TAnime } from '@js-camp/angular/core/models/anime';
+
+import { AnimeResponse, AnimeService } from './../../../core/services/anime.service';
 
 /** Example component. */
 @Component({
@@ -7,4 +14,22 @@ import { Component } from '@angular/core';
 	styleUrls: ['./example.component.css'],
 	standalone: true,
 })
-export class ExampleComponent {}
+export class ExampleComponent {
+	private readonly animeResponse$: Observable<AnimeResponse>;
+
+	private readonly animeService: AnimeService = inject(AnimeService);
+
+	protected animeList: TAnime[] = [];
+
+	public constructor() {
+		this.animeResponse$ = this.animeService.getAllAnime();
+
+		this.animeResponse$.subscribe(
+			response => {
+				console.log(response);
+
+				this.animeList = [...response.results];
+			},
+		);
+	}
+}
