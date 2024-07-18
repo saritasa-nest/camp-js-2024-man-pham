@@ -1,9 +1,8 @@
-
 import { Component, inject } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { TAnime } from '@js-camp/angular/core/models/anime';
+import { TAnime } from '@js-camp/core/models/anime';
 
 import { AnimeResponse, AnimeService } from './../../../core/services/anime.service';
 
@@ -28,7 +27,7 @@ export class ExampleComponent {
 			response => {
 				console.log(response);
 
-				this.animeList = [...response.results];
+				this.animeList = [...response.items];
 			},
 		);
 	}
