@@ -10,10 +10,10 @@ export class Anime extends Immerable {
 	public readonly id: number;
 
 	/** Created date. */
-	public readonly createdDate: string;
+	public readonly createdDate: Date;
 
 	/** Modified date. */
-	public readonly modifiedDate: string;
+	public readonly modifiedDate: Date;
 
 	/** English title. */
 	public readonly titleEng: string;

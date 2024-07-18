@@ -14,12 +14,15 @@ export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
 	public fromDto(data: TAnimeDto): TAnime {
 		return new Anime({
 			id: data.id,
-			createdDate: data.created,
-			modifiedDate: data.modified,
+			createdDate: new Date(data.created),
+			modifiedDate: new Date(data.modified),
 			titleEng: data.title_eng,
 			titleJpn: data.title_jpn,
 			image: data.image,
-			aired: data.aired,
+			aired: {
+				startDate: new Date(data.aired.start),
+				endDate: new Date(data.aired.end),
+			},
 			type: data.type,
 			status: data.status,
 			score: data.score,
@@ -33,12 +36,15 @@ export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
 	public toDto(data: TAnime): TAnimeDto {
 		return {
 			id: data.id,
-			created: data.createdDate,
-			modified: data.modifiedDate,
+			created: data.createdDate.toISOString(),
+			modified: data.modifiedDate.toISOString(),
 			title_eng: data.titleEng,
 			title_jpn: data.titleJpn,
 			image: data.image,
-			aired: data.aired,
+			aired: {
+				start: data.aired.startDate.toISOString(),
+				end: data.aired.endDate.toISOString(),
+			},
 			type: data.type,
 			status: data.status,
 			score: data.score,

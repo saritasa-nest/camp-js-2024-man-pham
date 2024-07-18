@@ -1,5 +1,5 @@
 import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime.enums';
-import { TDateTimeRange } from '../interfaces/datetime-range';
+import { TDateTimeRangeDto } from '../interfaces/datetime-range';
 
 /** Anime DTO. */
 export type TAnimeDto = {
@@ -23,7 +23,7 @@ export type TAnimeDto = {
 	readonly image: string;
 
 	/** Aired duration. */
-	readonly aired: TDateTimeRange;
+	readonly aired: TDateTimeRangeDto;
 
 	/** Type. */
 	readonly type: AnimeTypeEnum;
