@@ -6,16 +6,18 @@ import { map, Observable } from 'rxjs';
 
 import { environment } from '@js-camp/angular/environments/environment';
 
-import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
 import { AnimeMapper } from '@js-camp/core/mappers/anime.mapper';
 import { TAnime } from '@js-camp/core/models/anime';
+import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
+import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
+import { Pagination } from '@js-camp/core/models/pagination';
 import { TAnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 /** Anime pagination Dto. */
-export type AnimeResponseDto = PaginationDto<TAnimeDto>;
+type AnimeResponseDto = PaginationDto<TAnimeDto>;
 
 /** Anime pagination. */
-export type AnimeResponse = PaginationDto<TAnime>;
+export type AnimeResponse = Pagination<TAnime>;
 
 /** Anime services. */
 @Injectable({
@@ -29,16 +31,11 @@ export class AnimeService {
 
 	private readonly animeMapper = inject(AnimeMapper);
 
-	private mapResponseDto(responseDto: AnimeResponseDto): PaginationDto<TAnime> {
-		return {
-			...responseDto,
-			results: responseDto.results.map(animeDto => this.animeMapper.fromDto(animeDto)),
-		};
-	}
+	private readonly paginationMapper = inject(PaginationMapper)
 
 	public getAllAnime(): Observable<AnimeResponse> {
 		const url = new URL('anime/', this.baseApiUrl);
-		return this.httpClient.get<AnimeResponseDto>(url.toString()).pipe(map(data => this.mapResponseDto(data)));
+		return this.httpClient.get<AnimeResponseDto>(url.toString()).pipe(map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)));
 	}
 
 }
