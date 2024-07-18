@@ -32,6 +32,7 @@ export class AnimeService {
 
 	private readonly paginationMapper = inject(PaginationMapper);
 
+	/** Return an observable containing the list of anime. */
 	public getAllAnime(): Observable<AnimeResponse> {
 		return this.httpClient.get<AnimeResponseDto>(this.appUrlsConfig.anime.list).pipe(
 			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
