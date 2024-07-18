@@ -2,16 +2,14 @@ import { inject, Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '@js-camp/angular/environments/environment';
 
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
-
-import { AnimeMapper } from '../mappers/anime.mapper';
-
-import { TAnimeDto } from '../dtos/anime.dto';
-import { TAnime } from '../models/anime';
+import { AnimeMapper } from '@js-camp/core/mappers/anime.mapper';
+import { TAnime } from '@js-camp/core/models/anime';
+import { TAnimeDto } from '@js-camp/core/dtos/anime.dto';
 
 /** Anime pagination Dto. */
 export type AnimeResponseDto = PaginationDto<TAnimeDto>;

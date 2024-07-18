@@ -1,4 +1,4 @@
-import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime-enums';
+import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime.enums';
 import { TDateTimeRange } from '../interfaces/datetime-range';
 
 /** Anime DTO. */

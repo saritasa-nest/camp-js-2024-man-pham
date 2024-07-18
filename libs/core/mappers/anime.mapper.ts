@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { TAnime } from '../models/anime';
+import { Anime, TAnime } from '../models/anime';
 import { TAnimeDto } from '../dtos/anime.dto';
 
 /** Auth mapper. */
@@ -11,7 +11,7 @@ export class AnimeMapper {
 
 	/** @inheritdoc */
 	public fromDto(data: TAnimeDto): TAnime {
-		return {
+		return new Anime({
 			id: data.id,
 			createdDate: data.created,
 			modifiedDate: data.modified,
@@ -25,6 +25,6 @@ export class AnimeMapper {
 			userScore: data.user_score,
 			studios: data.studios,
 			genres: data.genres,
-		};
+		});
 	}
 }
