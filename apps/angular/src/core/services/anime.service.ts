@@ -31,11 +31,13 @@ export class AnimeService {
 
 	private readonly animeMapper = inject(AnimeMapper);
 
-	private readonly paginationMapper = inject(PaginationMapper)
+	private readonly paginationMapper = inject(PaginationMapper);
 
 	public getAllAnime(): Observable<AnimeResponse> {
 		const url = new URL('anime/', this.baseApiUrl);
-		return this.httpClient.get<AnimeResponseDto>(url.toString()).pipe(map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)));
+		return this.httpClient.get<AnimeResponseDto>(url.toString()).pipe(
+			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
+		);
 	}
 
 }
