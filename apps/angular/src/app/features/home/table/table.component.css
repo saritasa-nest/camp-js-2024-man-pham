@@ -1,0 +1,10 @@
+.anime-table__image-container {
+	height: 150px;
+	margin-block: 4px;
+}
+
+img {
+	height: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
+}
