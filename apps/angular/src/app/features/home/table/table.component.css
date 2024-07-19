@@ -4,7 +4,7 @@
 	height: 100%;
 }
 
-.table-container {
+.anime__table-container {
 	height: 100%;
 	overflow-y: auto;
 	border-radius: 16px;
@@ -22,12 +22,12 @@
 	overflow-wrap: break-word;
 }
 
-.anime-table__image-container {
+.anime__image-container {
 	height: 150px;
 	margin-block: 4px;
 }
 
-img {
+.anime__image {
 	height: 100%;
 	aspect-ratio: 1;
 	object-fit: contain;
