@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { TAnime } from '@js-camp/core/models/anime';
+import { Observable } from 'rxjs';
+import { AnimeResponse } from '@js-camp/angular/core/services/anime.service';
 
 /** Anime Table Component. */
 @Component({
@@ -14,7 +15,7 @@ import { TAnime } from '@js-camp/core/models/anime';
 })
 export class AnimeTableComponent {
 	/** Anime data list. */
-	@Input() public animeList!: TAnime[];
+	@Input() public animeResponse$!: Observable<AnimeResponse>;
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: string[] = ['image', 'title_eng', 'title_jpn', 'aired.start', 'type', 'status'];
