@@ -30,6 +30,8 @@ export class HomeComponent {
 
 		this.animeResponse$.subscribe(
 			response => {
+				console.log(response.items);
+
 				this.animeList = [...response.items];
 			},
 		);
