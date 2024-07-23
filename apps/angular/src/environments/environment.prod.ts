@@ -9,5 +9,6 @@
  */
 export const environment = {
 	production: true,
-	api: 'https://api.camp-js.saritasa.rocks/api/v1/',
+	apiUrl: 'https://api.camp-js.saritasa.rocks/api/v1/',
+	apiKey: 'cc1c5afc-babc-4f50-a579-283d3cd66bd2',
 };

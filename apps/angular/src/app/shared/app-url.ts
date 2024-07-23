@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { environment } from '@js-camp/angular/environments/environment';
+import { inject, Injectable } from '@angular/core';
+
+import { AppConfig } from './app-config';
 
 /**
  * Urls used within the application.
@@ -7,7 +8,9 @@ import { environment } from '@js-camp/angular/environments/environment';
  */
 @Injectable({ providedIn: 'root' })
 export class AppUrlsConfig {
-	private readonly baseUrl = environment.api;
+	private readonly appConfig = inject(AppConfig);
+
+	private readonly baseUrl = this.appConfig.apiUrl;
 
 	/** Anime-related routes. */
 	public readonly anime = {
