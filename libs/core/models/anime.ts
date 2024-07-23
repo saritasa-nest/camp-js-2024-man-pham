@@ -1,5 +1,5 @@
 import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime.enums';
-import { TDateTimeRange } from '../interfaces/datetime-range';
+import { TDateTimeRange } from '../types/datetime-range';
 
 import { Immerable, OmitImmerable } from './immerable';
 

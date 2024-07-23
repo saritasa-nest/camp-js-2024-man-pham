@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { Anime, TAnime } from '../models/anime';
 import { TAnimeDto } from '../dtos/anime.dto';
-import { TMapper } from '../interfaces/mapper';
+import { TMapper } from '../types/mapper';
 
 /** Anime mapper. */
 @Injectable({

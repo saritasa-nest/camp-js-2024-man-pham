@@ -1,5 +1,5 @@
 import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime.enums';
-import { TDateTimeRangeDto } from '../interfaces/datetime-range';
+import { TDateTimeRangeDto } from '../types/datetime-range';
 
 /** Anime DTO. */
 export type TAnimeDto = {
