@@ -20,8 +20,8 @@ export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
 			titleJpn: data.title_jpn,
 			image: data.image,
 			aired: {
-				startDate: new Date(data.aired.start),
-				endDate: new Date(data.aired.end),
+				startDate: data.aired.start ? new Date(data.aired.start) : null,
+				endDate: data.aired.end ? new Date(data.aired.end) : null,
 			},
 			type: data.type,
 			status: data.status,
@@ -42,8 +42,8 @@ export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
 			title_jpn: data.titleJpn,
 			image: data.image,
 			aired: {
-				start: data.aired.startDate.toISOString(),
-				end: data.aired.endDate.toISOString(),
+				start: data.aired.startDate ? data.aired.startDate.toISOString() : null,
+				end: data.aired.endDate ? data.aired.endDate.toISOString() : null,
 			},
 			type: data.type,
 			status: data.status,

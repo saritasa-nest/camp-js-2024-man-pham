@@ -2,18 +2,18 @@
 export type TDateTimeRange = {
 
 	/** Start date. */
-	startDate: Date;
+	startDate: Date | null;
 
 	/** End date. */
-	endDate: Date;
+	endDate: Date | null;
 };
 
 /** Date Time Range Type. */
 export type TDateTimeRangeDto = {
 
 	/** Start date. */
-	start: string;
+	start: string | null;
 
 	/** End date. */
-	end: string;
+	end: string | null;
 };

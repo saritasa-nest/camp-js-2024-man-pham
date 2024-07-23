@@ -32,10 +32,10 @@ export type TAnimeDto = {
 	readonly status: AnimeStatusEnum;
 
 	/** Score. */
-	readonly score: number;
+	readonly score: number | null;
 
 	/** User score. */
-	readonly user_score: number;
+	readonly user_score: number | null;
 
 	/** List of studios. */
 	readonly studios: readonly number[];

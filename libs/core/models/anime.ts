@@ -34,10 +34,10 @@ export class Anime extends Immerable {
 	public readonly status: AnimeStatusEnum;
 
 	/** Score. */
-	public readonly score: number;
+	public readonly score: number | null;
 
 	/** User score. */
-	public readonly userScore: number;
+	public readonly userScore: number | null;
 
 	/** List of studios. */
 	public readonly studios: readonly number[];
