@@ -24,11 +24,9 @@
         ]
       }
     },
-    {
-      "files": ["**/dtos/**/*.ts", "**/mappers/**/*.ts"],
+		{
+      "files": ["*.dto.ts", "*.mapper.ts"],
       "rules": {
-        "jsdoc/require-jsdoc": "off",
-        "@typescript-eslint/naming-convention": "off",
         "no-restricted-syntax": [
           "error",
           {
@@ -39,7 +37,8 @@
             "selector": "TSPropertySignature TSTypeAnnotation[typeAnnotation.type='TSArrayType']",
             "message": "Missing 'readonly' type modifier for array."
           }
-        ]
+        ],
+        "@typescript-eslint/naming-convention": "off"
       }
     }
   ]
