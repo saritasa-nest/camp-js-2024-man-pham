@@ -19,4 +19,4 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
 	providers: [provideRouter(appRoutes), provideAnimationsAsync(), provideHttpClient()],
-}).catch(err => console.log(err));
+}).catch(err => console.error(err));
