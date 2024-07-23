@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-import { NoEmptyStringPipe } from '@js-camp/angular/core/pipes/no-empty-string.pipe';
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
+import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 
 /** Anime Table Component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [CommonModule, MatTableModule, NoEmptyStringPipe],
+	imports: [CommonModule, MatTableModule, NoEmptyPipe],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
