@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { TAnime } from '../models/anime';
-import { TAnimeDto } from '../dtos/anime.dto';
-import { TMapper } from '../types/mapper';
+import { Anime } from '../models/anime';
+import { AnimeDto } from '../dtos/anime.dto';
+import { TMapper } from '../models/mapper';
 import { AnimeStatusDto } from '../dtos/anime-status.dto';
 import { AnimeTypeDto } from '../dtos/anime-type.dto';
 
@@ -48,11 +48,11 @@ const MAP_ANIME_STATUS_TO_DTO: Record<AnimeStatus, AnimeStatusDto> = {
 @Injectable({
 	providedIn: 'root',
 })
-export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
+export class AnimeMapper implements TMapper<AnimeDto, Anime> {
 
 	/** @inheritdoc */
-	public fromDto(data: TAnimeDto): TAnime {
-		return {
+	public fromDto(data: AnimeDto): Anime {
+		return new Anime({
 			id: data.id,
 			createdDate: new Date(data.created),
 			modifiedDate: new Date(data.modified),
@@ -69,11 +69,11 @@ export class AnimeMapper implements TMapper<TAnimeDto, TAnime> {
 			userScore: data.user_score,
 			studios: data.studios,
 			genres: data.genres,
-		};
+		});
 	}
 
 	/** @inheritdoc */
-	public toDto(data: TAnime): TAnimeDto {
+	public toDto(data: Anime): AnimeDto {
 		return {
 			id: data.id,
 			created: data.createdDate.toISOString(),

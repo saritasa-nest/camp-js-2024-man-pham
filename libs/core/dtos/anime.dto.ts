@@ -1,10 +1,10 @@
-import { TDateTimeRangeDto } from '../types/datetime-range';
+import { DateTimeRangeDto } from './datetime-range.dto';
 
 import { AnimeStatusDto } from './anime-status.dto';
 import { AnimeTypeDto } from './anime-type.dto';
 
 /** Anime DTO. */
-export type TAnimeDto = {
+export type AnimeDto = {
 
 	/** ID. */
 	readonly id: number;
@@ -25,7 +25,7 @@ export type TAnimeDto = {
 	readonly image: string;
 
 	/** Aired duration. */
-	readonly aired: TDateTimeRangeDto;
+	readonly aired: DateTimeRangeDto;
 
 	/** Type. */
 	readonly type: AnimeTypeDto;

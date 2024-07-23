@@ -1,4 +1,4 @@
-import { TDateTimeRange } from '../types/datetime-range';
+import { DateTimeRange } from './datetime-range';
 
 import { AnimeStatus } from './anime-status';
 import { AnimeType } from './anime-type';
@@ -27,7 +27,7 @@ export class Anime extends Immerable {
 	public readonly image: string;
 
 	/** Id. */
-	public readonly aired: TDateTimeRange;
+	public readonly aired: DateTimeRange;
 
 	/** Type. */
 	public readonly type: AnimeType;
@@ -68,4 +68,4 @@ export class Anime extends Immerable {
 }
 
 /** Anime Type. */
-export type TAnime = OmitImmerable<Anime>;
+type TAnime = OmitImmerable<Anime>;
