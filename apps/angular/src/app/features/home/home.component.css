@@ -1,8 +1,4 @@
 :host {
-	display: block;
-}
-
-.home-container {
 	height: 100vh;
 	padding: 40px 0;
 	display: flex;
