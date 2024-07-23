@@ -1,5 +1,7 @@
-import { AnimeStatusEnum, AnimeTypeEnum } from '../enums/anime.enums';
 import { TDateTimeRange } from '../types/datetime-range';
+
+import { AnimeStatus } from './anime-status';
+import { AnimeType } from './anime-type';
 
 import { Immerable, OmitImmerable } from './immerable';
 
@@ -28,10 +30,10 @@ export class Anime extends Immerable {
 	public readonly aired: TDateTimeRange;
 
 	/** Type. */
-	public readonly type: AnimeTypeEnum;
+	public readonly type: AnimeType;
 
 	/** Status. */
-	public readonly status: AnimeStatusEnum;
+	public readonly status: AnimeStatus;
 
 	/** Score. */
 	public readonly score: number | null;
