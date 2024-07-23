@@ -16,4 +16,4 @@ export type TMapperToDto<TDto, TDomain> = {
 export type TMapperFunction<TDto, TDomain> = (dto: TDto) => TDomain;
 
 /** Mapper from DTO to Domain model and vice versa. */
-export type TMapper<TDto, TDomain> = {} & TMapperFromDto<TDto, TDomain> & TMapperToDto<TDto, TDomain>;
+export type TMapper<TDto, TDomain> = TMapperFromDto<TDto, TDomain> & TMapperToDto<TDto, TDomain>;
