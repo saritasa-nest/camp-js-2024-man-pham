@@ -3,12 +3,13 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
 import { AnimeResponse } from '@js-camp/angular/core/services/anime.service';
+import { NoEmptyStringPipe } from '@js-camp/angular/core/pipes/no-empty-string.pipe';
 
 /** Anime Table Component. */
 @Component({
 	selector: 'camp-table',
 	standalone: true,
-	imports: [CommonModule, MatTableModule],
+	imports: [CommonModule, MatTableModule, NoEmptyStringPipe],
 	templateUrl: './table.component.html',
 	styleUrl: './table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
