@@ -2,8 +2,10 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { Observable } from 'rxjs';
-import { AnimeResponse, AnimeService } from '@js-camp/angular/core/services/anime.service';
+import { AnimeService } from '@js-camp/angular/core/services/anime.service';
 import { NoEmptyStringPipe } from '@js-camp/angular/core/pipes/no-empty-string.pipe';
+import { Pagination } from '@js-camp/core/models/pagination';
+import { Anime } from '@js-camp/core/models/anime';
 
 /** Anime Table Component. */
 @Component({
@@ -16,12 +18,12 @@ import { NoEmptyStringPipe } from '@js-camp/angular/core/pipes/no-empty-string.p
 })
 export class AnimeTableComponent {
 	/** Anime response observable. */
-	protected readonly animeResponse$: Observable<AnimeResponse>;
+	protected readonly animePage$: Observable<Pagination<Anime>>;
 
 	private readonly animeService: AnimeService = inject(AnimeService);
 
 	public constructor() {
-		this.animeResponse$ = this.animeService.getAllAnime();
+		this.animePage$ = this.animeService.getAllAnime();
 	}
 
 	/** Displayed columns. */
