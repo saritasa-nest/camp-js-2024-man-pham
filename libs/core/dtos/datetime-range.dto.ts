@@ -1,4 +1,4 @@
-/** Date Time Range Type. */
+/** Date Time Range Type Dto. */
 export type DateTimeRangeDto = {
 
 	/** Start date. */
