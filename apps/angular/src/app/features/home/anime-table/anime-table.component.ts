@@ -28,4 +28,14 @@ export class AnimeTableComponent {
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: string[] = ['image', 'title_eng', 'title_jpn', 'aired.start', 'type', 'status'];
+
+	/**
+	 * Track anime by its id.
+	 * @param index Item index.
+	 * @param item The anime.
+	 * @returns Anime id.
+	 */
+	protected trackAnimeById(index: number, item: Anime): Anime['id'] {
+		return item.id;
+	}
 }
