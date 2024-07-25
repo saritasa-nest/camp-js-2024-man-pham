@@ -12,7 +12,7 @@ import { AnimeType } from './../models/anime-type';
 
 const MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
 	[AnimeTypeDto.Tv]: AnimeType.Tv,
-	[AnimeTypeDto.Ova]: AnimeType.Ona,
+	[AnimeTypeDto.Ova]: AnimeType.Ova,
 	[AnimeTypeDto.Movie]: AnimeType.Movie,
 	[AnimeTypeDto.Special]: AnimeType.Special,
 	[AnimeTypeDto.Ona]: AnimeType.Ona,
@@ -23,7 +23,7 @@ const MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
 
 const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 	[AnimeType.Tv]: AnimeTypeDto.Tv,
-	[AnimeType.Ova]: AnimeTypeDto.Ona,
+	[AnimeType.Ova]: AnimeTypeDto.Ova,
 	[AnimeType.Movie]: AnimeTypeDto.Movie,
 	[AnimeType.Special]: AnimeTypeDto.Special,
 	[AnimeType.Ona]: AnimeTypeDto.Ona,

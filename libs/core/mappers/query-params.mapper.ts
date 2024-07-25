@@ -2,6 +2,19 @@ import { Injectable } from '@angular/core';
 
 import { AnimeQueryParams } from '../models/query-params';
 import { AnimeQueryParamsDto } from '../dtos/query-params.dto';
+import { AnimeType } from '../models/anime-type';
+import { AnimeTypeDto } from '../dtos/anime-type.dto';
+
+const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
+	[AnimeType.Tv]: AnimeTypeDto.Tv,
+	[AnimeType.Ova]: AnimeTypeDto.Ova,
+	[AnimeType.Movie]: AnimeTypeDto.Movie,
+	[AnimeType.Special]: AnimeTypeDto.Special,
+	[AnimeType.Ona]: AnimeTypeDto.Ona,
+	[AnimeType.Music]: AnimeTypeDto.Music,
+	[AnimeType.Unknown]: AnimeTypeDto.Unknown,
+	[AnimeType.PromotionalVideos]: AnimeTypeDto.PromotionalVideos,
+};
 
 /** Mapper for filter params. */
 @Injectable({ providedIn: 'root' })
@@ -32,7 +45,7 @@ export class AnimeQueryParamsMapper {
 	/** @inheritdoc */
 	public mapTypeOptionToDto(model: AnimeQueryParams.Type): AnimeQueryParamsDto.Type {
 		return {
-			type: model.type,
+			type: MAP_ANIME_TYPE_TO_DTO[model.type],
 		};
 	}
 

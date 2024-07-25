@@ -1,3 +1,5 @@
+import { AnimeType } from './anime-type';
+
 /** Anime query params . */
 export namespace AnimeQueryParams {
 
@@ -29,7 +31,7 @@ export namespace AnimeQueryParams {
 	export type Type = {
 
 		/** Order. */
-		readonly type: string;
+		readonly type: AnimeType;
 	};
 
 	/** Anime query params dto. */
