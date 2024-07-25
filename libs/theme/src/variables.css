@@ -10,15 +10,15 @@
   */
 
 	/** Prevalent color in the application */
-	--primary-color: #f97316;
+	--primary-color: #4945c4;
 	--primary-contrast-color: white;
-	--primary-dark-color: #ea580c;
+	--primary-dark-color: #151357;
 	--primary-dark-contrast-color: white;
-	--primary-light-color: #fb923c;
+	--primary-light-color: #9e9bf5;
 	--primary-light-contrast-color: black;
 	--background-color: white;
 	--background-contrast-color: black;
-	--error-color: red;
+	--error-color: #d1293d;
 
 	/* Spacing */
 	--spacing-xsm: 4px;
