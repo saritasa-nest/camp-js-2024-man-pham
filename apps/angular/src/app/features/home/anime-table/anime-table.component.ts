@@ -17,10 +17,10 @@ import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeTableComponent {
-	/** Anime response observable. */
+	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
-	private readonly animeService: AnimeService = inject(AnimeService);
+	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
 		this.animePage$ = this.animeService.getAllAnime();

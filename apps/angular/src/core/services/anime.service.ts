@@ -28,5 +28,4 @@ export class AnimeService {
 			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
 		);
 	}
-
 }

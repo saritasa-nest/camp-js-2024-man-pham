@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { AnimeTableComponent } from './anime-table/anime-table.component';
 
-/** Example component. */
+/** Home component. */
 @Component({
 	selector: 'camp-home',
 	templateUrl: './home.component.html',
