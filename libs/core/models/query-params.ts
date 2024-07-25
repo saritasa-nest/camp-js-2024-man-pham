@@ -1,3 +1,5 @@
+import { AnimeType } from './anime-type';
+
 /** Anime query params . */
 export namespace AnimeQueryParams {
 
@@ -26,12 +28,12 @@ export namespace AnimeQueryParams {
 	};
 
 	/** Anime Type. */
-	export type AnimeType = {
+	export type Type = {
 
 		/** Order. */
-		readonly animeType: string;
+		readonly type: string;
 	};
 
 	/** Anime query params dto. */
-	export type Combined = Search & Pagination & Sort & AnimeType;
+	export type Combined = Search & Pagination & Sort & Type;
 }

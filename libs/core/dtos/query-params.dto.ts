@@ -26,12 +26,12 @@ export namespace AnimeQueryParamsDto {
 	};
 
 	/** Anime Type. */
-	export type AnimeType = {
+	export type Type = {
 
 		/** Order. */
 		readonly type: string;
 	};
 
 	/** Anime query params dto. */
-	export type Combined = Search & Pagination & Sort & AnimeType;
+	export type Combined = Search & Pagination & Sort & Type;
 }

@@ -5,7 +5,7 @@ import { AnimeQueryParamsDto } from '../dtos/query-params.dto';
 
 /** Mapper for filter params. */
 @Injectable({ providedIn: 'root' })
-export class BaseFilterParamsMapper {
+export class AnimeQueryParamsMapper {
 
 	/** @inheritdoc */
 	public mapPaginationOptionsToDto(model: AnimeQueryParams.Pagination): AnimeQueryParamsDto.Pagination {
@@ -30,9 +30,9 @@ export class BaseFilterParamsMapper {
 	}
 
 	/** @inheritdoc */
-	public mapTypeOptionToDto(model: AnimeQueryParams.AnimeType): AnimeQueryParamsDto.AnimeType {
+	public mapTypeOptionToDto(model: AnimeQueryParams.Type): AnimeQueryParamsDto.Type {
 		return {
-			type: model.animeType,
+			type: model.type,
 		};
 	}
 
