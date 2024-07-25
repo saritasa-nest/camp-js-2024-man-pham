@@ -1,5 +1,3 @@
-import { AnimeType } from './anime-type';
-
 /** Anime query params . */
 export namespace AnimeQueryParams {
 
