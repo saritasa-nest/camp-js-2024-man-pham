@@ -29,6 +29,7 @@
 	--spacing-xxl: 40px;
 
 	/* Font size */
+	--font-size-sm: 0.775rem;
 	--font-size-md: 1rem;
 	--font-size-lg: 1.125rem;
 	--font-size-xl: 1.25rem;
@@ -49,6 +50,8 @@
 	--container-max-width: 1280px;
 
 	/* Border Radius */
+	--border-radius-xsm: 4px;
+	--border-radius-sm: 8px;
 	--border-radius-md: 16px;
 	--border-radius-lg: 24px;
 }
