@@ -14,6 +14,7 @@ type QueryParams = {
 	type?: AnimeType;
 };
 
+/** Service for handling URL query params. */
 @Injectable({
 	providedIn: 'root',
 })
@@ -24,7 +25,7 @@ export class UrlParamsService {
 
 	private constructor() {}
 
-	// Convert query parameters to AnimeQueryParams.Combined type
+	/** Convert the params from URL. */
 	public getCombinedQueryParams(): Observable<AnimeQueryParams.Combined> {
 		return this.route.queryParamMap.pipe(
 			map(params => {

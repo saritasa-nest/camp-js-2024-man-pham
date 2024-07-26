@@ -30,13 +30,17 @@ export class AnimeService {
 
 	private readonly urlParamsService = inject(UrlParamsService);
 
-	public fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
+	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
 		const params = this.httpParamsService.getHttpParams(queryParams);
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
 			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
 		);
 	}
 
+	/**
+	 * Get the anime page.
+	 * @returns The anime page.
+	 */
 	public getAnime(): Observable<Pagination<Anime>> {
 		return this.urlParamsService.getCombinedQueryParams().pipe(
 			switchMap(queryParams => this.fetchAnimeWithParams(queryParams)),

@@ -23,7 +23,7 @@ export class AnimeTableComponent {
 	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
-		this.animePage$ = this.animeService.getAllAnime();
+		this.animePage$ = this.animeService.getAnime();
 	}
 
 	/** Displayed columns. */
