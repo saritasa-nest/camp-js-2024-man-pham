@@ -14,19 +14,19 @@ export class HttpParamsService {
 	private buildHttpParamsFromDto(params: AnimeQueryParamsDto.Combined): HttpParams {
 		let httpParams = new HttpParams();
 
-		if ('search' in params) {
+		if (params.search !== undefined) {
 			httpParams = httpParams.set('search', params.search);
 		}
-		if ('offset' in params) {
+		if (params.offset !== undefined) {
 			httpParams = httpParams.set('offset', params.offset.toString());
 		}
-		if ('limit' in params) {
+		if (params.limit !== undefined) {
 			httpParams = httpParams.set('limit', params.limit.toString());
 		}
-		if ('sortFields' in params) {
+		if (params.ordering !== undefined) {
 			httpParams = httpParams.set('ordering', params.ordering);
 		}
-		if ('type' in params) {
+		if (params.type !== undefined) {
 			httpParams = httpParams.set('type', params.type);
 		}
 		return httpParams;
