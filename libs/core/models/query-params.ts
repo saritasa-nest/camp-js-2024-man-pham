@@ -7,33 +7,33 @@ export namespace AnimeQueryParams {
 	export type Search = {
 
 		/** Search filter. */
-		readonly search: string;
+		search: string | null;
 	};
 
 	/** Pagination. */
 	export type Pagination = {
 
 		/** Offset. */
-		readonly pageNumber: number;
+		pageNumber: number | null;
 
 		/** Page size. */
-		readonly pageSize: number;
+		pageSize: number | null;
 	};
 
 	/** Sort. */
 	export type Sort = {
 
 		/** Order. */
-		readonly sortFields: string[];
+		sortFields: string[] | null;
 	};
 
 	/** Anime Type. */
 	export type Type = {
 
 		/** Order. */
-		readonly type: AnimeType;
+		type: AnimeType | null;
 	};
 
-	/** Anime query params dto. */
+	/** Anime query params. */
 	export type Combined = Search & Pagination & Sort & Type;
 }

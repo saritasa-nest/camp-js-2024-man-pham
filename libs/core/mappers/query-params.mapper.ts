@@ -21,32 +21,44 @@ const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 export class AnimeQueryParamsMapper {
 
 	/** @inheritdoc */
-	public mapPaginationOptionsToDto(model: AnimeQueryParams.Pagination): AnimeQueryParamsDto.Pagination {
-		return {
-			offset: model.pageNumber * model.pageSize,
-			limit: model.pageSize,
-		};
+	public mapPaginationOptionsToDto(model: AnimeQueryParams.Pagination): AnimeQueryParamsDto.Pagination | null {
+		if (model.pageNumber && model.pageSize) {
+			return {
+				offset: model.pageNumber * model.pageSize,
+				limit: model.pageSize,
+			};
+		}
+		return null ;
 	}
 
 	/** @inheritdoc */
-	public mapSearchOptionsToDto(model: AnimeQueryParams.Search): AnimeQueryParamsDto.Search {
-		return {
-			search: model.search,
-		};
+	public mapSearchOptionsToDto(model: AnimeQueryParams.Search): AnimeQueryParamsDto.Search | null {
+		if (model.search) {
+			return {
+				search: model.search,
+			};
+		}
+		return null;
 	}
 
 	/** @inheritdoc */
-	public mapOrderingOptionToDto(model: AnimeQueryParams.Sort): AnimeQueryParamsDto.Sort {
-		return {
-			ordering: model.sortFields.join(','),
-		};
+	public mapOrderingOptionToDto(model: AnimeQueryParams.Sort): AnimeQueryParamsDto.Sort | null {
+		if (model.sortFields) {
+			return {
+				ordering: model.sortFields.join(','),
+			};
+		}
+		return null;
 	}
 
 	/** @inheritdoc */
-	public mapTypeOptionToDto(model: AnimeQueryParams.Type): AnimeQueryParamsDto.Type {
-		return {
-			type: MAP_ANIME_TYPE_TO_DTO[model.type],
-		};
+	public mapTypeOptionToDto(model: AnimeQueryParams.Type): AnimeQueryParamsDto.Type | null {
+		if (model.type) {
+			return {
+				type: MAP_ANIME_TYPE_TO_DTO[model.type],
+			};
+		}
+		return null;
 	}
 
 	/** @inheritdoc */
