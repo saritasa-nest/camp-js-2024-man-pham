@@ -15,8 +15,7 @@ export class NoEmptyPipe implements PipeTransform {
 	 */
 	public transform(value: string | number | null): string | number {
 		const isValueNaN = typeof value === 'number' && isNaN(value);
-		const isValueAnEmptyString = typeof value === 'string' && value === '';
-		if (value == null || isValueAnEmptyString || isValueNaN) {
+		if (value == null || value === '' || isValueNaN) {
 			return NULL_VALUE_FALLBACK_LABEL;
 		}
 		return value;
