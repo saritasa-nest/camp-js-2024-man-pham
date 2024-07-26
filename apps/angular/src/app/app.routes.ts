@@ -4,7 +4,7 @@ import { Routes } from '@angular/router';
 export const appRoutes: Routes = [
 	{
 		path: '',
-		loadComponent: () =>
-			import('./features/home/home.component').then(c => c.HomeComponent),
+		loadChildren: () =>
+			import('./features/home/home.routes').then(c => c.homeRoutes),
 	},
 ];

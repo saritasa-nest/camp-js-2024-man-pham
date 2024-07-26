@@ -1,0 +1,3 @@
+<ng-container *ngIf="animePage$ | async as animePage">
+	<camp-anime-table [animeList]="animePage.items"></camp-anime-table>
+</ng-container>

@@ -1,9 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
-import { Observable } from 'rxjs';
-import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 
@@ -17,14 +14,7 @@ import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeTableComponent {
-	/** Anime page observable. */
-	protected readonly animePage$: Observable<Pagination<Anime>>;
-
-	private readonly animeService = inject(AnimeService);
-
-	public constructor() {
-		this.animePage$ = this.animeService.getAnime();
-	}
+	@Input() public animeList: ReadonlyArray<Anime> = [];
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: string[] = ['image', 'title_eng', 'title_jpn', 'aired.start', 'type', 'status'];
