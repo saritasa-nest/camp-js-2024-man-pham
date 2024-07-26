@@ -5,14 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { AnimeQueryParams } from '@js-camp/core/models/query-params';
 import { AnimeType } from '@js-camp/core/models/anime-type';
-
-type QueryParams = {
-	search?: string;
-	pageNumber?: string;
-	pageSize?: string;
-	sortFields?: string[];
-	type?: AnimeType;
-};
+import { UrlQueryParams } from '@js-camp/core/models/url-query-params';
 
 /** Service for handling URL query params. */
 @Injectable({
@@ -54,7 +47,7 @@ export class UrlParamsService {
 
 	// Set query parameters from AnimeQueryParams.Combined type
 	public setCombinedQueryParams(params: AnimeQueryParams.Combined): void {
-		const queryParams: QueryParams = {};
+		const queryParams: UrlQueryParams = {};
 
 		if (params.search != null) {
 			queryParams.search = params.search;
