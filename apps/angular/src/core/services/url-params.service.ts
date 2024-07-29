@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import { AnimeQueryParams } from '@js-camp/core/models/query-params';
 import { AnimeType } from '@js-camp/core/models/anime-type';
-import { UrlQueryParams } from '@js-camp/core/models/url-query-params';
 
 /** Service for handling URL query params. */
 @Injectable({
@@ -27,12 +26,8 @@ export class UrlParamsService {
 				if (params.has('search')) {
 					combinedParams.search = params.get('search');
 				}
-				if (params.has('pageNumber')) {
-					combinedParams.pageNumber = Number(params.get('pageNumber'));
-				}
-				if (params.has('pageSize')) {
-					combinedParams.pageSize = Number(params.get('pageSize'));
-				}
+				combinedParams.pageNumber = params.has('pageNumber') ? Number(params.get('pageNumber')) : 1;
+				combinedParams.pageSize = params.has('pageSize') ? Number(params.get('pageSize')) : 10;
 				if (params.has('sortFields')) {
 					combinedParams.sortFields = params.getAll('sortFields');
 				}
@@ -45,29 +40,22 @@ export class UrlParamsService {
 		);
 	}
 
-	// Set query parameters from AnimeQueryParams.Combined type
-	public setCombinedQueryParams(params: AnimeQueryParams.Combined): void {
-		const queryParams: UrlQueryParams = {};
+	/** Get current URL parameters. */
+	public getCurrentParams(): AnimeQueryParams.Combined {
+		return this.route.snapshot.queryParams as AnimeQueryParams.Combined;
+	}
 
-		if (params.search != null) {
-			queryParams.search = params.search;
-		}
-		if (params.pageNumber != null) {
-			queryParams.pageNumber = params.pageNumber.toString();
-		}
-		if (params.pageSize != null) {
-			queryParams.pageSize = params.pageSize.toString();
-		}
-		if (params.sortFields != null) {
-			queryParams.sortFields = params.sortFields;
-		}
-		if (params.type != null) {
-			queryParams.type = params.type;
-		}
+	/**
+	 * Set new query params and navigate.
+	 * @param params The given query params.
+	 */
+	public setCombinedQueryParams(params: Partial<AnimeQueryParams.Combined>): void {
+		const currentParams = { ...this.route.snapshot.queryParams };
+		const newParams = { ...currentParams, ...params };
 
 		this.router.navigate([], {
 			relativeTo: this.route,
-			queryParams,
+			queryParams: newParams,
 			queryParamsHandling: 'merge',
 		});
 	}
