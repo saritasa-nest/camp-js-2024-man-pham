@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, Observable, switchMap } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
@@ -45,6 +45,21 @@ export class AnimeService {
 		return this.urlParamsService.getCombinedQueryParams().pipe(
 			switchMap(queryParams => this.fetchAnimeWithParams(queryParams)),
 		);
+	}
+
+	/**
+	 * Update the url with pagination params.
+	 * @param pageNumber The page number which is going to be navigated.
+	 * @param pageSize The amount of items within the page.
+	 */
+	public updatePageParams(pageNumber: number, pageSize: number): void {
+		const newParams: AnimeQueryParams.Pagination = {
+			...this.urlParamsService.getCurrentParams(),
+			pageNumber,
+			pageSize,
+		};
+
+		this.urlParamsService.setCombinedQueryParams(newParams);
 	}
 
 }
