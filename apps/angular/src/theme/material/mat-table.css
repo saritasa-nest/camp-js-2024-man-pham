@@ -4,6 +4,10 @@
 	text-align: center;
 }
 
+.anime-table .mat-mdc-header-cell .mat-sort-header-container {
+	justify-content: center;
+}
+
 .anime-table .mat-mdc-header-row {
 	background-color: #f7f9fc;
 	font-weight: var(--font-weight-semibold);
