@@ -14,6 +14,7 @@ import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeTableComponent {
+	/** Anime list.*/
 	@Input() public animeList: ReadonlyArray<Anime> = [];
 
 	/** Displayed columns. */
