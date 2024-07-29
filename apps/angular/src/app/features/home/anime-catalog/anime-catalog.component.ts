@@ -34,9 +34,8 @@ export class AnimeCatalogComponent {
 	/**
 	 * Event handler for page changing.
 	 * @param event The page event.
-	 * NOTE: event.pageIndex + 1 used to bypass the initial index of the Mat Paginator which is 0.
 	 */
 	public onPageChange(event: PageEvent): void {
-		this.animeService.updatePageParams(event.pageIndex + 1, event.pageSize);
+		this.animeService.updatePageParams(event.pageIndex, event.pageSize);
 	}
 }

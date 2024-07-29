@@ -26,7 +26,7 @@ export class UrlParamsService {
 				if (params.has('search')) {
 					combinedParams.search = params.get('search');
 				}
-				combinedParams.pageNumber = params.has('pageNumber') ? Number(params.get('pageNumber')) : 1;
+				combinedParams.pageNumber = params.has('pageNumber') ? Number(params.get('pageNumber')) : 0;
 				combinedParams.pageSize = params.has('pageSize') ? Number(params.get('pageSize')) : 10;
 				if (params.has('sortFields')) {
 					combinedParams.sortFields = params.getAll('sortFields');
