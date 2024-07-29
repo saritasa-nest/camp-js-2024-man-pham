@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Pagination } from '@js-camp/core/models/pagination';
@@ -21,14 +21,29 @@ import { AnimePaginatorComponent } from './components/anime-paginator/anime-pagi
 	styleUrl: './anime-catalog.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeCatalogComponent {
+export class AnimeCatalogComponent implements OnInit {
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
+
+	protected pageSize: number | null = null;
+
+	protected pageNumber: number | null = null;
 
 	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
 		this.animePage$ = this.animeService.getAnime();
+	}
+
+	public ngOnInit(): void {
+		// Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+		// Add 'implements OnInit' to the class.
+		this.animeService.pageNumber$.subscribe(pageNumber => {
+			this.pageNumber = pageNumber;
+		});
+		this.animeService.pageSize$.subscribe(pageSize => {
+			this.pageSize = pageSize;
+		});
 	}
 
 	/**

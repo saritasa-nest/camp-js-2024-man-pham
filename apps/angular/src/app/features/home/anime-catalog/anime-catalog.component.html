@@ -1,5 +1,5 @@
 <ng-container *ngIf="animePage$ | async as animePage">
 	<camp-anime-table [animeList]="animePage.items"></camp-anime-table>
-	<camp-anime-paginator [totalCount]="animePage.totalCount"
+	<camp-anime-paginator [totalCount]="animePage.totalCount" [pageSize]="pageSize" [pageNumber]="pageNumber"
 		(pageChange)="onPageChange($event)"></camp-anime-paginator>
 </ng-container>

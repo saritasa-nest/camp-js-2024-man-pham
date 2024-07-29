@@ -17,7 +17,10 @@ export class AnimePaginatorComponent {
 	protected pageSizeOptions: readonly number[] = [5, 10, 20];
 
 	/** Amount of items per page. */
-	protected readonly pageSize: number = 10;
+	@Input() public pageSize: number | null = null;
+
+	/** Total amount of fetched items. */
+	@Input() public pageNumber: number | null = null;
 
 	/** Total amount of fetched items. */
 	@Input() public totalCount = 0;

@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
@@ -30,7 +30,18 @@ export class AnimeService {
 
 	private readonly urlParamsService = inject(UrlParamsService);
 
+	private pageNumberSubject$ = new BehaviorSubject<number | null>(1);
+
+	private pageSizeSubject$ = new BehaviorSubject<number | null>(10);
+
+	public readonly pageSize$ = this.pageSizeSubject$.asObservable();
+
+	public readonly pageNumber$ = this.pageNumberSubject$.asObservable();
+
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
+		this.pageNumberSubject$.next(queryParams.pageNumber);
+		this.pageSizeSubject$.next(queryParams.pageSize);
+
 		const params = this.httpParamsService.getHttpParams(queryParams);
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
 			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
