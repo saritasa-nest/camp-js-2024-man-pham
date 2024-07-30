@@ -1,6 +1,7 @@
+
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, first, map, Observable, switchMap, tap } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
@@ -30,25 +31,47 @@ export class AnimeService {
 
 	private readonly urlParamsService = inject(UrlParamsService);
 
-	private readonly pageNumberSubject$ = new BehaviorSubject<number | null>(null);
-
-	private readonly pageSizeSubject$ = new BehaviorSubject<number | null>(null);
-
-	private readonly searchSubject$ = new BehaviorSubject<string | null>(null);
+	private readonly queryParamsSubject$ = new BehaviorSubject<AnimeQueryParams.Combined>({
+		pageNumber: null,
+		pageSize: null,
+		search: null,
+		sortFields: null,
+		type: null,
+	});
 
 	/** Page number observable. */
-	public readonly pageNumber$ = this.pageNumberSubject$.asObservable();
+	public readonly pageNumber$ = this.queryParamsSubject$.pipe(
+		map(params => params.pageNumber),
+		distinctUntilChanged(),
+	);
 
 	/** Page size observable. */
-	public readonly pageSize$ = this.pageSizeSubject$.asObservable();
+	public readonly pageSize$ = this.queryParamsSubject$.pipe(
+		map(params => params.pageSize),
+		distinctUntilChanged(),
+	);
 
 	/** Search observable. */
-	public readonly search$ = this.searchSubject$.asObservable();
+	public readonly search$ = this.queryParamsSubject$.pipe(
+		map(params => params.search),
+		distinctUntilChanged(),
+	);
+
+	/**
+	 * Update query params.
+	 * @param newParams The new query params.
+	 */
+	private updateQueryParams(newParams: Partial<AnimeQueryParams.Combined>): void {
+		this.queryParamsSubject$.pipe(
+			first(),
+			tap(currentParams => {
+				this.queryParamsSubject$.next({ ...currentParams, ...newParams });
+			}),
+		).subscribe();
+	}
 
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
-		this.pageNumberSubject$.next(queryParams.pageNumber);
-		this.pageSizeSubject$.next(queryParams.pageSize);
-		this.searchSubject$.next(queryParams.search);
+		this.updateQueryParams(queryParams);
 
 		const params = this.httpParamsService.getHttpParams(queryParams);
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
@@ -66,17 +89,24 @@ export class AnimeService {
 		);
 	}
 
+	private updateUrlParams(newParams: Partial<AnimeQueryParams.Combined>, resetPagination = false): void {
+		const currentParams = this.urlParamsService.getCurrentParams();
+
+		const combinedParams: AnimeQueryParams.Combined = {
+			...currentParams,
+			...(resetPagination ? { pageNumber: null, pageSize: null } : {}),
+			...newParams,
+		};
+
+		this.urlParamsService.setCombinedQueryParams(combinedParams);
+	}
+
 	/**
 	 * Update the url with pagination params.
 	 * @param pageParams The pagination query params.
 	 */
 	public updatePageParams(pageParams: AnimeQueryParams.Pagination): void {
-		const newParams: AnimeQueryParams.Combined = {
-			...this.urlParamsService.getCurrentParams(),
-			...pageParams,
-		};
-
-		this.urlParamsService.setCombinedQueryParams(newParams);
+		this.updateUrlParams(pageParams);
 	}
 
 	/**
@@ -84,14 +114,7 @@ export class AnimeService {
 	 * @param typeParam The type param.
 	 */
 	public updateTypeParams(typeParam: AnimeQueryParams.Type): void {
-		const newParams: AnimeQueryParams.Combined = {
-			...this.urlParamsService.getCurrentParams(),
-			pageNumber: null,
-			pageSize: null,
-			...typeParam,
-		};
-
-		this.urlParamsService.setCombinedQueryParams(newParams);
+		this.updateUrlParams(typeParam, true);
 	}
 
 	/**
@@ -99,13 +122,9 @@ export class AnimeService {
 	 * @param searchParam The search param.
 	 */
 	public updateSearchParam(searchParam: AnimeQueryParams.Search): void {
-		const newParams: AnimeQueryParams.Combined = {
-			...this.urlParamsService.getCurrentParams(),
-			pageNumber: null,
-			pageSize: null,
-			...searchParam,
+		const searchParams = {
+			search: searchParam.search !== '' ? searchParam.search : null,
 		};
-
-		this.urlParamsService.setCombinedQueryParams(newParams);
+		this.updateUrlParams(searchParams, true);
 	}
 }

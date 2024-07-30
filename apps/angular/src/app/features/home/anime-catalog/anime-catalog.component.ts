@@ -73,6 +73,6 @@ export class AnimeCatalogComponent implements OnInit {
 	}
 
 	protected onSearch(event: string): void {
-		this.animeService.updateSearchParam({ search: event !== '' ? event : null });
+		this.animeService.updateSearchParam({ search: event });
 	}
 }
