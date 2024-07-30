@@ -27,7 +27,7 @@ export class AnimeTableComponent {
 	}
 
 	/** Displayed columns. */
-	protected readonly displayedColumns: string[] = ['image', 'title_eng', 'title_jpn', 'aired.start', 'type', 'status'];
+	protected readonly displayedColumns: string[] = ['image', 'titleEng', 'titleJpn', 'airedStartDate', 'type', 'status'];
 
 	/**
 	 * Track anime by its id.
