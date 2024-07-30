@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { AnimeType } from '@js-camp/core/models/anime-type';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'camp-anime-selector-form',
@@ -18,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 		FormsModule,
 		MatButtonModule,
 		MatSelectModule,
+		MatIconModule,
 	],
 	templateUrl: './anime-selector-form.component.html',
 	styleUrl: './anime-selector-form.component.css',

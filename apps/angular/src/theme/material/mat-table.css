@@ -10,6 +10,7 @@
 
 .anime-table .mat-mdc-header-row {
 	background-color: #f7f9fc;
+	text-transform: uppercase;
 	font-weight: var(--font-weight-semibold);
 	color: #687182;
 }

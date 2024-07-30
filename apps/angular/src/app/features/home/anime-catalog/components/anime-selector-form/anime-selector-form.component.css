@@ -1,0 +1,5 @@
+.filter-form {
+	display: flex;
+	gap: var(--spacing-md);
+	padding: var(--spacing-md);
+}
