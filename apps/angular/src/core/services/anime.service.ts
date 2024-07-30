@@ -80,7 +80,8 @@ export class AnimeService {
 	public updateTypeParams(typeParam: AnimeQueryParams.Type): void {
 		const newParams: AnimeQueryParams.Combined = {
 			...this.urlParamsService.getCurrentParams(),
-			pageNumber: 0,
+			pageNumber: null,
+			pageSize: null,
 			...typeParam,
 		};
 
