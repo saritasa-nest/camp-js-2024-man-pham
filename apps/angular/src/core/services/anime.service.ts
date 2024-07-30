@@ -30,13 +30,9 @@ export class AnimeService {
 
 	private readonly urlParamsService = inject(UrlParamsService);
 
-	private pageNumberSubject$ = new BehaviorSubject<number | null>(1);
+	public readonly pageNumberSubject$ = new BehaviorSubject<number | null>(1);
 
-	private pageSizeSubject$ = new BehaviorSubject<number | null>(10);
-
-	public readonly pageSize$ = this.pageSizeSubject$.asObservable();
-
-	public readonly pageNumber$ = this.pageNumberSubject$.asObservable();
+	public readonly pageSizeSubject$ = new BehaviorSubject<number | null>(10);
 
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
 		this.pageNumberSubject$.next(queryParams.pageNumber);
@@ -60,14 +56,12 @@ export class AnimeService {
 
 	/**
 	 * Update the url with pagination params.
-	 * @param pageNumber The page number which is going to be navigated.
-	 * @param pageSize The amount of items within the page.
+	 * @param pageParams The pagination query params.
 	 */
-	public updatePageParams(pageNumber: number, pageSize: number): void {
-		const newParams: AnimeQueryParams.Pagination = {
+	public updatePageParams(pageParams: AnimeQueryParams.Pagination): void {
+		const newParams: AnimeQueryParams.Combined = {
 			...this.urlParamsService.getCurrentParams(),
-			pageNumber,
-			pageSize,
+			...pageParams,
 		};
 
 		this.urlParamsService.setCombinedQueryParams(newParams);
