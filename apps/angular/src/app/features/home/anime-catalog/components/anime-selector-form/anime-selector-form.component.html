@@ -1,0 +1,8 @@
+<mat-form-field class="main__type-select" appearance="fill">
+	<mat-label>Anime type</mat-label>
+	<mat-select [(value)]="selectedType" (selectionChange)="onSelectionChange($event)">
+		@for (option of types; track option) {
+		<mat-option [value]="option">{{ option }}</mat-option>
+		}
+	</mat-select>
+</mat-form-field>
