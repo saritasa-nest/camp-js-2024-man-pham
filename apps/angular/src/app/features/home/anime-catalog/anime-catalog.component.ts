@@ -25,8 +25,10 @@ export class AnimeCatalogComponent implements OnInit {
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
+	/** Page size. */
 	protected pageSize: number | null = null;
 
+	/** Page number. */
 	protected pageNumber: number | null = null;
 
 	private readonly animeService = inject(AnimeService);
@@ -35,9 +37,8 @@ export class AnimeCatalogComponent implements OnInit {
 		this.animePage$ = this.animeService.getAnime();
 	}
 
+	/** Subscribe the page number and page size to pass them to the paginator. */
 	public ngOnInit(): void {
-		// Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-		// Add 'implements OnInit' to the class.
 		this.animeService.pageNumber$.subscribe(pageNumber => {
 			this.pageNumber = pageNumber;
 		});
@@ -51,6 +52,6 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The page event.
 	 */
 	public onPageChange(event: PageEvent): void {
-		this.animeService.updatePageParams(event.pageIndex, event.pageSize);
+		this.animeService.updatePageParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 }

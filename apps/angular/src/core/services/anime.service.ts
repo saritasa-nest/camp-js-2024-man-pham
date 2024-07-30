@@ -30,9 +30,15 @@ export class AnimeService {
 
 	private readonly urlParamsService = inject(UrlParamsService);
 
-	public readonly pageNumberSubject$ = new BehaviorSubject<number | null>(1);
+	private readonly pageNumberSubject$ = new BehaviorSubject<number | null>(null);
 
-	public readonly pageSizeSubject$ = new BehaviorSubject<number | null>(10);
+	private readonly pageSizeSubject$ = new BehaviorSubject<number | null>(null);
+
+	/** Page number observable. */
+	public readonly pageNumber$ = this.pageNumberSubject$.asObservable();
+
+	/** Page size observable. */
+	public readonly pageSize$ = this.pageSizeSubject$.asObservable();
 
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
 		this.pageNumberSubject$.next(queryParams.pageNumber);
