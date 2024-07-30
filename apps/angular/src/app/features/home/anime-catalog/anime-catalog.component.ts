@@ -9,14 +9,19 @@ import { Observable } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 
+import { MatSelectChange } from '@angular/material/select';
+
+import { AnimeType } from '@js-camp/core/models/anime-type';
+
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
+import { AnimeSelectorFormComponent } from './components/anime-selector-form/anime-selector-form.component';
 
 /** Anime catalog. */
 @Component({
 	selector: 'camp-anime-catalog',
 	standalone: true,
-	imports: [CommonModule, AnimeTableComponent, AnimePaginatorComponent],
+	imports: [CommonModule, AnimeTableComponent, AnimePaginatorComponent, AnimeSelectorFormComponent],
 	templateUrl: './anime-catalog.component.html',
 	styleUrl: './anime-catalog.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,5 +58,9 @@ export class AnimeCatalogComponent implements OnInit {
 	 */
 	public onPageChange(event: PageEvent): void {
 		this.animeService.updatePageParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
+	}
+
+	protected onSelectionChange(event: AnimeType): void {
+		this.animeService.updateTypeParams({ type: event });
 	}
 }
