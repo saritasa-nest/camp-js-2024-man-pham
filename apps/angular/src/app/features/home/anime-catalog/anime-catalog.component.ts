@@ -36,6 +36,9 @@ export class AnimeCatalogComponent implements OnInit {
 	/** Page number. */
 	protected pageNumber: number | null = null;
 
+	/** Search. */
+	protected search = '';
+
 	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
@@ -50,6 +53,11 @@ export class AnimeCatalogComponent implements OnInit {
 		this.animeService.pageSize$.subscribe(pageSize => {
 			this.pageSize = pageSize;
 		});
+		this.animeService.search$.subscribe(search => {
+			if (search) {
+				this.search = search;
+			}
+		});
 	}
 
 	/**
@@ -62,5 +70,9 @@ export class AnimeCatalogComponent implements OnInit {
 
 	protected onSelectionChange(event: AnimeType): void {
 		this.animeService.updateTypeParams({ type: event });
+	}
+
+	protected onSearch(event: string): void {
+		this.animeService.updateSearchParam({ search: event !== '' ? event : null });
 	}
 }

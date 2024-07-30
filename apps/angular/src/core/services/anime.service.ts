@@ -34,15 +34,21 @@ export class AnimeService {
 
 	private readonly pageSizeSubject$ = new BehaviorSubject<number | null>(null);
 
+	private readonly searchSubject$ = new BehaviorSubject<string | null>(null);
+
 	/** Page number observable. */
 	public readonly pageNumber$ = this.pageNumberSubject$.asObservable();
 
 	/** Page size observable. */
 	public readonly pageSize$ = this.pageSizeSubject$.asObservable();
 
+	/** Search observable. */
+	public readonly search$ = this.searchSubject$.asObservable();
+
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
 		this.pageNumberSubject$.next(queryParams.pageNumber);
 		this.pageSizeSubject$.next(queryParams.pageSize);
+		this.searchSubject$.next(queryParams.search);
 
 		const params = this.httpParamsService.getHttpParams(queryParams);
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
@@ -83,6 +89,21 @@ export class AnimeService {
 			pageNumber: null,
 			pageSize: null,
 			...typeParam,
+		};
+
+		this.urlParamsService.setCombinedQueryParams(newParams);
+	}
+
+	/**
+	 * Update the url with type param.
+	 * @param searchParam The search param.
+	 */
+	public updateSearchParam(searchParam: AnimeQueryParams.Search): void {
+		const newParams: AnimeQueryParams.Combined = {
+			...this.urlParamsService.getCurrentParams(),
+			pageNumber: null,
+			pageSize: null,
+			...searchParam,
 		};
 
 		this.urlParamsService.setCombinedQueryParams(newParams);
