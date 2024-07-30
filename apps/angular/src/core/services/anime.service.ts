@@ -73,4 +73,17 @@ export class AnimeService {
 		this.urlParamsService.setCombinedQueryParams(newParams);
 	}
 
+	/**
+	 * Update the url with type param.
+	 * @param typeParam The type param.
+	 */
+	public updateTypeParams(typeParam: AnimeQueryParams.Type): void {
+		const newParams: AnimeQueryParams.Combined = {
+			...this.urlParamsService.getCurrentParams(),
+			pageNumber: 0,
+			...typeParam,
+		};
+
+		this.urlParamsService.setCombinedQueryParams(newParams);
+	}
 }
