@@ -11,6 +11,12 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeType } from '@js-camp/core/models/anime-type';
 
+import { ANIME_FILTER_PARAMS_PROVIDERS, ANIME_FILTER_PARAMS_TOKEN } from '@js-camp/angular/core/providers/anime-filter-params.provider';
+
+import { AnimeQueryParamsService } from '@js-camp/angular/core/services/anime-query-params.service';
+
+import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
+
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
 import { AnimeSelectorFormComponent } from './components/anime-selector-form/anime-selector-form.component';
@@ -23,38 +29,28 @@ import { AnimeSelectorFormComponent } from './components/anime-selector-form/ani
 	templateUrl: './anime-catalog.component.html',
 	styleUrl: './anime-catalog.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [...ANIME_FILTER_PARAMS_PROVIDERS],
 })
 export class AnimeCatalogComponent implements OnInit {
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
-	/** Page size. */
-	protected pageSize: number | null = null;
+	private readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
 
-	/** Page number. */
-	protected pageNumber: number | null = null;
+	private readonly animeQueryParams = inject(AnimeQueryParamsService);
 
-	/** Search. */
-	protected search = '';
+	protected filterParams: AnimeFilterParams.Combined | null = null;
 
 	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
-		this.animePage$ = this.animeService.getAnime();
+		this.animePage$ = this.animeService.getAnime2(this.filter$);
 	}
 
 	/** Subscribe the page number and page size to pass them to the paginator. */
 	public ngOnInit(): void {
-		this.animeService.pageNumber$.subscribe(pageNumber => {
-			this.pageNumber = pageNumber;
-		});
-		this.animeService.pageSize$.subscribe(pageSize => {
-			this.pageSize = pageSize;
-		});
-		this.animeService.search$.subscribe(search => {
-			if (search) {
-				this.search = search;
-			}
+		this.filter$.subscribe(params => {
+			this.filterParams = params;
 		});
 	}
 
@@ -63,7 +59,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The page event.
 	 */
 	public onPageChange(event: PageEvent): void {
-		this.animeService.updatePageParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
+		this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 
 	/**
@@ -71,7 +67,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The selected type.
 	 */
 	protected onSelectionChange(event: AnimeType): void {
-		this.animeService.updateTypeParams({ type: event });
+		this.animeQueryParams.appendParamsAndResetPageNumber({ type: event });
 	}
 
 	/**
@@ -79,6 +75,6 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The searching input.
 	 */
 	protected onSearch(event: string): void {
-		this.animeService.updateSearchParam({ search: event });
+		this.animeQueryParams.appendParamsAndResetPageNumber({ search: event });
 	}
 }
