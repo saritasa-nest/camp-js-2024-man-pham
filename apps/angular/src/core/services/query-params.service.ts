@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-const DEFAULT_PAGE_NUMBER = 0;
-
 /** Query param service.*/
 @Injectable({
 	providedIn: 'root',
@@ -81,7 +79,7 @@ export class QueryParamsService {
 	 * Append provide query params and reset page number params to the URL.
 	 * @param params Params to append.
 	 */
-	public appendParamsAndResetPageNumber(params: Record<string, any>): void {
-		return this.append({ ...params, pageNumber: DEFAULT_PAGE_NUMBER });
+	public appendParamsAndResetPageNumber(params: Record<string, any>, defaultPageNumber: number): void {
+		return this.append({ ...params, pageNumber: defaultPageNumber });
 	}
 }

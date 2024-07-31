@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { AnimeFilterParams } from '../models/anime-filter-params';
 import { TMapper } from '../models/mapper';
+import { DEFAULT_PAGINATION } from '../contants/pagination';
 
 export type AnimeQueryParams2 = Partial<Omit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
 	pageNumber: string | null;
@@ -18,8 +19,8 @@ export class AnimeQueryParamsMapper2 implements TMapper<AnimeQueryParams2, Anime
 	public fromDto(dto: AnimeQueryParams2): AnimeFilterParams.Combined {
 		return {
 			type: dto.type ?? null,
-			pageNumber: dto.pageNumber ? Number(dto.pageNumber) : 0,
-			pageSize: dto.pageSize ? Number(dto.pageSize) : 0,
+			pageNumber: dto.pageNumber ? Number(dto.pageNumber) : DEFAULT_PAGINATION.pageNumber,
+			pageSize: dto.pageSize ? Number(dto.pageSize) : DEFAULT_PAGINATION.pageSize,
 			search: dto.search ?? null,
 			sortFields: dto.sortFields ?? null,
 		};

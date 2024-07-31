@@ -4,6 +4,8 @@ import { AnimeQueryParamsMapper2 } from '@js-camp/core/mappers/anime-query-param
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
+import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
+
 import { QueryParamsService } from './query-params.service';
 
 /** Jobs query params service. */
@@ -29,6 +31,6 @@ export class JobsQueryParamsService {
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
 		const queryParams = this.animeQueryParams.toDto(params);
-		return this.queryParamsService.appendParamsAndResetPageNumber(queryParams);
+		return this.queryParamsService.appendParamsAndResetPageNumber(queryParams, DEFAULT_PAGINATION.pageNumber);
 	}
 }
