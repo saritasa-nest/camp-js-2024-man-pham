@@ -34,7 +34,7 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 		this.dataSource.sort = this.sort;
 		this.dataSource.sortingDataAccessor = (row: Anime, columnName: string): string | number => {
 			switch (columnName) {
-				case 'aired.startDate': {
+				case 'airedStartDate': {
 					if (row.aired.startDate) {
 						return row.aired.startDate.getTime();
 					}
@@ -56,7 +56,7 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	}
 
 	/** Displayed columns. */
-	protected readonly displayedColumns: string[] = ['image', 'titleEng', 'titleJpn', 'aired.startDate', 'type', 'status'];
+	protected readonly displayedColumns: string[] = ['image', 'titleEng', 'titleJpn', 'airedStartDate', 'type', 'status'];
 
 	/**
 	 * Track anime by its id.
