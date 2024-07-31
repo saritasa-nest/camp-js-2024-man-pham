@@ -52,11 +52,6 @@ const MAP_ANIME_STATUS_TO_DTO: Record<AnimeStatus, AnimeStatusDto> = {
 export class AnimeMapper implements TMapper<AnimeDto, Anime> {
 	private readonly dateTimeMapper = inject(DateTimeMapper);
 
-	private constructor() {
-		this.fromDto = this.fromDto.bind(this);
-		this.toDto = this.toDto.bind(this);
-	}
-
 	/** @inheritdoc */
 	public fromDto(data: AnimeDto): Anime {
 		return new Anime({

@@ -25,7 +25,7 @@ export class AnimeService {
 	/** Return an observable containing the list of anime. */
 	public getAllAnime(): Observable<Pagination<Anime>> {
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list).pipe(
-			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
+			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, animeDto => this.animeMapper.fromDto(animeDto))),
 		);
 	}
 }
