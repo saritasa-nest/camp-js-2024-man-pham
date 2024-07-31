@@ -9,8 +9,6 @@ import { Observable } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 
-import { MatSelectChange } from '@angular/material/select';
-
 import { AnimeType } from '@js-camp/core/models/anime-type';
 
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
@@ -68,10 +66,18 @@ export class AnimeCatalogComponent implements OnInit {
 		this.animeService.updatePageParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 
+	/**
+	 * Event handler for selecting type.
+	 * @param event The selected type.
+	 */
 	protected onSelectionChange(event: AnimeType): void {
 		this.animeService.updateTypeParams({ type: event });
 	}
 
+	/**
+	 * Event handler for searching.
+	 * @param event The searching input.
+	 */
 	protected onSearch(event: string): void {
 		this.animeService.updateSearchParam({ search: event });
 	}
