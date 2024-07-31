@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 
-import { AnimeQueryParams } from '../models/query-params';
 import { AnimeFilterParams } from '../models/anime-filter-params';
 import { TMapper } from '../models/mapper';
 
@@ -27,7 +26,7 @@ export class AnimeQueryParamsMapper2 implements TMapper<AnimeQueryParams2, Anime
 	}
 
 	/** @inheritdoc */
-	public toDto(model: Partial<AnimeQueryParams.Combined>): AnimeQueryParams2 {
+	public toDto(model: Partial<AnimeFilterParams.Combined>): AnimeQueryParams2 {
 		return {
 			type: model.type,
 			pageNumber: model.pageNumber ? model.pageNumber.toString() : undefined,
