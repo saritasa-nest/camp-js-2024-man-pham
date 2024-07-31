@@ -6,17 +6,24 @@ import { TMapper } from '../models/mapper';
 @Injectable({
 	providedIn: 'root',
 })
-export class DateMapperService implements TMapper<string | null, Date | null> {
+export class DateTimeMapper implements TMapper<string, Date> {
 
-	public constructor() { }
+	private parseDate(dateStr: string): Date | null {
+		const date = new Date(dateStr);
+		return isNaN(date.getTime()) ? null : date;
+	}
 
-	/** @inheritdoc */
-	public fromDto(dto: string | null): Date | null {
-		return dto ? new Date(dto) : null;
+	/**
+	 * @inheritdoc
+	 * Return either a valid date or an empty date.
+	 */
+	public fromDto(dto: string): Date {
+		const date = this.parseDate(dto);
+		return date ?? new Date('');
 	}
 
 	/** @inheritdoc */
-	public toDto(model: Date | null): string | null {
-		return model ? model.toISOString() : null;
+	public toDto(model: Date): string {
+		return model.toISOString();
 	}
 }
