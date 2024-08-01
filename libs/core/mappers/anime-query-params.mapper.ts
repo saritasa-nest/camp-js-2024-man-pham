@@ -40,7 +40,7 @@ export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFi
 			pageNumber: model.pageNumber != null && model.pageNumber >= 0 ? model.pageNumber.toString() : undefined,
 			pageSize: model.pageSize != null ? model.pageSize.toString() : undefined,
 			search: model.search !== undefined ? model.search : undefined,
-			sortField: model.sortField ? model.sortField : undefined,
+			sortField: model.sortField !== undefined ? model.sortField : undefined,
 			sortDirection: model.sortDirection !== undefined ? model.sortDirection : undefined,
 		};
 	}

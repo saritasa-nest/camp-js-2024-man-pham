@@ -32,7 +32,7 @@ export class SortMapper implements TMapperFromDto<Sort, AnimeFilterParams.Sort> 
 				break;
 		}
 		return {
-			sortField: this.fieldMapping[dto.active],
+			sortField: sortDirection != null ? this.fieldMapping[dto.active] : null,
 			sortDirection,
 		};
 	}
