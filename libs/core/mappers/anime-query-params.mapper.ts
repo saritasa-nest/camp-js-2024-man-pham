@@ -5,8 +5,13 @@ import { AnimeFilterParams } from '../models/anime-filter-params';
 import { TMapper } from '../models/mapper';
 import { DEFAULT_PAGINATION } from '../contants/pagination';
 
-export type AnimeQueryParams2 = Partial<Omit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
+/** Anime query params. */
+export type AnimeQueryParams = Partial<Omit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
+
+	/** Page number query param. */
 	pageNumber: string | null;
+
+	/** Page size query param. */
 	pageSize: string | null;
 }>;
 
@@ -14,9 +19,9 @@ export type AnimeQueryParams2 = Partial<Omit<AnimeFilterParams.Combined, 'pageNu
 @Injectable({
 	providedIn: 'root',
 })
-export class AnimeQueryParamsMapper2 implements TMapper<AnimeQueryParams2, AnimeFilterParams.Combined> {
+export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFilterParams.Combined> {
 /** @inheritdoc */
-	public fromDto(dto: AnimeQueryParams2): AnimeFilterParams.Combined {
+	public fromDto(dto: AnimeQueryParams): AnimeFilterParams.Combined {
 		return {
 			type: dto.type ?? null,
 			pageNumber: dto.pageNumber ? Number(dto.pageNumber) : DEFAULT_PAGINATION.pageNumber,
@@ -27,7 +32,7 @@ export class AnimeQueryParamsMapper2 implements TMapper<AnimeQueryParams2, Anime
 	}
 
 	/** @inheritdoc */
-	public toDto(model: Partial<AnimeFilterParams.Combined>): AnimeQueryParams2 {
+	public toDto(model: Partial<AnimeFilterParams.Combined>): AnimeQueryParams {
 		return {
 			type: model.type,
 			pageNumber: model.pageNumber ? model.pageNumber.toString() : undefined,

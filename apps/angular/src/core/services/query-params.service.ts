@@ -78,6 +78,7 @@ export class QueryParamsService {
 	/**
 	 * Append provide query params and reset page number params to the URL.
 	 * @param params Params to append.
+	 * @param defaultPageNumber The default page number to reset to.
 	 */
 	public appendParamsAndResetPageNumber(params: Record<string, any>, defaultPageNumber: number): void {
 		return this.append({ ...params, pageNumber: defaultPageNumber });

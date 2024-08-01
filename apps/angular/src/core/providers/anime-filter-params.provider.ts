@@ -1,4 +1,4 @@
-import { AnimeQueryParams2, AnimeQueryParamsMapper2 } from '@js-camp/core/mappers/anime-query-params.mapper';
+import { AnimeQueryParams, AnimeQueryParamsMapper } from '@js-camp/core/mappers/anime-query-params.mapper';
 import { InjectionToken, Provider, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
@@ -23,10 +23,10 @@ export const ANIME_FILTER_PARAMS_PROVIDERS: readonly Provider[] = [
  * @param activatedRoute Activated route.
  */
 function animeFiltersFactory(activatedRoute: ActivatedRoute): Observable<AnimeFilterParams.Combined> {
-	const animeQueryParamsMapper = inject(AnimeQueryParamsMapper2);
+	const animeQueryParamsMapper = inject(AnimeQueryParamsMapper);
 
 	return activatedRoute.queryParams.pipe(
-		map((params: AnimeQueryParams2) => animeQueryParamsMapper.fromDto(params)),
+		map((params: AnimeQueryParams) => animeQueryParamsMapper.fromDto(params)),
 		shareReplay({ refCount: true, bufferSize: 1 }),
 	);
 }
