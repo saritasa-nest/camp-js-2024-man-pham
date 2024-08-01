@@ -1,6 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AnimeQueryParamsDto } from '@js-camp/core/dtos/query-params.dto';
+import { AnimeFilterParamsDto } from '@js-camp/core/dtos/anime-filter-params.dto';
 import { AnimeFilterParamsMapper } from '@js-camp/core/mappers/anime-filter-params.mapper';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
@@ -11,7 +11,7 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 export class AnimeHttpParamsService {
 	private readonly animeFilterParams = inject(AnimeFilterParamsMapper);
 
-	private buildHttpParamsFromDto(params: AnimeQueryParamsDto.Combined): HttpParams {
+	private buildHttpParamsFromDto(params: AnimeFilterParamsDto.Combined): HttpParams {
 		let httpParams = new HttpParams();
 
 		if (params.search !== undefined) {

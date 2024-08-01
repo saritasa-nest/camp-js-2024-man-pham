@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-import { AnimeQueryParamsDto } from '../dtos/query-params.dto';
 import { AnimeType } from '../models/anime-type';
 import { AnimeTypeDto } from '../dtos/anime-type.dto';
 import { TMapperToDto } from '../models/mapper';
@@ -22,7 +21,7 @@ const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 @Injectable({ providedIn: 'root' })
 export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
 
-	private mapPaginationOptionsToDto(model: AnimeFilterParams.Pagination): AnimeQueryParamsDto.Pagination | null {
+	private mapPaginationOptionsToDto(model: AnimeFilterParams.Pagination): AnimeFilterParamsDto.Pagination | null {
 		if (model.pageNumber !== null && model.pageSize !== null) {
 			return {
 				offset: model.pageNumber * model.pageSize,
@@ -32,7 +31,7 @@ export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDt
 		return null ;
 	}
 
-	private mapSearchOptionsToDto(model: AnimeFilterParams.Search): AnimeQueryParamsDto.Search | null {
+	private mapSearchOptionsToDto(model: AnimeFilterParams.Search): AnimeFilterParamsDto.Search | null {
 		if (model.search) {
 			return {
 				search: model.search,
@@ -41,7 +40,7 @@ export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDt
 		return null;
 	}
 
-	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeQueryParamsDto.Sort | null {
+	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeFilterParamsDto.Sort | null {
 		if (model.sortFields) {
 			return {
 				ordering: model.sortFields.join(','),
@@ -50,7 +49,7 @@ export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDt
 		return null;
 	}
 
-	private mapTypeOptionToDto(model: AnimeFilterParams.Type): AnimeQueryParamsDto.Type | null {
+	private mapTypeOptionToDto(model: AnimeFilterParams.Type): AnimeFilterParamsDto.Type | null {
 		if (model.type) {
 			return {
 				type: MAP_ANIME_TYPE_TO_DTO[model.type],
