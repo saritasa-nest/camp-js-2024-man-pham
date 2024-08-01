@@ -8,7 +8,6 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { AnimeType } from '@js-camp/core/models/anime-type';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { convertEnumToArray } from '@js-camp/core/utils/enum-to-array.util';
 
 @Component({
 	selector: 'camp-anime-selector-form',
@@ -30,7 +29,7 @@ export class AnimeSelectorFormComponent {
 
 	protected readonly animeTypes = Object.values(AnimeType);
 
-	protected selectedType: AnimeType | null = null;
+	@Input() selectedType: AnimeType | null = null;
 
 	@Input() public search = '';
 
