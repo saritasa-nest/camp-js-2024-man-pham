@@ -8,7 +8,7 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
 
 import { QueryParamsService } from './query-params.service';
 
-/** Jobs query params service. */
+/** Anime query params service. */
 @Injectable({ providedIn: 'root' })
 export class AnimeQueryParamsService {
 
@@ -18,7 +18,7 @@ export class AnimeQueryParamsService {
 
 	/**
 	 * Append query params.
-	 * @param params Job filter params.
+	 * @param params Anime filter params.
 	 */
 	public append(params: Partial<AnimeFilterParams.Combined>): void {
 		const queryParams = this.animeQueryParams.toDto(params);
@@ -27,7 +27,7 @@ export class AnimeQueryParamsService {
 
 	/**
 	 * Append provide query params and reset page number params to the URL.
-	 * @param params Job filter params to append.
+	 * @param params Anime filter params to append.
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
 		const queryParams = this.animeQueryParams.toDto(params);
