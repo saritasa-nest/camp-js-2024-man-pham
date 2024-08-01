@@ -12,7 +12,7 @@ import { AnimeQueryParams } from '@js-camp/core/models/query-params';
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
-import { HttpParamsService } from './http-params.service';
+import { AnimeHttpParamsService } from './anime-http-params.service';
 
 /** Anime service. */
 @Injectable({
@@ -27,7 +27,7 @@ export class AnimeService {
 
 	private readonly paginationMapper = inject(PaginationMapper);
 
-	private readonly httpParamsService = inject(HttpParamsService);
+	private readonly httpParamsService = inject(AnimeHttpParamsService);
 
 	private fetchAnimeWithParams(queryParams: AnimeQueryParams.Combined): Observable<Pagination<Anime>> {
 		const params = this.httpParamsService.getHttpParams(queryParams);

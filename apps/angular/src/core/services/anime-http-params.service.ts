@@ -8,7 +8,7 @@ import { AnimeFilterParamsMapper } from '@js-camp/core/mappers/anime-filter-para
 @Injectable({
 	providedIn: 'root',
 })
-export class HttpParamsService {
+export class AnimeHttpParamsService {
 	private readonly animeFilterParams = inject(AnimeFilterParamsMapper);
 
 	private buildHttpParamsFromDto(params: AnimeQueryParamsDto.Combined): HttpParams {
