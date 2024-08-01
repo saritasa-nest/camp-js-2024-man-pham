@@ -32,16 +32,17 @@ import { AnimeSelectorFormComponent } from './components/anime-selector-form/ani
 	providers: [...ANIME_FILTER_PARAMS_PROVIDERS],
 })
 export class AnimeCatalogComponent implements OnInit {
-	/** Anime page observable. */
-	protected readonly animePage$: Observable<Pagination<Anime>>;
-
 	private readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
 
 	private readonly animeQueryParams = inject(AnimeQueryParamsService);
 
-	protected filterParams: AnimeFilterParams.Combined | null = null;
-
 	private readonly animeService = inject(AnimeService);
+
+	/** Anime page observable. */
+	protected readonly animePage$: Observable<Pagination<Anime>>;
+
+	/** Filter params. */
+	protected filterParams: AnimeFilterParams.Combined | null = null;
 
 	public constructor() {
 		this.animePage$ = this.animeService.getAnime2(this.filter$);
