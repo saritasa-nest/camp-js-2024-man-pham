@@ -5,6 +5,9 @@ import { AnimeTypeDto } from '../dtos/anime-type.dto';
 import { TMapperToDto } from '../models/mapper';
 import { AnimeFilterParams } from '../models/anime-filter-params';
 import { AnimeFilterParamsDto } from '../dtos/anime-filter-params.dto';
+import { AnimeSortFields } from '../models/anime-sort-fields';
+import { AnimeSortFieldsDto } from '../dtos/anime-sort-fields.dto';
+import { SortDirection } from '../models/sort-direction';
 
 const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 	[AnimeType.Tv]: AnimeTypeDto.Tv,
@@ -17,10 +20,16 @@ const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 	[AnimeType.PromotionalVideos]: AnimeTypeDto.PromotionalVideos,
 };
 
+const MAP_ANIME_SORT_FIELDS_TO_DTO: Record<AnimeSortFields, AnimeSortFieldsDto> = {
+	[AnimeSortFields.StartDate]: AnimeSortFieldsDto.StartDate,
+	[AnimeSortFields.Status]: AnimeSortFieldsDto.Status,
+	[AnimeSortFields.TitleEng]: AnimeSortFieldsDto.TitleEng,
+
+};
+
 /** Mapper for filter params. */
 @Injectable({ providedIn: 'root' })
 export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
-
 	private mapPaginationOptionsToDto(model: AnimeFilterParams.Pagination): AnimeFilterParamsDto.Pagination | null {
 		if (model.pageNumber !== null && model.pageSize !== null) {
 			return {
@@ -41,11 +50,13 @@ export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDt
 	}
 
 	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeFilterParamsDto.Sort | null {
-		if (model.sortFields) {
+		if (model.sortDirection && model.sortField) {
+			const fieldDto = MAP_ANIME_SORT_FIELDS_TO_DTO[model.sortField];
 			return {
-				ordering: model.sortFields.join(','),
+				ordering: model.sortDirection === SortDirection.Descending ? `-${fieldDto}` : fieldDto,
 			};
 		}
+
 		return null;
 	}
 

@@ -7,7 +7,7 @@ import { DEFAULT_PAGINATION } from '../contants/pagination';
 import { StrictOmit } from '../utils/types/strict-omit';
 
 /** Anime query params. */
-export type AnimeQueryParams = Partial<StrictOmit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
+export type AnimeQueryParams = Partial<StrictOmit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize' > & {
 
 	/** Page number query param. */
 	pageNumber: string | null;
@@ -28,7 +28,8 @@ export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFi
 			pageNumber: dto.pageNumber ? Number(dto.pageNumber) : DEFAULT_PAGINATION.pageNumber,
 			pageSize: dto.pageSize ? Number(dto.pageSize) : DEFAULT_PAGINATION.pageSize,
 			search: dto.search ?? null,
-			sortFields: dto.sortFields ?? null,
+			sortField: dto.sortField ?? null,
+			sortDirection: dto.sortDirection ?? null,
 		};
 	}
 
@@ -39,7 +40,8 @@ export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFi
 			pageNumber: model.pageNumber != null && model.pageNumber >= 0 ? model.pageNumber.toString() : undefined,
 			pageSize: model.pageSize != null ? model.pageSize.toString() : undefined,
 			search: model.search !== undefined ? model.search : undefined,
-			sortFields: model.sortFields,
+			sortField: model.sortField ? model.sortField : undefined,
+			sortDirection: model.sortDirection !== undefined ? model.sortDirection : undefined,
 		};
 	}
 }

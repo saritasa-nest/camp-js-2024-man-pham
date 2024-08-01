@@ -78,4 +78,12 @@ export class AnimeCatalogComponent implements OnInit {
 	protected onSearch(event: string | null): void {
 		this.animeQueryParams.appendParamsAndResetPageNumber({ search: event });
 	}
+
+	/**
+	 * Event handler for sorting.
+	 * @param event The sorting event values.
+	 */
+	protected onSortChange(event: AnimeFilterParams.Sort): void {
+		this.animeQueryParams.appendParamsAndResetPageNumber({ sortDirection: event.sortDirection, sortField: event.sortField });
+	}
 }
