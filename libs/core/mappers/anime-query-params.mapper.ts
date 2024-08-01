@@ -21,7 +21,7 @@ export type AnimeQueryParams = Partial<StrictOmit<AnimeFilterParams.Combined, 'p
 	providedIn: 'root',
 })
 export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFilterParams.Combined> {
-/** @inheritdoc */
+	/** @inheritdoc */
 	public fromDto(dto: AnimeQueryParams): AnimeFilterParams.Combined {
 		return {
 			type: dto.type ?? null,
@@ -35,10 +35,10 @@ export class AnimeQueryParamsMapper implements TMapper<AnimeQueryParams, AnimeFi
 	/** @inheritdoc */
 	public toDto(model: Partial<AnimeFilterParams.Combined>): AnimeQueryParams {
 		return {
-			type: model.type ?? null,
-			pageNumber: model.pageNumber != null && model.pageNumber > 0 ? model.pageNumber.toString() : null,
-			pageSize: model.pageSize != null ? model.pageSize.toString() : null,
-			search: model.search && model.search !== '' ? model.search : null,
+			type: model.type !== undefined ? model.type : undefined,
+			pageNumber: model.pageNumber != null && model.pageNumber >= 0 ? model.pageNumber.toString() : undefined,
+			pageSize: model.pageSize != null ? model.pageSize.toString() : undefined,
+			search: model.search !== undefined ? model.search : undefined,
 			sortFields: model.sortFields,
 		};
 	}

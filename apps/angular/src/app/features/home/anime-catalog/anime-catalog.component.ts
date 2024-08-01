@@ -67,7 +67,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * Event handler for selecting type.
 	 * @param event The selected type.
 	 */
-	protected onSelectionChange(event: AnimeType): void {
+	protected onSelectionChange(event: AnimeType | null): void {
 		this.animeQueryParams.appendParamsAndResetPageNumber({ type: event });
 	}
 
@@ -75,7 +75,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * Event handler for searching.
 	 * @param event The searching input.
 	 */
-	protected onSearch(event: string): void {
+	protected onSearch(event: string | null): void {
 		this.animeQueryParams.appendParamsAndResetPageNumber({ search: event });
 	}
 }

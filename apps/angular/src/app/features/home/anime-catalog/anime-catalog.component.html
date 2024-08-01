@@ -1,5 +1,5 @@
 <ng-container *ngIf="animePage$ | async as animePage">
-	<camp-anime-selector-form (typeChange)="onSelectionChange($event)" (searchChange)="onSearch($event)"
+	<camp-anime-selector-form (typeChange)="onSelectionChange($event)" (searchSubmit)="onSearch($event)"
 		[search]="filterParams?.search ?? ''" [selectedType]="filterParams?.type ?? null"></camp-anime-selector-form>
 	<camp-anime-table [animeList]="animePage.items"></camp-anime-table>
 	<camp-anime-paginator [totalCount]="animePage.totalCount" [pageSize]="filterParams?.pageSize ?? 0"

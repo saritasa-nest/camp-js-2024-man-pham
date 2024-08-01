@@ -1,4 +1,3 @@
-
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -9,6 +8,7 @@ import { AnimeType } from '@js-camp/core/models/anime-type';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+/** Anime selector form. */
 @Component({
 	selector: 'camp-anime-selector-form',
 	standalone: true,
@@ -27,22 +27,42 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AnimeSelectorFormComponent {
 
+	/** Anime type values. */
 	protected readonly animeTypes = Object.values(AnimeType);
 
-	@Input() selectedType: AnimeType | null = null;
+	/** Selected type by the user. */
+	@Input() public selectedType: AnimeType | null = null;
 
+	/** Searched result by the user. */
 	@Input() public search = '';
 
-	@Output() public searchChange = new EventEmitter<string>();
+	/** Event emitter for submitting search. */
+	@Output() public searchSubmit = new EventEmitter<string | null>();
 
-	/** Event emitter for page changing. */
-	@Output() public typeChange = new EventEmitter<AnimeType>();
+	/** Event emitter for type changing. */
+	@Output() public typeChange = new EventEmitter<AnimeType | null>();
 
-	protected onSelectionChange(event: MatSelectChange) {
-		this.typeChange.emit(event.value);
+	/**
+	 * Emit the selected type to the parent.
+	 * @param event The selected type.
+	 */
+	protected onSelectionChange(event: MatSelectChange): void {
+		if (event.value) {
+			this.typeChange.emit(event.value);
+		} else {
+			this.typeChange.emit(null);
+		}
 	}
 
-	protected onSearch() {
-		this.searchChange.emit(this.search);
+	/**
+	 * Emit the search request value to the parent.
+	 * @param event The search request value.
+	 */
+	protected onSearch(): void {
+		if (this.search.length > 0) {
+			this.searchSubmit.emit(this.search);
+		} else {
+			this.searchSubmit.emit(null);
+		}
 	}
 }
