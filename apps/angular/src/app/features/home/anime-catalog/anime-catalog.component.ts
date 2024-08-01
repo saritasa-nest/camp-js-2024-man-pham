@@ -45,7 +45,7 @@ export class AnimeCatalogComponent implements OnInit {
 	protected filterParams: AnimeFilterParams.Combined | null = null;
 
 	public constructor() {
-		this.animePage$ = this.animeService.getAnime2(this.filter$);
+		this.animePage$ = this.animeService.getAnime(this.filter$);
 	}
 
 	/** Subscribe the page number and page size to pass them to the paginator. */

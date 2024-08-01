@@ -40,7 +40,7 @@ export class AnimeService {
 	 * @param filters$ Filter params observable.
 	 * @returns The anime page.
 	 */
-	public getAnime2(filters$: Observable<AnimeFilterParams.Combined>): Observable<Pagination<Anime>> {
+	public getAnime(filters$: Observable<AnimeFilterParams.Combined>): Observable<Pagination<Anime>> {
 		return filters$.pipe(
 			switchMap(filterParams => this.fetchAnimeWithParams(filterParams)),
 		);
