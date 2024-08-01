@@ -1,8 +1,8 @@
 import { HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { AnimeQueryParamsDto } from '@js-camp/core/dtos/query-params.dto';
-import { AnimeQueryParams } from '@js-camp/core/models/query-params';
 import { AnimeFilterParamsMapper } from '@js-camp/core/mappers/anime-filter-params.mapper';
+import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 /** Http Params Service. */
 @Injectable({
@@ -37,7 +37,7 @@ export class AnimeHttpParamsService {
 	 * @param params URL query params.
 	 * @returns Http params.
 	 */
-	public getHttpParams(params: AnimeQueryParams.Combined): HttpParams {
+	public getHttpParams(params: AnimeFilterParams.Combined): HttpParams {
 		const dtoQueryParams = this.animeFilterParams.toDto(params);
 		return this.buildHttpParamsFromDto(dtoQueryParams);
 	}
