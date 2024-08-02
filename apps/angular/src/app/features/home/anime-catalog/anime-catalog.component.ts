@@ -17,6 +17,10 @@ import { AnimeQueryParamsService } from '@js-camp/angular/core/services/anime-qu
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
+import { Sort } from '@angular/material/sort';
+
+import { SortMapper } from '@js-camp/angular/core/mappers/sort.mapper';
+
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
 import { AnimeSelectorFormComponent } from './components/anime-selector-form/anime-selector-form.component';
@@ -37,6 +41,8 @@ export class AnimeCatalogComponent implements OnInit {
 	private readonly animeQueryParams = inject(AnimeQueryParamsService);
 
 	private readonly animeService = inject(AnimeService);
+
+	private readonly sortMapper = inject(SortMapper);
 
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
@@ -83,7 +89,8 @@ export class AnimeCatalogComponent implements OnInit {
 	 * Event handler for sorting.
 	 * @param event The sorting event values.
 	 */
-	protected onSortChange(event: AnimeFilterParams.Sort): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber({ sortDirection: event.sortDirection, sortField: event.sortField });
+	protected onSortChange(event: Sort): void {
+		const sortParams = this.sortMapper.fromDto(event);
+		this.animeQueryParams.appendParamsAndResetPageNumber(sortParams);
 	}
 }
