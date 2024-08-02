@@ -1,5 +1,5 @@
-import { TMapperFromDto } from '@js-camp/core/models/mapper';
-import { Sort } from '@angular/material/sort';
+import { TMapper } from '@js-camp/core/models/mapper';
+import { Sort, SortDirection as SortEventDirection } from '@angular/material/sort';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 import { SortDirection } from '@js-camp/core/models/sort-direction';
@@ -10,11 +10,17 @@ import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 @Injectable({
 	providedIn: 'root',
 })
-export class SortMapper implements TMapperFromDto<Sort, AnimeFilterParams.Sort> {
+export class SortMapper implements TMapper<Sort, AnimeFilterParams.Sort> {
 	private readonly MAP_SORT_COLUMNS_TO_SORT_FIELDS: Partial<Record<AnimeColumns, AnimeSortFields>> = {
 		[AnimeColumns.TitleEng]: AnimeSortFields.TitleEng,
 		[AnimeColumns.StartDate]: AnimeSortFields.StartDate,
 		[AnimeColumns.Status]: AnimeSortFields.Status,
+	};
+
+	private readonly MAP_SORT_FIELDS_TO_SORT_COLUMN: Record<AnimeSortFields, AnimeColumns> = {
+		[AnimeSortFields.TitleEng]: AnimeColumns.TitleEng,
+		[AnimeSortFields.StartDate]: AnimeColumns.StartDate,
+		[AnimeSortFields.Status]: AnimeColumns.Status,
 	};
 
 	/** @inheritdoc */
@@ -36,6 +42,27 @@ export class SortMapper implements TMapperFromDto<Sort, AnimeFilterParams.Sort> 
 		return {
 			sortField: sortDirection != null && field ? field : null,
 			sortDirection,
+		};
+	}
+
+	/** @inheritdoc */
+	public toDto(model: Partial<AnimeFilterParams.Sort>): Sort {
+		let sortDirection: SortEventDirection;
+		switch (model.sortDirection) {
+			case SortDirection.Ascending:
+				sortDirection = 'asc';
+				break;
+			case SortDirection.Descending:
+				sortDirection = 'desc';
+				break;
+			default:
+				sortDirection = '';
+				break;
+		}
+		const field = this.MAP_SORT_FIELDS_TO_SORT_COLUMN[model.sortField as AnimeSortFields];
+		return {
+			direction: sortDirection,
+			active: field,
 		};
 	}
 }
