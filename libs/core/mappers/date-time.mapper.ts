@@ -19,7 +19,7 @@ export class DateTimeMapper implements TMapper<string, Date> {
 	 */
 	public fromDto(dto: string): Date {
 		const date = this.parseDate(dto);
-		return date ?? new Date('');
+		return date ?? new Date();
 	}
 
 	/** @inheritdoc */
