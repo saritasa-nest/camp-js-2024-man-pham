@@ -1,0 +1,40 @@
+.camp-skeleton {
+	border-radius: 3px;
+	background: linear-gradient(-45deg, #e7e7e7, #ddd, #c9c7c7, #c9c7c7);
+	background-size: 400% 400%;
+	animation: skeleton-gradient-move 3s ease-in-out infinite;
+}
+
+@keyframes skeleton-gradient-move {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+h1.camp-skeleton::before,
+h2.camp-skeleton::before,
+h3.camp-skeleton::before,
+h4.camp-skeleton::before,
+h5.camp-skeleton::before,
+h6.camp-skeleton::before,
+p.camp-skeleton::before,
+span.camp-skeleton::before,
+time.camp-skeleton::before,
+a.camp-skeleton::before {
+	/* To emulate height of text. */
+	content: ".";
+	display: inline-block;
+	color: transparent;
+}
+
+.skeleton {
+	height: 48px;
+}

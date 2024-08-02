@@ -1,8 +1,11 @@
-<ng-container *ngIf="animePage$ | async as animePage">
+<ng-container *ngIf="{
+ animePage: animePage$ | async
+} as data">
 	<camp-anime-selector-form (typeChange)="onSelectionChange($event)" (searchSubmit)="onSearch($event)"
 		[search]="filterParams?.search ?? ''" [selectedType]="filterParams?.type ?? null"></camp-anime-selector-form>
-	<camp-anime-table [animeList]="animePage.items" [sortParams]="sortParams"
+	<camp-anime-table [animeList]="data.animePage ? data.animePage.items : [] " [sortParams]="sortParams"
 		(sortChange)="onSortChange($event)"></camp-anime-table>
-	<camp-anime-paginator [totalCount]="animePage.totalCount" [pageSize]="filterParams?.pageSize ?? 0"
-		[pageNumber]="filterParams?.pageNumber ?? 10" (pageChange)="onPageChange($event)"></camp-anime-paginator>
+	<camp-anime-paginator [totalCount]="data.animePage ? data.animePage.totalCount : 0"
+		[pageSize]="filterParams?.pageSize ?? 0" ng-container [pageNumber]="filterParams?.pageNumber ?? 10"
+		(pageChange)="onPageChange($event)"></camp-anime-paginator>
 </ng-container>
