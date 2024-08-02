@@ -4,16 +4,17 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 import { SortDirection } from '@js-camp/core/models/sort-direction';
 import { Injectable } from '@angular/core';
+import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 
 /** Sort Mapper. */
 @Injectable({
 	providedIn: 'root',
 })
 export class SortMapper implements TMapperFromDto<Sort, AnimeFilterParams.Sort> {
-	private fieldMapping: Record<string, AnimeSortFields> = {
-		titleEng: AnimeSortFields.TitleEng,
-		airedStartDate: AnimeSortFields.StartDate,
-		status: AnimeSortFields.Status,
+	private readonly MAP_SORT_COLUMNS_TO_SORT_FIELDS: Partial<Record<AnimeColumns, AnimeSortFields>> = {
+		[AnimeColumns.TitleEng]: AnimeSortFields.TitleEng,
+		[AnimeColumns.StartDate]: AnimeSortFields.StartDate,
+		[AnimeColumns.Status]: AnimeSortFields.Status,
 	};
 
 	/** @inheritdoc */
@@ -31,8 +32,9 @@ export class SortMapper implements TMapperFromDto<Sort, AnimeFilterParams.Sort> 
 				sortDirection = null;
 				break;
 		}
+		const field = this.MAP_SORT_COLUMNS_TO_SORT_FIELDS[dto.active as AnimeColumns];
 		return {
-			sortField: sortDirection != null ? this.fieldMapping[dto.active] : null,
+			sortField: sortDirection != null && field ? field : null,
 			sortDirection,
 		};
 	}
