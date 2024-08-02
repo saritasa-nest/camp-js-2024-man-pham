@@ -19,6 +19,12 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	/** Anime list.*/
 	@Input() public animeList: ReadonlyArray<Anime> = [];
 
+	/** Sort params. */
+	@Input() public sortParams: Sort = {
+		active: '',
+		direction: '',
+	};
+
 	private readonly columns = AnimeColumns;
 
 	/** Table data source. */

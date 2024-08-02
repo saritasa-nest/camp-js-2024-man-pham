@@ -61,6 +61,11 @@ export class AnimeCatalogComponent implements OnInit {
 		});
 	}
 
+	/** Get sort params. */
+	protected get sortParams(): Sort {
+		return this.sortMapper.toDto({ sortDirection: this.filterParams?.sortDirection, sortField: this.filterParams?.sortField });
+	}
+
 	/**
 	 * Event handler for page changing.
 	 * @param event The page event.
