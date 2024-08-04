@@ -20,6 +20,7 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	/** Anime list.*/
 	@Input() public animeList: ReadonlyArray<Anime> = [];
 
+	/** Loading state. */
 	@Input() public loading = false;
 
 	/** Sort params. */
