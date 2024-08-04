@@ -18,8 +18,15 @@
 	font-weight: var(--font-weight-medium);
 }
 
+.anime__image-cell {
+	--image-size: 150px;
+
+	width: 15%;
+	min-width: var(--image-size);
+}
+
 .anime__image-container {
-	height: 150px;
+	height: var(--image-size);
 	display: flex;
 	justify-content: center;
 	margin-block: var(--spacing-xsm);

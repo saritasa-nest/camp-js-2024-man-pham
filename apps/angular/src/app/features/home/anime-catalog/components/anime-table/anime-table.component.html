@@ -3,40 +3,80 @@
 		[matSortActive]="sortParams.active" mat (matSortChange)="onSortChange($event)" [trackBy]="trackAnimeById">
 		<ng-container matColumnDef="image">
 			<th mat-header-cell *matHeaderCellDef>Image</th>
-			<td mat-cell *matCellDef="let anime">
+			<td mat-cell *matCellDef="let anime" class="anime__image-cell">
 				<div class="anime__image-container">
-					<img class="anime__image" [src]="anime.image" alt="anime.titleJpn ?? 'Anime image'" />
+					<ng-container *ngIf="!loading">
+						<img class="anime__image" [src]="anime.image" alt="anime.titleJpn ?? 'Anime image'" />
+					</ng-container>
+					<div *ngIf="loading" campSkeleton></div>
 				</div>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="titleEng">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
-			<td mat-cell *matCellDef="let anime" class="anime__title">{{ anime.titleEng | noEmpty }}</td>
+			<td mat-cell *matCellDef="let anime" class="anime__title">
+				<ng-container *ngIf="!loading">
+					{{ anime.titleEng | noEmpty }}
+				</ng-container>
+				<div *ngIf="loading" campSkeleton>
+					loading
+				</div>
+			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="titleJpn">
 			<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
-			<td mat-cell *matCellDef="let anime" class="anime__title">{{ anime.titleJpn | noEmpty }}</td>
+			<td mat-cell *matCellDef="let anime" class="anime__title">
+				<ng-container *ngIf="!loading">
+					{{ anime.titleJpn | noEmpty }}
+				</ng-container>
+				<div *ngIf="loading" campSkeleton>
+					loading
+				</div>
+			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="startDate">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
 			<td mat-cell *matCellDef="let anime">
-				<span class="anime__date">
-					{{ anime.aired.startDate | date : "M-d-yyyy" | noEmpty }}
-				</span>
+				<ng-container *ngIf="!loading">
+					<span class="anime__date">
+						{{ anime.aired.startDate | date : "M-d-yyyy" | noEmpty }}
+					</span>
+				</ng-container>
+				<div *ngIf="loading" campSkeleton>
+					loading
+				</div>
 			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="type">
 			<th mat-header-cell *matHeaderCellDef>Type</th>
-			<td mat-cell *matCellDef="let anime">{{ anime.type | noEmpty }}</td>
+			<td mat-cell *matCellDef="let anime">
+				<ng-container *ngIf="!loading">
+					<span class="anime__date">
+						{{ anime.type | noEmpty }}
+					</span>
+				</ng-container>
+				<div *ngIf="loading" campSkeleton>
+					loading
+				</div>
+			</td>
 		</ng-container>
 
 		<ng-container matColumnDef="status">
 			<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-			<td mat-cell *matCellDef="let anime">{{ anime.status | noEmpty }}</td>
+			<td mat-cell *matCellDef="let anime">
+				<ng-container *ngIf="!loading">
+					<span class="anime__date">
+						{{ anime.status | noEmpty }}
+					</span>
+				</ng-container>
+				<div *ngIf="loading" campSkeleton>
+					loading
+				</div>
+			</td>
 		</ng-container>
 
 		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
