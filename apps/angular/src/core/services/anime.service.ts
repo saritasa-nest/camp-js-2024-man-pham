@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
@@ -37,12 +37,10 @@ export class AnimeService {
 
 	/**
 	 * Get the anime page.
-	 * @param filters$ Filter params observable.
+	 * @param filterParams Filter params.
 	 * @returns The anime page.
 	 */
-	public getAnime(filters$: Observable<AnimeFilterParams.Combined>): Observable<Pagination<Anime>> {
-		return filters$.pipe(
-			switchMap(filterParams => this.fetchAnimeWithParams(filterParams)),
-		);
+	public getAnime(filterParams: AnimeFilterParams.Combined): Observable<Pagination<Anime>> {
+		return this.fetchAnimeWithParams(filterParams);
 	}
 }

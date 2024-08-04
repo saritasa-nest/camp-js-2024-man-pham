@@ -5,7 +5,7 @@ import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, first, Observable, switchMap, tap } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 
@@ -44,6 +44,9 @@ export class AnimeCatalogComponent implements OnInit {
 
 	private readonly sortMapper = inject(SortMapper);
 
+	/** Loading state when fetching data. */
+	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
+
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
@@ -51,14 +54,22 @@ export class AnimeCatalogComponent implements OnInit {
 	protected filterParams: AnimeFilterParams.Combined | null = null;
 
 	public constructor() {
-		this.animePage$ = this.animeService.getAnime(this.filter$);
+		this.animePage$ = this.filter$.pipe(
+			tap(() => this.isLoading$.next(true)),
+			switchMap(filterParams => this.animeService.getAnime(filterParams).pipe(
+				tap(() => this.isLoading$.next(false)),
+			)),
+		);
 	}
 
 	/** Subscribe the page number and page size to pass them to the paginator. */
 	public ngOnInit(): void {
-		this.filter$.subscribe(params => {
-			this.filterParams = params;
-		});
+		this.filter$.pipe(
+			first(),
+			tap(params => {
+				this.filterParams = params;
+			}),
+		).subscribe();
 	}
 
 	/** Get sort params. */
