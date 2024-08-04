@@ -1,7 +1,7 @@
 @import url("/libs/theme/src/index.css");
 @import url("./material/index.css");
+@import url("./skeleton.css");
 
-/* Global styles. */
 html,
 body {
 	height: 100%;
