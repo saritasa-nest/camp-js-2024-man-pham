@@ -5,12 +5,13 @@ import { Anime } from '@js-camp/core/models/anime';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
+import { SkeletonDirective } from '@js-camp/angular/shared/directives/skeleton/skeleton.directive';
 
 /** Anime Table Component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [CommonModule, MatTableModule, NoEmptyPipe, MatSortModule],
+	imports: [CommonModule, MatTableModule, NoEmptyPipe, MatSortModule, SkeletonDirective],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,6 +19,8 @@ import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	/** Anime list.*/
 	@Input() public animeList: ReadonlyArray<Anime> = [];
+
+	@Input() public loading = false;
 
 	/** Sort params. */
 	@Input() public sortParams: Sort = {
