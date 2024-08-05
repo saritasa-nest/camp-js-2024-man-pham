@@ -17,7 +17,7 @@
 .anime__title {
 	white-space: unset;
 	width: 20%;
-	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
 
 .anime__image-cell {
