@@ -1,7 +1,7 @@
 <div class="filter-form">
 	<mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
 		<mat-label>Anime type</mat-label>
-		<mat-select [(value)]="selectedType" (selectionChange)="onSelectionChange($event)">
+		<mat-select [disabled]="loading" [(value)]="selectedType" (selectionChange)="onSelectionChange($event)">
 			<mat-option [value]="">
 				All
 			</mat-option>
@@ -12,8 +12,8 @@
 	</mat-form-field>
 	<mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
 		<mat-label>Search</mat-label>
-		<input matInput [(ngModel)]="search" placeholder="An anime name..." />
-		<button mat-icon-button matSuffix type="button" (click)="onSearch()">
+		<input [disabled]="loading" matInput [(ngModel)]="search" placeholder="An anime name..." />
+		<button [disabled]="loading" mat-icon-button matSuffix type="button" (click)="onSearch()">
 			<mat-icon>edit</mat-icon>
 		</button>
 	</mat-form-field>

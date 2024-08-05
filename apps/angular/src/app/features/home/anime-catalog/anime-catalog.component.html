@@ -2,13 +2,13 @@
  animePage: animePage$ | async,
  isLoading: isLoading$ | async
 } as data">
-	<camp-anime-selector-form (typeChange)="onSelectionChange($event)" (searchSubmit)="onSearch($event)"
+	<camp-anime-selector-form [loading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)" (searchSubmit)="onSearch($event)"
 		[search]="filterParams?.search ?? '' " [selectedType]="filterParams?.type ?? null"></camp-anime-selector-form>
 	<section class="mat-elevation-z8">
 		<camp-anime-table [animeList]="data.animePage ? data.animePage.items : []" [loading]="data.isLoading ?? false"
 			[sortParams]="sortParams" [pageSize]="filterParams?.pageSize ?? 0"
 			(sortChange)="onSortChange($event)"></camp-anime-table>
-		<camp-anime-paginator [totalCount]="data.animePage ? data.animePage.totalCount : 0"
+		<camp-anime-paginator [loading]="data.isLoading ?? false" [totalCount]="data.animePage ? data.animePage.totalCount : 0"
 			[pageSize]="filterParams?.pageSize ?? 0" ng-container [pageNumber]="filterParams?.pageNumber ?? 10"
 			(pageChange)="onPageChange($event)"></camp-anime-paginator>
 	</section>

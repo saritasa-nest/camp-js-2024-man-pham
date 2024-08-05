@@ -25,6 +25,9 @@ export class AnimePaginatorComponent {
 	/** Total amount of fetched items. */
 	@Input() public totalCount = 0;
 
+	/** Loading state. */
+	@Input() public loading = false;
+
 	/** Event emitter for page changing. */
 	@Output() public pageChange = new EventEmitter<PageEvent>();
 

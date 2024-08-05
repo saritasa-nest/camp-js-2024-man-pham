@@ -36,6 +36,9 @@ export class AnimeSelectorFormComponent {
 	/** Searched result by the user. */
 	@Input() public search = '';
 
+	/** Loading state. */
+	@Input() public loading = false;
+
 	/** Event emitter for submitting search. */
 	@Output() public searchSubmit = new EventEmitter<string | null>();
 
