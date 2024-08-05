@@ -45,3 +45,8 @@
 	border-radius: var(--border-radius-xsm);
 	background-color: #e9edf5;
 }
+
+.camp-skeleton {
+	height: 100%;
+	min-height: 16px;
+}
