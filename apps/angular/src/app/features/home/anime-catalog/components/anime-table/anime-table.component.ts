@@ -6,12 +6,14 @@ import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 import { SkeletonDirective } from '@js-camp/angular/shared/directives/skeleton/skeleton.directive';
+import { TableCellContentComponent } from '@js-camp/angular/shared/components/table-cell-content/table-cell-content.component';
+import { AnimeCatalogComponent } from "../../anime-catalog.component";
 
 /** Anime Table Component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [CommonModule, MatTableModule, NoEmptyPipe, MatSortModule, SkeletonDirective],
+	imports: [CommonModule, MatTableModule, NoEmptyPipe, MatSortModule, SkeletonDirective, TableCellContentComponent, AnimeCatalogComponent],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
