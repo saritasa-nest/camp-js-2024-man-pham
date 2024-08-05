@@ -6,13 +6,9 @@ import { environment } from '@js-camp/angular/environments/environment';
 export class AppConfig {
 	private readonly variables = environment;
 
-	/** Get baseApiUrl environment variable. */
-	public get apiUrl(): string {
-		return this.variables.apiUrl;
-	}
+	/** Api url. */
+	public readonly apiUrl = environment.apiUrl;
 
-	/** Get apiKey environment variable. */
-	public get apiKey(): string {
-		return this.variables.apiKey;
-	}
+	/** Api key. */
+	public readonly apiKey = environment.apiKey;
 }
