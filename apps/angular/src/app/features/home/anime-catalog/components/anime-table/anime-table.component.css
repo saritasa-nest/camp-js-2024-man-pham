@@ -33,20 +33,15 @@
 }
 
 .anime__image {
+	width: 100%;
 	height: 100%;
-	aspect-ratio: 1;
 	object-fit: contain;
 }
 
-.anime__date {
+.anime__detail {
 	color: #464f60;
 	padding: 1px var(--spacing-sm);
 	font-weight: var(--font-weight-medium);
 	border-radius: var(--border-radius-xsm);
 	background-color: #e9edf5;
-}
-
-.camp-skeleton {
-	height: 100%;
-	min-height: 16px;
 }
