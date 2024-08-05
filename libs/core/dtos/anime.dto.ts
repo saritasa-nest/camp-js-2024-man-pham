@@ -4,44 +4,44 @@ import { AnimeStatusDto } from './anime-status.dto';
 import { AnimeTypeDto } from './anime-type.dto';
 
 /** Anime DTO. */
-export type AnimeDto = Readonly<{
+export type AnimeDto = {
 
 	/** ID. */
-	id: number;
+	readonly id: number;
 
 	/** Created date. */
-	created: string;
+	readonly created: string;
 
 	/** Modified date. */
-	modified: string;
+	readonly modified: string;
 
 	/** English title. */
-	title_eng: string;
+	readonly title_eng: string;
 
 	/** Japanese title. */
-	title_jpn: string;
+	readonly title_jpn: string;
 
 	/** Image URL. */
-	image: string;
+	readonly image: string;
 
 	/** Aired duration. */
-	aired: DateTimeRangeDto;
+	readonly aired: DateTimeRangeDto;
 
 	/** Type. */
-	type: AnimeTypeDto;
+	readonly type: AnimeTypeDto;
 
 	/** Status. */
-	status: AnimeStatusDto;
+	readonly status: AnimeStatusDto;
 
 	/** Score. */
-	score: number | null;
+	readonly score: number | null;
 
 	/** User score. */
-	user_score: number | null;
+	readonly user_score: number | null;
 
 	/** List of studios. */
-	studios: readonly number[];
+	readonly studios: readonly number[];
 
 	/** List of genres. */
-	genres: readonly number[];
-}>;
+	readonly genres: readonly number[];
+};

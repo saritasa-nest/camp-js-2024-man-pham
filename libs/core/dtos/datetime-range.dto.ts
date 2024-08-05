@@ -1,9 +1,9 @@
-/** Date Time Range Type DTO. */
-export type DateTimeRangeDto = Readonly<{
+/** Date time range type DTO. */
+export type DateTimeRangeDto = {
 
 	/** Start date. */
-	start: string | null;
+	readonly start: string | null;
 
 	/** End date. */
-	end: string | null;
-}>;
+	readonly end: string | null;
+};
