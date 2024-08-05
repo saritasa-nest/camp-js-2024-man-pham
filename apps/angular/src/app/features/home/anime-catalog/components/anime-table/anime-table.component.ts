@@ -23,6 +23,9 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	/** Loading state. */
 	@Input() public loading = false;
 
+	/** Page size. */
+	@Input() public pageSize = 0;
+
 	/** Sort params. */
 	@Input() public sortParams: Sort = {
 		active: '',
@@ -79,5 +82,12 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	 */
 	public onSortChange(event: Sort): void {
 		this.sortChange.emit(event);
+	}
+
+	/** Generate number array for the template table data source. */
+	protected get templateArray(): number[] {
+		return Array(this.pageSize)
+			.fill(null)
+			.map((_, index) => index);
 	}
 }

@@ -83,7 +83,7 @@
 </section>
 
 <ng-template #loadingTemplate>
-	<table mat-table [dataSource]="[1,2,3,4,5]" matSort [matSortDirection]="sortParams.direction"
+	<table mat-table [dataSource]="templateArray" matSort [matSortDirection]="sortParams.direction"
 		[matSortActive]="sortParams.active" (matSortChange)="onSortChange($event)">
 		<ng-container matColumnDef="image">
 			<th mat-header-cell *matHeaderCellDef>Image</th>
