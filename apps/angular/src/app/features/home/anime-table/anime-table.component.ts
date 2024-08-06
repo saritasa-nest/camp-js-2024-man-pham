@@ -6,6 +6,7 @@ import { AnimeService } from '@js-camp/angular/core/services/anime.service';
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
+import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 
 /** Anime table component. */
 @Component({
@@ -22,12 +23,15 @@ export class AnimeTableComponent {
 
 	private readonly animeService = inject(AnimeService);
 
+	/** Anime column ids. */
+	protected readonly animeColumns = AnimeColumns;
+
 	public constructor() {
 		this.animePage$ = this.animeService.getAllAnime();
 	}
 
 	/** Displayed columns. */
-	protected readonly displayedColumns: string[] = ['image', 'titleEng', 'titleJpn', 'airedStartDate', 'type', 'status'];
+	protected readonly displayedColumns = Object.values(this.animeColumns);
 
 	/**
 	 * Track anime by its id.
