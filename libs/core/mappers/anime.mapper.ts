@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { Anime } from '../models/anime';
 import { AnimeDto } from '../dtos/anime.dto';
@@ -9,6 +9,7 @@ import { AnimeTypeDto } from '../dtos/anime-type.dto';
 import { AnimeStatus } from '../models/anime-status';
 
 import { AnimeType } from './../models/anime-type';
+import { DateTimeMapper } from './date-time.mapper';
 
 const MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
 	[AnimeTypeDto.Tv]: AnimeType.Tv,
@@ -49,19 +50,20 @@ const MAP_ANIME_STATUS_TO_DTO: Record<AnimeStatus, AnimeStatusDto> = {
 	providedIn: 'root',
 })
 export class AnimeMapper implements TMapper<AnimeDto, Anime> {
+	private readonly dateTimeMapper = inject(DateTimeMapper);
 
 	/** @inheritdoc */
 	public fromDto(data: AnimeDto): Anime {
 		return new Anime({
 			id: data.id,
-			createdDate: new Date(data.created),
-			modifiedDate: new Date(data.modified),
+			createdDate: this.dateTimeMapper.fromDto(data.created),
+			modifiedDate: this.dateTimeMapper.fromDto(data.modified),
 			titleEng: data.title_eng,
 			titleJpn: data.title_jpn,
 			image: data.image,
 			aired: {
-				startDate: data.aired.start ? new Date(data.aired.start) : null,
-				endDate: data.aired.end ? new Date(data.aired.end) : null,
+				startDate: data.aired.start ? this.dateTimeMapper.fromDto(data.aired.start) : null,
+				endDate: data.aired.end ? this.dateTimeMapper.fromDto(data.aired.end) : null,
 			},
 			type: MAP_ANIME_TYPE_FROM_DTO[data.type],
 			status: MAP_ANIME_STATUS_FROM_DTO[data.status],
@@ -76,14 +78,14 @@ export class AnimeMapper implements TMapper<AnimeDto, Anime> {
 	public toDto(data: Anime): AnimeDto {
 		return {
 			id: data.id,
-			created: data.createdDate.toISOString(),
-			modified: data.modifiedDate.toISOString(),
+			created: this.dateTimeMapper.toDto(data.createdDate),
+			modified: this.dateTimeMapper.toDto(data.modifiedDate),
 			title_eng: data.titleEng,
 			title_jpn: data.titleJpn,
 			image: data.image,
 			aired: {
-				start: data.aired.startDate ? data.aired.startDate.toISOString() : null,
-				end: data.aired.endDate ? data.aired.endDate.toISOString() : null,
+				start: data.aired.startDate ? this.dateTimeMapper.toDto(data.aired.startDate) : null,
+				end: data.aired.endDate ? this.dateTimeMapper.toDto(data.aired.endDate) : null,
 			},
 			type: MAP_ANIME_TYPE_TO_DTO[data.type],
 			status: MAP_ANIME_STATUS_TO_DTO[data.status],

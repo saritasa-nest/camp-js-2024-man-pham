@@ -1,9 +1,9 @@
-/** Date Time Range Type. */
+/** Date time range type. */
 export type DateTimeRange = {
 
 	/** Start date. */
-	startDate: Date | null;
+	readonly startDate: Date | null;
 
 	/** End date. */
-	endDate: Date | null;
+	readonly endDate: Date | null;
 };

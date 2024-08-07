@@ -10,8 +10,6 @@ import { AppConfig } from './app-config';
 export class AppUrlsConfig {
 	private readonly appConfig = inject(AppConfig);
 
-	private readonly baseUrl = this.appConfig.apiUrl;
-
 	/** Anime-related routes. */
 	public readonly anime = {
 		list: this.toApi('anime/anime/'),
@@ -23,6 +21,7 @@ export class AppUrlsConfig {
 	 */
 	private toApi(...args: string[]): string {
 		const relativePath = args.join('/');
-		return new URL(relativePath, this.baseUrl).toString();
+		const baseUrl = this.appConfig.apiUrl;
+		return new URL(relativePath, baseUrl).toString();
 	}
 }

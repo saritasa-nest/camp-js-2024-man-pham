@@ -6,7 +6,7 @@ import { PaginationDto } from '../dtos/pagination.dto';
 
 import { TMapperFromDto, TMapperFunction } from '../models/mapper';
 
-/** Pagination Mapper. */
+/** Pagination mapper. */
 @Injectable({
 	providedIn: 'root',
 })
