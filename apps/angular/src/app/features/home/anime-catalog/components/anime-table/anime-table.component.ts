@@ -1,4 +1,3 @@
-import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
