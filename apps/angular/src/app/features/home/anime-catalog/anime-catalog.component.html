@@ -3,11 +3,11 @@
  isLoading: isLoading$ | async,
  filterParams: filterParams$ | async
 } as data">
-	<camp-anime-selector-form [isLoading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)"
+	<camp-anime-filter-form [isLoading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)"
 		(searchSubmit)="onSearch($event)" [search]="data.filterParams?.search ?? ''"
-		[selectedType]="data.filterParams?.type ?? null"></camp-anime-selector-form>
+		[selectedType]="data.filterParams?.type ?? null"></camp-anime-filter-form>
 	<section class="mat-elevation-z8">
-		<camp-anime-table [animeList]="data.animePage ? data.animePage.items : []" [loading]="data.isLoading ?? false"
+		<camp-anime-table [animeList]="data.animePage ? data.animePage.items : []" [isLoading]="data.isLoading ?? false"
 			[sortParams]="sortParams$ | async" [pageSize]="data.filterParams?.pageSize ?? 0"
 			(sortChange)="onSortChange($event)"></camp-anime-table>
 		<camp-anime-paginator [isLoading]="data.isLoading ?? false"

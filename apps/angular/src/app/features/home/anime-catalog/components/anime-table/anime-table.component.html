@@ -1,13 +1,13 @@
 <section class="anime__table-container anime-table">
-	@if (dataSource.data.length >= 0) {
-		<table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="loading"
+	@if (dataSource.data.length >= 0 && isLoading === false) {
+		<table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="isLoading"
 			[matSortDirection]="sortEvent.direction" [matSortActive]="sortEvent.active"
 			(matSortChange)="onSortChange($event)" [trackBy]="trackAnime">
 			<ng-container [matColumnDef]="columns.Image">
 				<th mat-header-cell *matHeaderCellDef>Image</th>
 				<td mat-cell *matCellDef="let anime" class="anime__image-cell">
 					<div class="anime__image-container">
-						<camp-table-cell-content [isLoading]="loading">
+						<camp-table-cell-content [isLoading]="isLoading">
 							<img class="anime__image" [src]="anime.image" [alt]="anime.imageDescription"  />
 						</camp-table-cell-content>
 					</div>
@@ -17,7 +17,7 @@
 			<ng-container [matColumnDef]="columns.TitleEng">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
-					<camp-table-cell-content [isLoading]="loading">
+					<camp-table-cell-content [isLoading]="isLoading">
 						{{ anime.titleEng | noEmpty }}
 					</camp-table-cell-content>
 				</td>
@@ -26,7 +26,7 @@
 			<ng-container [matColumnDef]="columns.TitleJpn">
 				<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
-					<camp-table-cell-content [isLoading]="loading">
+					<camp-table-cell-content [isLoading]="isLoading">
 						{{ anime.titleJpn | noEmpty }}
 					</camp-table-cell-content>
 				</td>
@@ -35,7 +35,7 @@
 			<ng-container [matColumnDef]="columns.StartDate">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
 				<td mat-cell *matCellDef="let anime">
-					<camp-table-cell-content [isLoading]="loading">
+					<camp-table-cell-content [isLoading]="isLoading">
 						<span class="anime__badge">
 							{{ anime.aired.startDate | date : "M-d-yyyy" | noEmpty }}
 						</span>
@@ -46,7 +46,7 @@
 			<ng-container [matColumnDef]="columns.Type">
 				<th mat-header-cell *matHeaderCellDef>Type</th>
 				<td mat-cell *matCellDef="let anime">
-					<camp-table-cell-content [isLoading]="loading">
+					<camp-table-cell-content [isLoading]="isLoading">
 						<span class="anime__badge">
 							{{ anime.type | noEmpty }}
 						</span>
@@ -57,7 +57,7 @@
 			<ng-container [matColumnDef]="columns.Status">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
 				<td mat-cell *matCellDef="let anime">
-					<camp-table-cell-content [isLoading]="loading">
+					<camp-table-cell-content [isLoading]="isLoading">
 						<span class="anime__badge">
 							{{ anime.status | noEmpty }}
 						</span>

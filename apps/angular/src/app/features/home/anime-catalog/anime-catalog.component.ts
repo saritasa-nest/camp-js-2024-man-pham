@@ -19,13 +19,13 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
-import { AnimeSelectorFormComponent } from './components/anime-selector-form/anime-selector-form.component';
+import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-filter-form.component';
 
 /** Anime catalog. */
 @Component({
 	selector: 'camp-anime-catalog',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, AnimeTableComponent, AnimePaginatorComponent, AnimeSelectorFormComponent],
+	imports: [NgIf, AsyncPipe, AnimeTableComponent, AnimePaginatorComponent, AnimeFilterFormComponent],
 	templateUrl: './anime-catalog.component.html',
 	styleUrl: './anime-catalog.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

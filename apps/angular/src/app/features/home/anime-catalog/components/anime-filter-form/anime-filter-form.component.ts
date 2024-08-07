@@ -9,14 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 
 /** Anime selector form. */
 @Component({
-	selector: 'camp-anime-selector-form',
+	selector: 'camp-anime-filter-form',
 	standalone: true,
 	imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, MatSelectModule, MatIconModule],
-	templateUrl: './anime-selector-form.component.html',
-	styleUrl: './anime-selector-form.component.css',
+	templateUrl: './anime-filter-form.component.html',
+	styleUrl: './anime-filter-form.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeSelectorFormComponent {
+export class AnimeFilterFormComponent {
 	/** Selected type by the user. */
 	@Input()
 	public selectedType: AnimeType | null = null;

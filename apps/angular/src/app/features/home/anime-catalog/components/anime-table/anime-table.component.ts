@@ -30,7 +30,7 @@ export class AnimeTableComponent {
 
 	/** Loading state. */
 	@Input()
-	public loading = false;
+	public isLoading = false;
 
 	/** Page size. */
 	@Input()
