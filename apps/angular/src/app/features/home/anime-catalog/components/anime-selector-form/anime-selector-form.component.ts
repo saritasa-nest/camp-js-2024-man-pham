@@ -24,7 +24,7 @@ export class AnimeSelectorFormComponent {
 	@Input() public selectedType: AnimeType | null = null;
 
 	/** Searched result by the user. */
-	@Input() public search = '';
+	@Input() public search: string | null = null;
 
 	/** Loading state. */
 	@Input() public loading = false;
@@ -52,7 +52,7 @@ export class AnimeSelectorFormComponent {
 	 * @param event The search request value.
 	 */
 	protected onSearch(): void {
-		if (this.search.length > 0) {
+		if (this.search && this.search.length > 0) {
 			this.searchSubmit.emit(this.search);
 		} else {
 			this.searchSubmit.emit(null);

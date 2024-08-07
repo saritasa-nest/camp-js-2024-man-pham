@@ -37,7 +37,7 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	@Input() public pageSize = 0;
 
 	/** Sort params. */
-	@Input() public sortParams: Sort = {
+	@Input() public sortParams: Sort | null = {
 		active: '',
 		direction: '',
 	};
