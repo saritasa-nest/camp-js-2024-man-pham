@@ -8,7 +8,7 @@
 				<td mat-cell *matCellDef="let anime" class="anime__image-cell">
 					<div class="anime__image-container">
 						<camp-table-cell-content [isLoading]="loading">
-							<img class="anime__image" [src]="anime.image" alt="anime.titleJpn ?? 'Anime image'" />
+							<img class="anime__image" [src]="anime.image" [alt]="anime.imageDescription"  />
 						</camp-table-cell-content>
 					</div>
 				</td>
