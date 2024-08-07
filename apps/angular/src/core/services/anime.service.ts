@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
@@ -11,7 +11,11 @@ import { Pagination } from '@js-camp/core/models/pagination';
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
-import { AnimeHttpParamsService } from './anime-http-params.service';
+import { AnimeFilterParamsMapper } from '@js-camp/core/mappers/anime-filter-params.mapper';
+
+import { AnimeFilterParamsDto } from '@js-camp/core/dtos/anime-filter-params.dto';
+
+import { HttpParamsService } from './http-params.service';
 
 /** Anime service. */
 @Injectable({
@@ -24,15 +28,21 @@ export class AnimeService {
 
 	private readonly animeMapper = inject(AnimeMapper);
 
+	private readonly animeFilterParams = inject(AnimeFilterParamsMapper);
+
 	private readonly paginationMapper = inject(PaginationMapper);
 
-	private readonly httpParamsService = inject(AnimeHttpParamsService);
+	private readonly httpParamsService = inject(HttpParamsService);
 
-	private fetchAnimeWithParams(filterParams: AnimeFilterParams.Combined): Observable<Pagination<Anime>> {
-		const params = this.httpParamsService.getHttpParams(filterParams);
+	private fetchAnimeWithParams(params: HttpParams): Observable<Pagination<Anime>> {
 		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
 			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
 		);
+	}
+
+	private getHttpParams(filterParams: AnimeFilterParams.Combined): HttpParams {
+		const filterParamsDto = this.animeFilterParams.toDto(filterParams);
+		return this.httpParamsService.buildHttpParamsFromDto<AnimeFilterParamsDto.Combined>(filterParamsDto);
 	}
 
 	/**
@@ -41,6 +51,7 @@ export class AnimeService {
 	 * @returns The anime page.
 	 */
 	public getAnime(filterParams: AnimeFilterParams.Combined): Observable<Pagination<Anime>> {
-		return this.fetchAnimeWithParams(filterParams);
+		const httpParams = this.getHttpParams(filterParams);
+		return this.fetchAnimeWithParams(httpParams);
 	}
 }
