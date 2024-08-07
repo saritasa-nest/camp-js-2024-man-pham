@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { DatePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
@@ -9,11 +10,13 @@ import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
+import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
+
 /** Anime Table Component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
+	imports: [AnimeNotFoundComponent, DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -45,7 +48,6 @@ export class AnimeTableComponent {
 				direction: '',
 			};
 		}
-
 	}
 
 	/** Event emitter for sorting. */

@@ -1,5 +1,5 @@
 <section class="anime__table-container anime-table">
-	@if (dataSource.data.length > 0) {
+	@if (dataSource.data.length >= 0) {
 		<table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="loading"
 			[matSortDirection]="sortEvent.direction" [matSortActive]="sortEvent.active"
 			(matSortChange)="onSortChange($event)" [trackBy]="trackAnime">
@@ -36,7 +36,7 @@
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
-						<span class="anime__detail">
+						<span class="anime__badge">
 							{{ anime.aired.startDate | date : "M-d-yyyy" | noEmpty }}
 						</span>
 					</camp-table-cell-content>
@@ -47,7 +47,7 @@
 				<th mat-header-cell *matHeaderCellDef>Type</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
-						<span class="anime__detail">
+						<span class="anime__badge">
 							{{ anime.type | noEmpty }}
 						</span>
 					</camp-table-cell-content>
@@ -58,7 +58,7 @@
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
-						<span class="anime__detail">
+						<span class="anime__badge">
 							{{ anime.status | noEmpty }}
 						</span>
 					</camp-table-cell-content>
@@ -67,6 +67,11 @@
 
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+			<tr class="mat-row" *matNoDataRow>
+				<td class="mat-cell" [attr.colspan]="displayedColumns.length">
+					<camp-anime-not-found />
+				</td>
+			</tr>
 		</table>
 	}
 	@else {
@@ -121,4 +126,5 @@
 		</table>
 	}
 </section>
+
 
