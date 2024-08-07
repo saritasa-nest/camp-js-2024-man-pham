@@ -1,5 +1,4 @@
-import { TMapper } from '@js-camp/core/models/mapper';
-import { Sort, SortDirection as SortEventDirection } from '@angular/material/sort';
+import { Sort as SortEvent, SortDirection as SortEventDirection } from '@angular/material/sort';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 import { SortDirection } from '@js-camp/core/models/sort-direction';
@@ -10,7 +9,7 @@ import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 @Injectable({
 	providedIn: 'root',
 })
-export class SortMapper implements TMapper<Sort, AnimeFilterParams.Sort> {
+export class AnimeSortEventMapper {
 	private readonly MAP_SORT_COLUMNS_TO_SORT_FIELDS: Partial<Record<AnimeColumns, AnimeSortFields>> = {
 		[AnimeColumns.TitleEng]: AnimeSortFields.TitleEng,
 		[AnimeColumns.StartDate]: AnimeSortFields.StartDate,
@@ -24,7 +23,7 @@ export class SortMapper implements TMapper<Sort, AnimeFilterParams.Sort> {
 	};
 
 	/** @inheritdoc */
-	public fromDto(dto: Sort): AnimeFilterParams.Sort {
+	public mapToSortFilterParams(dto: SortEvent): AnimeFilterParams.Sort {
 		let sortDirection: SortDirection | null;
 
 		switch (dto.direction) {
@@ -46,7 +45,7 @@ export class SortMapper implements TMapper<Sort, AnimeFilterParams.Sort> {
 	}
 
 	/** @inheritdoc */
-	public toDto(model: Partial<AnimeFilterParams.Sort>): Sort {
+	public mapToSortEvent(model: Partial<AnimeFilterParams.Sort>): SortEvent {
 		let sortDirection: SortEventDirection;
 		switch (model.sortDirection) {
 			case SortDirection.Ascending:

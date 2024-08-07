@@ -17,23 +17,29 @@ import { MatIconModule } from '@angular/material/icon';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeSelectorFormComponent {
-	/** Anime type values. */
-	protected readonly animeTypes = Object.values(AnimeType);
-
 	/** Selected type by the user. */
-	@Input() public selectedType: AnimeType | null = null;
+	@Input()
+	public selectedType: AnimeType | null = null;
 
 	/** Searched result by the user. */
-	@Input() public search: string | null = null;
+	@Input()
+	public search: string | null = null;
 
+	// TODO (Man Pham): Update name
 	/** Loading state. */
-	@Input() public loading = false;
+	@Input()
+	public isLoading = false;
 
 	/** Event emitter for submitting search. */
-	@Output() public searchSubmit = new EventEmitter<string | null>();
+	@Output()
+	public searchSubmit = new EventEmitter<string | null>();
 
 	/** Event emitter for type changing. */
-	@Output() public typeChange = new EventEmitter<AnimeType | null>();
+	@Output()
+	public typeChange = new EventEmitter<AnimeType | null>();
+
+	/** Anime type values. */
+	protected readonly animeTypes = Object.values(AnimeType);
 
 	/**
 	 * Emit the selected type to the parent.

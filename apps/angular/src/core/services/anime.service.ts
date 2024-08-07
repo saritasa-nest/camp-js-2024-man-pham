@@ -28,20 +28,14 @@ export class AnimeService {
 
 	private readonly animeMapper = inject(AnimeMapper);
 
-	private readonly animeFilterParams = inject(AnimeFilterParamsMapper);
+	private readonly animeFilterParamsMapper = inject(AnimeFilterParamsMapper);
 
 	private readonly paginationMapper = inject(PaginationMapper);
 
 	private readonly httpParamsService = inject(HttpParamsService);
 
-	private fetchAnimeWithParams(params: HttpParams): Observable<Pagination<Anime>> {
-		return this.httpClient.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params }).pipe(
-			map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)),
-		);
-	}
-
 	private getHttpParams(filterParams: AnimeFilterParams.Combined): HttpParams {
-		const filterParamsDto = this.animeFilterParams.toDto(filterParams);
+		const filterParamsDto = this.animeFilterParamsMapper.toDto(filterParams);
 		return this.httpParamsService.buildHttpParamsFromDto<AnimeFilterParamsDto.Combined>(filterParamsDto);
 	}
 
@@ -51,7 +45,9 @@ export class AnimeService {
 	 * @returns The anime page.
 	 */
 	public getAnime(filterParams: AnimeFilterParams.Combined): Observable<Pagination<Anime>> {
-		const httpParams = this.getHttpParams(filterParams);
-		return this.fetchAnimeWithParams(httpParams);
+		const params = this.getHttpParams(filterParams);
+		return this.httpClient
+			.get<PaginationDto<AnimeDto>>(this.appUrlsConfig.anime.list, { params })
+			.pipe(map(responseDto => this.paginationMapper.mapPaginationFromDto(responseDto, this.animeMapper)));
 	}
 }

@@ -11,8 +11,7 @@ import { QueryParamsService } from './query-params.service';
 /** Anime query params service. */
 @Injectable({ providedIn: 'root' })
 export class AnimeQueryParamsService {
-
-	private readonly animeQueryParams = inject(AnimeQueryParamsMapper);
+	private readonly animeQueryParamsMapper = inject(AnimeQueryParamsMapper);
 
 	private readonly queryParamsService = inject(QueryParamsService);
 
@@ -21,7 +20,7 @@ export class AnimeQueryParamsService {
 	 * @param params Anime filter params.
 	 */
 	public append(params: Partial<AnimeFilterParams.Combined>): void {
-		const queryParams = this.animeQueryParams.toDto(params);
+		const queryParams = this.animeQueryParamsMapper.toDto(params);
 		this.queryParamsService.append(queryParams);
 	}
 
@@ -30,7 +29,7 @@ export class AnimeQueryParamsService {
 	 * @param params Anime filter params to append.
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
-		const queryParams = this.animeQueryParams.toDto(params);
-		return this.queryParamsService.appendParamsAndResetPageNumber(queryParams, DEFAULT_PAGINATION.pageNumber);
+		const queryParams = this.animeQueryParamsMapper.toDto(params);
+		this.queryParamsService.appendParamsAndResetPageNumber(queryParams, DEFAULT_PAGINATION.pageNumber);
 	}
 }

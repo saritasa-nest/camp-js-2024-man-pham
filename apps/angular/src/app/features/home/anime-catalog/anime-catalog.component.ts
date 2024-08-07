@@ -17,10 +17,6 @@ import { AnimeQueryParamsService } from '@js-camp/angular/core/services/anime-qu
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
-import { Sort } from '@angular/material/sort';
-
-import { SortMapper } from '@js-camp/angular/core/mappers/sort.mapper';
-
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
 import { AnimeSelectorFormComponent } from './components/anime-selector-form/anime-selector-form.component';
@@ -42,12 +38,10 @@ export class AnimeCatalogComponent implements OnInit {
 
 	private readonly animeService = inject(AnimeService);
 
-	private readonly sortMapper = inject(SortMapper);
-
 	private readonly destroyRef = inject(DestroyRef);
 
 	/** Loading state when fetching data. */
-	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
+	protected readonly isLoading$ = new BehaviorSubject(false);
 
 	/** Anime page observable. */
 	protected readonly animePage$: Observable<Pagination<Anime>>;
@@ -83,13 +77,15 @@ export class AnimeCatalogComponent implements OnInit {
 	}
 
 	/** Get sort params. */
-	protected get sortParams$(): Observable<Sort> {
+	protected get sortParams$(): Observable<AnimeFilterParams.Sort> {
 		return this.filterParams$.pipe(
-			map(params =>
-				this.sortMapper.toDto({
-					sortDirection: params?.sortDirection,
-					sortField: params?.sortField,
-				})),
+			map(params => {
+				const sortParams: AnimeFilterParams.Sort = {
+					sortDirection: params?.sortDirection ?? null,
+					sortField: params?.sortField ?? null,
+				};
+				return sortParams;
+			}),
 		);
 	}
 
@@ -121,8 +117,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * Event handler for sorting.
 	 * @param event The sorting event values.
 	 */
-	protected onSortChange(event: Sort): void {
-		const sortParams = this.sortMapper.fromDto(event);
-		this.animeQueryParams.appendParamsAndResetPageNumber(sortParams);
+	protected onSortChange(event: AnimeFilterParams.Sort): void {
+		this.animeQueryParams.appendParamsAndResetPageNumber(event);
 	}
 }

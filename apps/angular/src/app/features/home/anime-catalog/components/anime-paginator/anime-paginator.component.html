@@ -1,5 +1,5 @@
 <div class="anime-paginator">
-	<mat-paginator [disabled]="loading" [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageNumber"
+	<mat-paginator [disabled]="isLoading" [length]="totalCount" [pageSize]="pageSize" [pageIndex]="pageNumber"
 		[pageSizeOptions]="pageSizeOptions" (page)="onPageChange($event)" aria-label="Select page">
 	</mat-paginator>
 </div>

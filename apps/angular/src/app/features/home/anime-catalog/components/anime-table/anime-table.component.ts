@@ -1,21 +1,13 @@
-import {
-	ChangeDetectionStrategy,
-	Component,
-	Input,
-	ViewChild,
-	AfterViewInit,
-	OnChanges,
-	SimpleChanges,
-	Output,
-	EventEmitter,
-} from '@angular/core';
 import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Anime } from '@js-camp/core/models/anime';
+import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
-import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 import { TableCellContentComponent } from '@js-camp/angular/shared/components/table-cell-content/table-cell-content.component';
+import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
+import { Anime } from '@js-camp/core/models/anime';
+import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 /** Anime Table Component. */
 @Component({
@@ -26,55 +18,52 @@ import { TableCellContentComponent } from '@js-camp/angular/shared/components/ta
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeTableComponent implements AfterViewInit, OnChanges {
+export class AnimeTableComponent {
 	/** Anime list.*/
-	@Input() public animeList: ReadonlyArray<Anime> = [];
+	@Input()
+	public set animeList(values: ReadonlyArray<Anime>) {
+		this.dataSource.data = [...values];
+	}
 
 	/** Loading state. */
-	@Input() public loading = false;
+	@Input()
+	public loading = false;
 
 	/** Page size. */
-	@Input() public pageSize = 0;
+	@Input()
+	public pageSize = 0;
 
 	/** Sort params. */
-	@Input() public sortParams: Sort | null = {
-		active: '',
-		direction: '',
-	};
+	@Input()
+	public set sortParams(values: AnimeFilterParams.Sort | null) {
+		if (values?.sortDirection && values.sortField) {
+			this.sortEvent = this.sortEventMapper.mapToSortEvent(values);
+		} else {
+			this.sortEvent = {
+				active: '',
+				direction: '',
+			};
+		}
+
+	}
+
+	// TODO (Man Pham): Change Sort to FilterParams
+	/** Event emitter for sorting. */
+	@Output()
+	public sortChange = new EventEmitter<AnimeFilterParams.Sort>();
+
+	private readonly sortEventMapper = inject(AnimeSortEventMapper);
 
 	private readonly columns = AnimeColumns;
 
 	/** Table data source. */
 	protected dataSource = new MatTableDataSource<Anime>();
 
-	/** Table sort. */
-	@ViewChild(MatSort) protected sort!: MatSort;
-
-	/** Event emitter for sorting. */
-	@Output() public sortChange = new EventEmitter<Sort>();
-
-	public constructor() {}
-
-	/**
-	 * Side effects after initializing views.
-	 * Customize the sortingDataAccessor to handle sort values related to aired.StartDate property.
-	 */
-	public ngAfterViewInit(): void {
-		this.dataSource.sort = this.sort;
-	}
-
-	/**
-	 * Update changes to the data source when the input is updated.
-	 * @param changes Changes.
-	 */
-	public ngOnChanges(changes: SimpleChanges): void {
-		if (changes['animeList']) {
-			this.dataSource.data = [...this.animeList];
-		}
-	}
+	/** Sort event values. */
+	protected sortEvent!: Sort;
 
 	/** Displayed columns. */
-	protected readonly displayedColumns: string[] = Object.values(this.columns);
+	protected readonly displayedColumns: AnimeColumns[] = Object.values(this.columns);
 
 	/**
 	 * Track anime by its id.
@@ -82,7 +71,7 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	 * @param item The anime.
 	 * @returns Anime id.
 	 */
-	protected trackAnimeById(index: number, item: Anime): Anime['id'] {
+	protected trackAnime(index: number, item: Anime): Anime['id'] {
 		return item.id;
 	}
 
@@ -91,7 +80,8 @@ export class AnimeTableComponent implements AfterViewInit, OnChanges {
 	 * @param event Sort event.
 	 */
 	public onSortChange(event: Sort): void {
-		this.sortChange.emit(event);
+		const sortFilterParams = this.sortEventMapper.mapToSortFilterParams(event);
+		this.sortChange.emit(sortFilterParams);
 	}
 
 	/** Generate number array for the template table data source. */
