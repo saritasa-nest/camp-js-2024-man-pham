@@ -47,7 +47,6 @@ export class AnimeTableComponent {
 
 	}
 
-	// TODO (Man Pham): Change Sort to FilterParams
 	/** Event emitter for sorting. */
 	@Output()
 	public sortChange = new EventEmitter<AnimeFilterParams.Sort>();

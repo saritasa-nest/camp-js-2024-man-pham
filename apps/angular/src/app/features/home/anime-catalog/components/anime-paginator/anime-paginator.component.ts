@@ -12,7 +12,6 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimePaginatorComponent {
-	// TODO (Man Pham): Update variables ordering, update Input Output
 
 	/** Amount of items per page. */
 	@Input()

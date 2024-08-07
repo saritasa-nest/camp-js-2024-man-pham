@@ -25,7 +25,6 @@ export class AnimeSelectorFormComponent {
 	@Input()
 	public search: string | null = null;
 
-	// TODO (Man Pham): Update name
 	/** Loading state. */
 	@Input()
 	public isLoading = false;
