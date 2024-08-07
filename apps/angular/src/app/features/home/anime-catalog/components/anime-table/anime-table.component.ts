@@ -19,6 +19,7 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeTableComponent {
+
 	/** Anime list.*/
 	@Input()
 	public set animeList(values: ReadonlyArray<Anime>) {
@@ -67,11 +68,11 @@ export class AnimeTableComponent {
 
 	/**
 	 * Track anime by its id.
-	 * @param index Item index.
+	 * @param _index Item index.
 	 * @param item The anime.
 	 * @returns Anime id.
 	 */
-	protected trackAnime(index: number, item: Anime): Anime['id'] {
+	protected trackAnime(_index: number, item: Anime): Anime['id'] {
 		return item.id;
 	}
 
