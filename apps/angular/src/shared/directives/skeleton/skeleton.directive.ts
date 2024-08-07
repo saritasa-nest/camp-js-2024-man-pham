@@ -7,7 +7,18 @@ import { Directive, ElementRef, HostBinding, Input, OnChanges } from '@angular/c
  * @param min Min.
  */
 export function generateRandomInRange(max: number, min: number): number {
-	return Math.random() * (max - min) + min;
+	const { crypto } = window;
+	const range = max - min;
+	const array = new Uint32Array(1);
+
+	// Generate a secure random value
+	crypto.getRandomValues(array);
+
+	// Normalize the random value to a range between 0 and 1
+	const randomValue = array[0] / (Number.MAX_SAFE_INTEGER + 1);
+
+	// Scale and shift the normalized value to the desired range
+	return min + randomValue * range;
 }
 
 /** The directive applies a skeleton class whenever the passed value is void. */
@@ -61,9 +72,7 @@ export class SkeletonDirective implements OnChanges {
 
 	private width: number | null = null;
 
-	public constructor(
-		private readonly elementRef: ElementRef<HTMLElement>,
-	) {}
+	public constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
 
 	/** @inheritdoc */
 	public ngOnChanges(): void {
