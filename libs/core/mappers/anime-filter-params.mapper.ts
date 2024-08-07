@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { AnimeType } from '../models/anime-type';
 import { AnimeTypeDto } from '../dtos/anime-type.dto';
@@ -8,6 +8,8 @@ import { AnimeFilterParamsDto } from '../dtos/anime-filter-params.dto';
 import { AnimeSortFields } from '../models/anime-sort-fields';
 import { AnimeSortFieldsDto } from '../dtos/anime-sort-fields.dto';
 import { SortDirection } from '../models/sort-direction';
+
+import { BaseFilterParamsMapper } from './base-filter-params.mapper';
 
 const MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 	[AnimeType.Tv]: AnimeTypeDto.Tv,
@@ -24,30 +26,13 @@ const MAP_ANIME_SORT_FIELDS_TO_DTO: Record<AnimeSortFields, AnimeSortFieldsDto> 
 	[AnimeSortFields.StartDate]: AnimeSortFieldsDto.StartDate,
 	[AnimeSortFields.Status]: AnimeSortFieldsDto.Status,
 	[AnimeSortFields.TitleEng]: AnimeSortFieldsDto.TitleEng,
-
 };
 
 /** Mapper for filter params. */
 @Injectable({ providedIn: 'root' })
-export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
-	private mapPaginationOptionsToDto(model: AnimeFilterParams.Pagination): AnimeFilterParamsDto.Pagination | null {
-		if (model.pageNumber !== null && model.pageSize !== null) {
-			return {
-				offset: model.pageNumber * model.pageSize,
-				limit: model.pageSize,
-			};
-		}
-		return null ;
-	}
-
-	private mapSearchOptionsToDto(model: AnimeFilterParams.Search): AnimeFilterParamsDto.Search | null {
-		if (model.search) {
-			return {
-				search: model.search,
-			};
-		}
-		return null;
-	}
+export class AnimeFilterParamsMapper
+implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
+	private baseFilterMapper = inject(BaseFilterParamsMapper);
 
 	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeFilterParamsDto.Sort | null {
 		if (model.sortDirection && model.sortField) {
@@ -72,8 +57,7 @@ export class AnimeFilterParamsMapper implements TMapperToDto<AnimeFilterParamsDt
 	/** @inheritdoc */
 	public toDto(model: AnimeFilterParams.Combined): AnimeFilterParamsDto.Combined {
 		return {
-			...this.mapPaginationOptionsToDto(model),
-			...this.mapSearchOptionsToDto(model),
+			...this.baseFilterMapper.toDto(model),
 			...this.mapOrderingOptionToDto(model),
 			...this.mapTypeOptionToDto(model),
 		};

@@ -1,22 +1,7 @@
-/** Anime filter params dto. */
+import { BaseFilterParamsDto } from './base-filter-params.dto';
+
+/** Anime filter params DTO. */
 export namespace AnimeFilterParamsDto {
-
-	/** Search. */
-	export type Search = {
-
-		/** Search filter. */
-		readonly search?: string;
-	};
-
-	/** Pagination. */
-	export type Pagination = {
-
-		/** Offset. */
-		readonly offset?: number;
-
-		/** Page size. */
-		readonly limit?: number;
-	};
 
 	/** Sort. */
 	export type Sort = {
@@ -33,5 +18,5 @@ export namespace AnimeFilterParamsDto {
 	};
 
 	/** Anime query params dto. */
-	export type Combined = Search & Pagination & Sort & Type;
+	export type Combined = BaseFilterParamsDto.Combined & Sort & Type;
 }
