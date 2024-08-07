@@ -5,9 +5,11 @@
 			<mat-option [value]="">
 				All
 			</mat-option>
-			<mat-option *ngFor="let type of animeTypes" [value]="type">
+			@for (type of animeTypes; track type) {
+			<mat-option [value]="type">
 				{{ type }}
 			</mat-option>
+			}
 		</mat-select>
 	</mat-form-field>
 	<mat-form-field class="form-field" appearance="outline" subscriptSizing="dynamic">
