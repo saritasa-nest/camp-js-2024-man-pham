@@ -1,0 +1,22 @@
+.not-found {
+	display: flex;
+	gap: var(--spacing-sm);
+	align-items: center;
+	justify-content: center;
+	padding-block: var(--spacing-md);
+}
+
+.not-found__icon {
+	--icon-size: 30px;
+
+	font-size: var(--icon-size);
+	height: var(--icon-size);
+	width: var(--icon-size);
+	color: var(--primary-dark-color);
+}
+
+.not-found__message {
+	font-weight: var(--font-weight-medium);
+	font-size: var(--font-size-lg);
+	color: var(--primary-dark-color);
+}
