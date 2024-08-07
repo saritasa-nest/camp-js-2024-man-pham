@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-
-import { BehaviorSubject, first, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, finalize, ignoreElements, map, Observable, switchMap, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { PageEvent } from '@angular/material/paginator';
 
@@ -44,6 +44,8 @@ export class AnimeCatalogComponent implements OnInit {
 
 	private readonly sortMapper = inject(SortMapper);
 
+	private readonly destroyRef = inject(DestroyRef);
+
 	/** Loading state when fetching data. */
 	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
@@ -51,30 +53,44 @@ export class AnimeCatalogComponent implements OnInit {
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
 	/** Filter params. */
-	protected filterParams: AnimeFilterParams.Combined | null = null;
+	protected filterParams$ = new BehaviorSubject<AnimeFilterParams.Combined | null>(null);
 
 	public constructor() {
 		this.animePage$ = this.filter$.pipe(
 			tap(() => this.isLoading$.next(true)),
-			switchMap(filterParams => this.animeService.getAnime(filterParams).pipe(
-				tap(() => this.isLoading$.next(false)),
-			)),
+			switchMap(filterParams =>
+				this.animeService.getAnime(filterParams).pipe(finalize(() => this.isLoading$.next(false)))),
 		);
 	}
 
-	/** Subscribe the page number and page size to pass them to the paginator. */
+	/** Get the filter params. */
 	public ngOnInit(): void {
-		this.filter$.pipe(
-			first(),
+		// Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+		// Add 'implements AfterViewInit' to the class.
+
+		this.initializeFilterParamsSideEffects()
+			.pipe(takeUntilDestroyed(this.destroyRef))
+			.subscribe();
+	}
+
+	private initializeFilterParamsSideEffects(): Observable<void> {
+		return this.filter$.pipe(
 			tap(params => {
-				this.filterParams = params;
+				this.filterParams$.next(params);
 			}),
-		).subscribe();
+			ignoreElements(),
+		);
 	}
 
 	/** Get sort params. */
-	protected get sortParams(): Sort {
-		return this.sortMapper.toDto({ sortDirection: this.filterParams?.sortDirection, sortField: this.filterParams?.sortField });
+	protected get sortParams$(): Observable<Sort> {
+		return this.filterParams$.pipe(
+			map(params =>
+				this.sortMapper.toDto({
+					sortDirection: params?.sortDirection,
+					sortField: params?.sortField,
+				})),
+		);
 	}
 
 	/**
