@@ -8,7 +8,6 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
 	standalone: true,
 	imports: [MatPaginatorModule],
 	templateUrl: './anime-paginator.component.html',
-	styleUrl: './anime-paginator.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimePaginatorComponent {

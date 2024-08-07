@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 @Component({
 	selector: 'camp-root',
 	templateUrl: './app.component.html',
-	styleUrls: ['./app.component.css'],
 	standalone: true,
 	imports: [RouterModule],
 })

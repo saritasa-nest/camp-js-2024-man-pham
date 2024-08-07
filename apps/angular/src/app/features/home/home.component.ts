@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 @Component({
 	selector: 'camp-home',
 	templateUrl: './home.component.html',
-	styleUrls: ['./home.component.css'],
 	imports: [RouterModule, SidebarComponent],
 	standalone: true,
 })
