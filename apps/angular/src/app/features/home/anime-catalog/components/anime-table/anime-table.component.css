@@ -19,17 +19,16 @@
 }
 
 .anime__image-cell {
-	--image-size: 150px;
-
-	width: 15%;
-	min-width: var(--image-size);
+	display: flex;
+	justify-content: center;
+	padding-block: var(--spacing-sm);
 }
 
 .anime__image-container {
+	--image-size: 150px;
+
+	width: var(--image-size);
 	height: var(--image-size);
-	display: flex;
-	justify-content: center;
-	padding-block: var(--spacing-xsm);
 }
 
 .anime__image {
