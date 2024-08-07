@@ -55,9 +55,7 @@ export class Anime extends Immerable {
 		return this.titleEng || this.titleJpn || ANIME_IMAGE_FALLBACK_DESCRIPTION;
 	}
 
-	public constructor(
-		data: TAnime,
-	) {
+	public constructor(data: TAnime) {
 		super();
 		this.id = data.id;
 		this.createdDate = data.createdDate;
@@ -73,7 +71,6 @@ export class Anime extends Immerable {
 		this.studios = data.studios;
 		this.genres = data.genres;
 	}
-
 }
 
 /** Anime Type. */

@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/** Http Params Service. */
+/** Http params service. */
 @Injectable({
 	providedIn: 'root',
 })

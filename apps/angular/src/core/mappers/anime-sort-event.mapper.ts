@@ -5,7 +5,7 @@ import { SortDirection } from '@js-camp/core/models/sort-direction';
 import { Injectable } from '@angular/core';
 import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 
-/** Sort Mapper. */
+/** Anime sort event mapper. */
 @Injectable({
 	providedIn: 'root',
 })
@@ -22,7 +22,11 @@ export class AnimeSortEventMapper {
 		[AnimeSortFields.Status]: AnimeColumns.Status,
 	};
 
-	/** @inheritdoc */
+	/**
+	 * Map sort event values to sort filter params.
+	 * @param dto Sort event values.
+	 * @returns Sort filter params.
+	 */
 	public mapToSortFilterParams(dto: SortEvent): AnimeFilterParams.Sort {
 		let sortDirection: SortDirection | null;
 
@@ -44,7 +48,11 @@ export class AnimeSortEventMapper {
 		};
 	}
 
-	/** @inheritdoc */
+	/**
+	 * Map sort filter params to sort event values.
+	 * @param model Sort filter params.
+	 * @returns Sort event values.
+	 */
 	public mapToSortEvent(model: Partial<AnimeFilterParams.Sort>): SortEvent {
 		let sortDirection: SortEventDirection;
 		switch (model.sortDirection) {

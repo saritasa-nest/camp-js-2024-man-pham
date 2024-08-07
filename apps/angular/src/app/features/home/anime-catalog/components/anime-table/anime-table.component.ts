@@ -11,7 +11,7 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
 
-/** Anime Table Component. */
+/** Anime table component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,

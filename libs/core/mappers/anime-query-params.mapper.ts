@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 
 import { AnimeFilterParams } from '../models/anime-filter-params';
@@ -7,14 +6,16 @@ import { DEFAULT_PAGINATION } from '../contants/pagination';
 import { StrictOmit } from '../utils/types/strict-omit';
 
 /** Anime query params. */
-export type AnimeQueryParams = Partial<StrictOmit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize' > & {
+export type AnimeQueryParams = Partial<
+StrictOmit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
 
 	/** Page number query param. */
 	pageNumber: string | null;
 
 	/** Page size query param. */
 	pageSize: string | null;
-}>;
+}
+>;
 
 /** Service for handling URL query params. */
 @Injectable({
