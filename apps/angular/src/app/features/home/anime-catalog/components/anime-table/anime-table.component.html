@@ -3,7 +3,7 @@
 		<table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="loading"
 			[matSortDirection]="sortEvent.direction" [matSortActive]="sortEvent.active"
 			(matSortChange)="onSortChange($event)" [trackBy]="trackAnime">
-			<ng-container matColumnDef="image">
+			<ng-container [matColumnDef]="columns.Image">
 				<th mat-header-cell *matHeaderCellDef>Image</th>
 				<td mat-cell *matCellDef="let anime" class="anime__image-cell">
 					<div class="anime__image-container">
@@ -14,7 +14,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="titleEng">
+			<ng-container [matColumnDef]="columns.TitleEng">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
 					<camp-table-cell-content [isLoading]="loading">
@@ -23,7 +23,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="titleJpn">
+			<ng-container [matColumnDef]="columns.TitleJpn">
 				<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
 					<camp-table-cell-content [isLoading]="loading">
@@ -32,7 +32,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="startDate">
+			<ng-container [matColumnDef]="columns.StartDate">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
@@ -43,7 +43,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="type">
+			<ng-container [matColumnDef]="columns.Type">
 				<th mat-header-cell *matHeaderCellDef>Type</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
@@ -54,7 +54,7 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="status">
+			<ng-container [matColumnDef]="columns.Status">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="loading">
@@ -72,7 +72,7 @@
 	@else {
 		<table mat-table [dataSource]="templateArray" matSort [matSortDirection]="sortEvent.direction"
 			[matSortActive]="sortEvent.active" (matSortChange)="onSortChange($event)">
-			<ng-container matColumnDef="image">
+			<ng-container [matColumnDef]="columns.Image">
 				<th mat-header-cell *matHeaderCellDef>Image</th>
 				<td mat-cell *matCellDef="let anime" class="anime__image-cell">
 					<div class="anime__image-container">
@@ -81,35 +81,35 @@
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="titleEng">
+			<ng-container [matColumnDef]="columns.TitleEng">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
 					<camp-table-cell-content [isLoading]="true" />
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="titleJpn">
+			<ng-container [matColumnDef]="columns.TitleJpn">
 				<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
 				<td mat-cell *matCellDef="let anime" class="anime__title">
 					<camp-table-cell-content [isLoading]="true" />
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="startDate">
+			<ng-container [matColumnDef]="columns.StartDate">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="true" />
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="type">
+			<ng-container [matColumnDef]="columns.Type">
 				<th mat-header-cell *matHeaderCellDef>Type</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="true" />
 				</td>
 			</ng-container>
 
-			<ng-container matColumnDef="status">
+			<ng-container [matColumnDef]="columns.Status">
 				<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
 				<td mat-cell *matCellDef="let anime">
 					<camp-table-cell-content [isLoading]="true" />
@@ -121,3 +121,4 @@
 		</table>
 	}
 </section>
+

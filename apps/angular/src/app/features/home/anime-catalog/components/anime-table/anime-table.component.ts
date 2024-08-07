@@ -53,7 +53,8 @@ export class AnimeTableComponent {
 
 	private readonly sortEventMapper = inject(AnimeSortEventMapper);
 
-	private readonly columns = AnimeColumns;
+	/** Anime column ids. */
+	protected readonly columns = AnimeColumns;
 
 	/** Table data source. */
 	protected dataSource = new MatTableDataSource<Anime>();
