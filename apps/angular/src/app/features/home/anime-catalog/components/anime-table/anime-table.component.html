@@ -1,5 +1,5 @@
 <section class="anime__table-container anime-table">
-	<ng-container *ngIf="dataSource.data.length > 0; else loadingTemplate">
+	@if (dataSource.data.length > 0) {
 		<table mat-table [dataSource]="dataSource" matSort [matSortDisabled]="loading"
 			[matSortDirection]="sortParams.direction" [matSortActive]="sortParams.active"
 			(matSortChange)="onSortChange($event)" [trackBy]="trackAnimeById">
@@ -68,57 +68,56 @@
 			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
 			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 		</table>
-	</ng-container>
-</section>
+	}
+	@else {
+		<table mat-table [dataSource]="templateArray" matSort [matSortDirection]="sortParams.direction"
+			[matSortActive]="sortParams.active" (matSortChange)="onSortChange($event)">
+			<ng-container matColumnDef="image">
+				<th mat-header-cell *matHeaderCellDef>Image</th>
+				<td mat-cell *matCellDef="let anime" class="anime__image-cell">
+					<div class="anime__image-container">
+						<camp-table-cell-content [isLoading]="true" />
+					</div>
+				</td>
+			</ng-container>
 
-<ng-template #loadingTemplate>
-	<table mat-table [dataSource]="templateArray" matSort [matSortDirection]="sortParams.direction"
-		[matSortActive]="sortParams.active" (matSortChange)="onSortChange($event)">
-		<ng-container matColumnDef="image">
-			<th mat-header-cell *matHeaderCellDef>Image</th>
-			<td mat-cell *matCellDef="let anime" class="anime__image-cell">
-				<div class="anime__image-container">
+			<ng-container matColumnDef="titleEng">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
+				<td mat-cell *matCellDef="let anime" class="anime__title">
 					<camp-table-cell-content [isLoading]="true" />
-				</div>
-			</td>
-		</ng-container>
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="titleEng">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header="">English Title</th>
-			<td mat-cell *matCellDef="let anime" class="anime__title">
-				<camp-table-cell-content [isLoading]="true" />
-			</td>
-		</ng-container>
+			<ng-container matColumnDef="titleJpn">
+				<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
+				<td mat-cell *matCellDef="let anime" class="anime__title">
+					<camp-table-cell-content [isLoading]="true" />
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="titleJpn">
-			<th mat-header-cell *matHeaderCellDef>Japanese Title</th>
-			<td mat-cell *matCellDef="let anime" class="anime__title">
-				<camp-table-cell-content [isLoading]="true" />
-			</td>
-		</ng-container>
+			<ng-container matColumnDef="startDate">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
+				<td mat-cell *matCellDef="let anime">
+					<camp-table-cell-content [isLoading]="true" />
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="startDate">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Start Date</th>
-			<td mat-cell *matCellDef="let anime">
-				<camp-table-cell-content [isLoading]="true" />
-			</td>
-		</ng-container>
+			<ng-container matColumnDef="type">
+				<th mat-header-cell *matHeaderCellDef>Type</th>
+				<td mat-cell *matCellDef="let anime">
+					<camp-table-cell-content [isLoading]="true" />
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="type">
-			<th mat-header-cell *matHeaderCellDef>Type</th>
-			<td mat-cell *matCellDef="let anime">
-				<camp-table-cell-content [isLoading]="true" />
-			</td>
-		</ng-container>
+			<ng-container matColumnDef="status">
+				<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+				<td mat-cell *matCellDef="let anime">
+					<camp-table-cell-content [isLoading]="true" />
+				</td>
+			</ng-container>
 
-		<ng-container matColumnDef="status">
-			<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
-			<td mat-cell *matCellDef="let anime">
-				<camp-table-cell-content [isLoading]="true" />
-			</td>
-		</ng-container>
-
-		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-	</table>
-</ng-template>
+			<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+			<tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+		</table>
+	}
+</section>

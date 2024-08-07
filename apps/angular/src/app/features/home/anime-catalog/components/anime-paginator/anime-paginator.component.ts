@@ -1,13 +1,11 @@
-
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 
 /** Anime Paginator Component. */
 @Component({
 	selector: 'camp-anime-paginator',
 	standalone: true,
-	imports: [CommonModule, MatPaginatorModule],
+	imports: [MatPaginatorModule],
 	templateUrl: './anime-paginator.component.html',
 	styleUrl: './anime-paginator.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,5 +36,4 @@ export class AnimePaginatorComponent {
 	public onPageChange(event: PageEvent): void {
 		this.pageChange.emit(event);
 	}
-
 }

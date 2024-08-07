@@ -1,5 +1,15 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild, AfterViewInit, OnChanges, SimpleChanges, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	Input,
+	ViewChild,
+	AfterViewInit,
+	OnChanges,
+	SimpleChanges,
+	Output,
+	EventEmitter,
+} from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Anime } from '@js-camp/core/models/anime';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
@@ -11,7 +21,7 @@ import { TableCellContentComponent } from '@js-camp/angular/shared/components/ta
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [CommonModule, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
+	imports: [DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

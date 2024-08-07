@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
@@ -12,21 +11,12 @@ import { MatIconModule } from '@angular/material/icon';
 @Component({
 	selector: 'camp-anime-selector-form',
 	standalone: true,
-	imports: [
-		CommonModule,
-		MatInputModule,
-		MatFormFieldModule,
-		FormsModule,
-		MatButtonModule,
-		MatSelectModule,
-		MatIconModule,
-	],
+	imports: [MatInputModule, MatFormFieldModule, FormsModule, MatButtonModule, MatSelectModule, MatIconModule],
 	templateUrl: './anime-selector-form.component.html',
 	styleUrl: './anime-selector-form.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeSelectorFormComponent {
-
 	/** Anime type values. */
 	protected readonly animeTypes = Object.values(AnimeType);
 
