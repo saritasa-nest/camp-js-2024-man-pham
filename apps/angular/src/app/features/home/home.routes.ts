@@ -10,6 +10,7 @@ export const homeRoutes: Routes = [
 		children: [
 			{
 				path: '',
+				title: 'Anime Catalog',
 				loadComponent: () =>
 					import('./anime-catalog/anime-catalog.component').then(c => c.AnimeCatalogComponent),
 			},
