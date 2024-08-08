@@ -1,19 +1,25 @@
-import { Immerable, OmitImmerable } from './immerable';
+import { FormControl, NonNullableFormBuilder, FormGroup, Validators } from '@angular/forms';
 
-/** Login data. */
-export class Login extends Immerable {
+/** Login form type. */
+export type LoginForm = {
 
-	/** Email. */
-	public readonly email: string;
+	/** Email form field. */
+	readonly email: FormControl<string>;
 
-	/** Password. */
-	public readonly password: string;
+	/** Password form field. */
+	readonly password: FormControl<string>;
+};
 
-	public constructor(data: TLogin) {
-		super();
-		this.email = data.email;
-		this.password = data.password;
+export namespace LoginForm {
+
+	/**
+	 * Initializes a login form using FormBuilder.
+	 * @param fb Form builder object.
+	 */
+	export function initialize(fb: NonNullableFormBuilder): FormGroup<LoginForm> {
+		return fb.group({
+			email: fb.control('', [Validators.required, Validators.email]),
+			password: fb.control('', [Validators.required]),
+		});
 	}
 }
-
-type TLogin = OmitImmerable<Login>;

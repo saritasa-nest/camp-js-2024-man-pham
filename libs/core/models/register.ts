@@ -1,27 +1,40 @@
-import { Immerable, OmitImmerable } from './immerable';
+import { FormGroup, Validators, NonNullableFormBuilder, FormControl } from '@angular/forms';
 
-/** Register data. */
-export class Register extends Immerable {
+/** Register form type. */
+export type RegisterForm = {
 
-	/** Email. */
-	public readonly email: string;
+	/** Email field. */
+	readonly email: FormControl<string>;
 
-	/** Password. */
-	public readonly password: string;
+	/** First name field. */
+	readonly firstName: FormControl<string>;
 
-	/** First name. */
-	public readonly firstName: string;
+	/** Last name field. */
+	readonly lastName: FormControl<string>;
 
-	/** Last name. */
-	public readonly lastName: string;
+	/** Password field. */
+	readonly password: FormControl<string>;
 
-	public constructor(data: TRegister) {
-		super();
-		this.email = data.email;
-		this.password = data.password;
-		this.firstName = data.firstName;
-		this.lastName = data.lastName;
+	/** Confirm password field. */
+	readonly confirmPassword: FormControl<string>;
+};
+
+export namespace RegisterForm {
+
+	/**
+	 * Initializes register form.
+	 * @param fb Non nullable form builder.
+	 */
+	export function initialize(fb: NonNullableFormBuilder): FormGroup<RegisterForm> {
+		return fb.group({
+			email: fb.control('', [
+				Validators.required,
+				Validators.email,
+			]),
+			firstName: fb.control('', [Validators.required]),
+			lastName: fb.control('', [Validators.required]),
+			password: fb.control('', [Validators.required]),
+			confirmPassword: fb.control('', [Validators.required]),
+		});
 	}
 }
-
-type TRegister = OmitImmerable<Register>;
