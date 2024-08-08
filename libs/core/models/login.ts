@@ -1,6 +1,6 @@
 import { Immerable, OmitImmerable } from './immerable';
 
-/** Registration data. */
+/** Login data. */
 export class Login extends Immerable {
 
 	/** Email. */
