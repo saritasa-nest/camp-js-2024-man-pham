@@ -18,8 +18,7 @@
 			<mat-icon matIconPrefix>lock</mat-icon>
 			<input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
 				formControlName="password">
-			<button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'"
-				(click)="clickHidePassword($event)">
+			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
 				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
 			</button>
 			<!-- <mat-error>
