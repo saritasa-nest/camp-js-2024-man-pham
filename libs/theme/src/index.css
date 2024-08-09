@@ -1,6 +1,9 @@
 /* App-specific variables. */
 @import "./variables.css";
 
+/* App-specific typography. */
+@import "./typography.css";
+
 /* Element-specific styles. */
 @import "./elements/index.css";
 
