@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder } from '@angular/forms';
-import { LoginForm } from '@js-camp/core/models/login';
+import { LoginForm } from '@js-camp/angular/core/models/login';
 
 /** Login component. */
 @Component({

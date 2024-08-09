@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder } from '@angular/forms';
-import { RegisterForm } from '@js-camp/core/models/register';
+import { RegisterForm } from '@js-camp/angular/core/models/register';
 
 /** Register component. */
 @Component({
