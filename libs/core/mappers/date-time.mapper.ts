@@ -7,7 +7,6 @@ import { TMapper } from '../models/mapper';
 	providedIn: 'root',
 })
 export class DateTimeMapper implements TMapper<string, Date> {
-
 	private parseDate(dateStr: string): Date {
 		const date = new Date(dateStr);
 		if (isNaN(date.getTime())) {
@@ -21,16 +20,7 @@ export class DateTimeMapper implements TMapper<string, Date> {
 	 * Return either a valid date or an empty date.
 	 */
 	public fromDto(dto: string): Date {
-		try {
-			return this.parseDate(dto);
-		} catch (error) {
-			if (error instanceof Error) {
-				console.error('Date parsing error:', error.message);
-			} else {
-				console.error('Unexpected error:', error);
-			}
-			throw error;
-		}
+		return this.parseDate(dto);
 	}
 
 	/** @inheritdoc */
