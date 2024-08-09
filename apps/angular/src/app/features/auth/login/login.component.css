@@ -41,6 +41,19 @@
 	width: 100%;
 }
 
-.form__button .mdc-button__label {
-	color: white;
+.button__label {
+	display: flex;
+	justify-content: center;
+	gap: var(--spacing-sm);
+	font-size: var(--font-size-md);
+}
+
+.form__navigate {
+	margin-top: var(--spacing-lg);
+	text-align: center;
+}
+
+.navigate__link {
+	color: var(--primary-color);
+	text-decoration: none;
 }

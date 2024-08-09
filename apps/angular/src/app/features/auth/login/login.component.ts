@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LoginForm } from '@js-camp/angular/core/models/login';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,4 +21,16 @@ export class LoginComponent {
 
 	/** Login form. */
 	protected readonly loginForm = LoginForm.initialize(this.fb);
+
+	/** Hide password flag. */
+	protected readonly hidePassword = signal(true);
+
+	/**
+	 * Handles hide password button click.
+	 * @param event The click event.
+	 *  */
+	protected clickHidePassword(event: MouseEvent): void {
+		this.hidePassword.set(!this.hidePassword());
+		event.stopPropagation();
+	}
 }
