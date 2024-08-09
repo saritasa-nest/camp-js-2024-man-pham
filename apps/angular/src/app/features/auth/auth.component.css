@@ -1,0 +1,16 @@
+:host {
+	background-color: var(--primary-light-color);
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	justify-content: center;
+	align-items: center;
+}
+
+.form-container {
+	display: block;
+	width: 30%;
+	background-color: var(--background-color);
+	padding: var(--spacing-xl);
+	border-radius: var(--border-radius-md);
+}

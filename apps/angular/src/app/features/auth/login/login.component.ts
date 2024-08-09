@@ -1,13 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NonNullableFormBuilder } from '@angular/forms';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LoginForm } from '@js-camp/angular/core/models/login';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 
 /** Login component. */
 @Component({
 	selector: 'camp-login',
 	standalone: true,
-	imports: [CommonModule],
+	imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, RouterLink],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,

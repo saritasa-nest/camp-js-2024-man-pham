@@ -1,1 +1,38 @@
-<p>login works!</p>
+<div class=" header-container">
+	<h1 class="header-title">Welcome back</h1>
+	<p class="header-subtitle">Sign in to access to you dashboard.</p>
+</div>
+
+<form [formGroup]="loginForm" class="form">
+	<div class="form-control">
+		<label class="form__label">Email</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>email</mat-icon>
+			<input placeholder="Enter your email" matInput formControlName="email" type="email">
+		</mat-form-field>
+	</div>
+
+	<div class="form-control">
+		<label class="form__label">Password</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>lock</mat-icon>
+			<input matInput formControlName="password" placeholder="Enter your password" type="password">
+			<button mat-icon-button matSuffix type="button" [attr.aria-label]="'Hide password'">
+				<mat-icon>visibility_off</mat-icon>
+			</button>
+			<!-- <mat-error>
+			<span>{{formErrorService.getFieldError(loginForm, 'password')}}</span>
+		</mat-error> -->
+		</mat-form-field>
+	</div>
+
+	<div class="form__actions">
+		<button class="form__button mat-elevation-z5" mat-stroked-button type="submit">
+			Login
+		</button>
+		<div class="form__navigate">
+			<span>No account?</span>
+			<a [routerLink]="['../', 'register']">Create an account</a>
+		</div>
+	</div>
+</form>
