@@ -7,10 +7,12 @@ import { TMapper } from '../models/mapper';
 	providedIn: 'root',
 })
 export class DateTimeMapper implements TMapper<string, Date> {
-
-	private parseDate(dateStr: string): Date | null {
+	private parseDate(dateStr: string): Date {
 		const date = new Date(dateStr);
-		return isNaN(date.getTime()) ? null : date;
+		if (isNaN(date.getTime())) {
+			throw new Error(`Invalid date format: ${dateStr}`);
+		}
+		return date;
 	}
 
 	/**
@@ -18,8 +20,7 @@ export class DateTimeMapper implements TMapper<string, Date> {
 	 * Return either a valid date or an empty date.
 	 */
 	public fromDto(dto: string): Date {
-		const date = this.parseDate(dto);
-		return date ?? new Date();
+		return this.parseDate(dto);
 	}
 
 	/** @inheritdoc */
