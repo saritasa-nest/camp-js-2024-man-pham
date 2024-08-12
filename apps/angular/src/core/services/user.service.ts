@@ -5,14 +5,20 @@ import {
 	map,
 	merge,
 	Observable,
+	of,
 	OperatorFunction,
 	pipe,
+	shareReplay,
 	switchMap,
 } from 'rxjs';
 
 import { UserSecret } from '@js-camp/core/models/user-secret';
 
 import { Login } from '@js-camp/core/models/login';
+
+import { User } from '@js-camp/core/models/user';
+
+import { UserApiService } from './user-api.service';
 
 import { AuthService } from './auth.service';
 import { UserSecretStorageService } from './user-secret-storage.service';
@@ -25,17 +31,20 @@ import { UserSecretStorageService } from './user-secret-storage.service';
 })
 export class UserService {
 	/** Current user. `null` when a user is not logged in. */
-	// public readonly currentUser$: Observable<User | null>;
+	public readonly currentUser$: Observable<User | null>;
 
 	/** Whether the current user is authorized. */
 	public readonly isAuthorized$: Observable<boolean>;
 
 	private readonly authService = inject(AuthService);
 
+	private readonly userApiService = inject(UserApiService);
+
 	private readonly userSecretStorage = inject(UserSecretStorageService);
 
 	public constructor() {
-		this.isAuthorized$ = this.userSecretStorage.currentSecret$.pipe(map(secret => secret != null));
+		this.currentUser$ = this.initCurrentUserStream();
+		this.isAuthorized$ = this.currentUser$.pipe(map(user => user != null));
 	}
 
 	/**
@@ -43,9 +52,7 @@ export class UserService {
 	 * @param loginData Login data.
 	 */
 	public login(loginData: Login): Observable<void> {
-		return this.authService.login(loginData).pipe(
-			this.saveSecretAndWaitForAuthorized(),
-		);
+		return this.authService.login(loginData).pipe(this.saveSecretAndWaitForAuthorized());
 	}
 
 	private saveSecretAndWaitForAuthorized(): OperatorFunction<UserSecret, void> {
@@ -60,10 +67,10 @@ export class UserService {
 		);
 	}
 
-	/* private initCurrentUserStream(): Observable<User | null> {
+	private initCurrentUserStream(): Observable<User | null> {
 		return this.userSecretStorage.currentSecret$.pipe(
 			switchMap(secret => (secret ? this.userApiService.getCurrentUser() : of(null))),
 			shareReplay({ bufferSize: 1, refCount: false }),
 		);
-	} */
+	}
 }
