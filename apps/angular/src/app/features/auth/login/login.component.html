@@ -9,6 +9,9 @@
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
 			<mat-icon matIconPrefix>email</mat-icon>
 			<input matInput type="email" placeholder="Enter your email" [formControl]="loginForm.controls.email">
+			<mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
+			</mat-error>
 		</mat-form-field>
 	</section>
 
@@ -21,9 +24,9 @@
 			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
 				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
 			</button>
-			<!-- <mat-error>
-			<span>{{formErrorService.getFieldError(loginForm, 'password')}}</span>
-		</mat-error> -->
+			<mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.password)}}</span>
+			</mat-error>
 		</mat-form-field>
 	</section>
 
@@ -34,6 +37,7 @@
 				<mat-icon>arrow_right_alt</mat-icon>
 			</span>
 		</button>
+
 		<div class="form__navigate">
 			No account? <a class="navigate__link" [routerLink]="['../', 'register']">Create an account</a>
 		</div>

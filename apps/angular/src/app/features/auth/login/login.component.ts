@@ -8,6 +8,8 @@ import { RouterLink } from '@angular/router';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { LoginForm } from '@js-camp/angular/core/models/login-form';
 import { Login } from '@js-camp/core/models/login';
+import { FormErrorService } from '@js-camp/angular/core/services/form-error.service';
+import { NotificationService } from '@js-camp/angular/core/services/notification.service';
 
 /** Login component. */
 @Component({
@@ -22,6 +24,11 @@ export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 
 	private readonly userService = inject(UserService);
+
+	private readonly snackbar = inject(NotificationService);
+
+	/** Form error service. */
+	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Login form. */
 	protected readonly loginForm = LoginForm.initialize(this.fb);
@@ -39,7 +46,7 @@ export class LoginComponent {
 	}
 
 	/** Submit handler. */
-	public onSubmit(): void {
+	protected onSubmit(): void {
 		if (this.loginForm.invalid) {
 			return;
 		}
