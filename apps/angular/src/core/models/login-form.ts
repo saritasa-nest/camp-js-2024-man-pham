@@ -18,8 +18,8 @@ export namespace LoginForm {
 	 */
 	export function initialize(fb: NonNullableFormBuilder): FormGroup<LoginForm> {
 		return fb.group({
-			email: fb.control('', [Validators.required, Validators.email]),
-			password: fb.control('', [Validators.required]),
+			email: fb.control('', { validators: [Validators.required, Validators.email], updateOn: 'blur' }),
+			password: fb.control('', { validators: [Validators.required, Validators.minLength(8)], updateOn: 'blur' }),
 		});
 	}
 }
