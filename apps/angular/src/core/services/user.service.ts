@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import {
+	catchError,
 	first,
 	ignoreElements,
 	map,
@@ -10,6 +11,7 @@ import {
 	pipe,
 	shareReplay,
 	switchMap,
+	throwError,
 } from 'rxjs';
 
 import { UserSecret } from '@js-camp/core/models/user-secret';
@@ -23,18 +25,11 @@ import { UserApiService } from './user-api.service';
 import { AuthService } from './auth.service';
 import { UserSecretStorageService } from './user-secret-storage.service';
 
-/**
- * Stateful service for storing/managing information about the current user.
- */
+/** User service. */
 @Injectable({
 	providedIn: 'root',
 })
 export class UserService {
-	/** Current user. `null` when a user is not logged in. */
-	public readonly currentUser$: Observable<User | null>;
-
-	/** Whether the current user is authorized. */
-	public readonly isAuthorized$: Observable<boolean>;
 
 	private readonly authService = inject(AuthService);
 
@@ -42,17 +37,15 @@ export class UserService {
 
 	private readonly userSecretStorage = inject(UserSecretStorageService);
 
+	/** Current user. `null` when a user is not logged in. */
+	public readonly currentUser$: Observable<User | null>;
+
+	/** Whether the current user is authorized. */
+	public readonly isAuthorized$: Observable<boolean>;
+
 	public constructor() {
 		this.currentUser$ = this.initCurrentUserStream();
 		this.isAuthorized$ = this.currentUser$.pipe(map(user => user != null));
-	}
-
-	/**
-	 * Logs the user via service.
-	 * @param loginData Login data.
-	 */
-	public login(loginData: Login): Observable<void> {
-		return this.authService.login(loginData).pipe(this.saveSecretAndWaitForAuthorized());
 	}
 
 	private saveSecretAndWaitForAuthorized(): OperatorFunction<UserSecret, void> {
@@ -71,6 +64,31 @@ export class UserService {
 		return this.userSecretStorage.currentSecret$.pipe(
 			switchMap(secret => (secret ? this.userApiService.getCurrentUser() : of(null))),
 			shareReplay({ bufferSize: 1, refCount: false }),
+		);
+	}
+
+	/**
+	 * Logs the user via service.
+	 * @param loginData Login data.
+	 */
+	public login(loginData: Login): Observable<void> {
+		return this.authService.login(loginData).pipe(this.saveSecretAndWaitForAuthorized());
+	}
+
+	/** Logs the current user. */
+	public logout(): Observable<void> {
+		return this.userSecretStorage.removeSecret();
+	}
+
+	/** Refreshes the secret via service. */
+	public refresh(): Observable<void> {
+		return this.userSecretStorage.currentSecret$.pipe(
+			first(),
+			switchMap(secret =>
+				secret != null ? this.authService.refreshSecret(secret) : throwError(() => new Error('No refresh token found'))),
+			catchError(() => this.logout()),
+			switchMap(newSecret => (newSecret ? this.userSecretStorage.saveSecret(newSecret) : of(null))),
+			map(() => undefined),
 		);
 	}
 }
