@@ -10,9 +10,6 @@ export type RegisterDto = {
 	/** Last name. */
 	last_name: string;
 
-	/** Avatar. */
-	avatar: string;
-
 	/** Password. */
 	password: string;
 };
