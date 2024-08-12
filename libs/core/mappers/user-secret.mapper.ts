@@ -12,14 +12,16 @@ export class UserSecretMapper implements TMapper<UserSecretDto, UserSecret> {
 	/** @inheritdoc */
 	public fromDto(dto: UserSecretDto): UserSecret {
 		return new UserSecret({
-			token: dto.token,
+			refreshToken: dto.refresh,
+			accessToken: dto.access,
 		});
 	}
 
 	/** @inheritdoc */
 	public toDto(data: UserSecret): UserSecretDto {
 		return {
-			token: data.token,
+			access: data.accessToken,
+			refresh: data.refreshToken,
 		};
 	}
 }
