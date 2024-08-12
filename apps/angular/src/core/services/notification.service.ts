@@ -1,0 +1,27 @@
+import { inject, Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+const SNACKBAR_OPTIONS = {
+	action: 'Close',
+	duration: 5,
+};
+
+/** Notification service. */
+@Injectable({
+	providedIn: 'root',
+})
+export class NotificationService {
+	/** Snackbar instance. */
+	private readonly snackBar: MatSnackBar = inject(MatSnackBar);
+
+	/**
+	 * Displays a notification bar.
+	 * @param message The message to be displayed in the notification bar.
+	 */
+	public showMessage(message: string): void {
+		this.snackBar.open(message, SNACKBAR_OPTIONS.action, {
+			duration: SNACKBAR_OPTIONS.duration * 1000,
+			verticalPosition: 'top',
+		});
+	}
+}
