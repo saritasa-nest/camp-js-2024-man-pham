@@ -14,6 +14,7 @@ import { AppComponent } from './app/app.component';
 import { appRoutes } from './app/app.routes';
 import { ApiKeyInterceptor } from './core/interceptors/api-key.interceptor';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { RefreshInterceptor } from './core/interceptors/refresh.interceptor';
 
 if (environment.production) {
 	enableProdMode();
@@ -28,6 +29,11 @@ const httpInterceptorProviders = [
 	{
 		provide: HTTP_INTERCEPTORS,
 		useClass: AuthInterceptor,
+		multi: true,
+	},
+	{
+		provide: HTTP_INTERCEPTORS,
+		useClass: RefreshInterceptor,
 		multi: true,
 	},
 ];
