@@ -21,6 +21,11 @@ export class AppUrlsConfig {
 		register: this.toApi('auth/register/'),
 	};
 
+	/** User-related routes. */
+	public readonly users = {
+		profile: this.toApi('users/profile/'),
+	};
+
 	/**
 	 * Generate Api urls as an constant.
 	 * @param args Multiple relative path.
