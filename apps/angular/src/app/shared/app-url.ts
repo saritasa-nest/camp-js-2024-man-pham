@@ -19,6 +19,10 @@ export class AppUrlsConfig {
 	public readonly auth = {
 		login: this.toApi('auth/login/'),
 		register: this.toApi('auth/register/'),
+		token: {
+			refresh: this.toApi('auth/token/refresh'),
+			verify: this.toApi('auth/token/verify'),
+		},
 	};
 
 	/** User-related routes. */

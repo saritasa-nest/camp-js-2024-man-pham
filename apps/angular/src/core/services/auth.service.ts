@@ -31,8 +31,19 @@ export class AuthService {
 	 * @param loginData Email and password.
 	 */
 	public login(loginData: Login): Observable<UserSecret> {
-		return this.httpClient.post<UserSecretDto>(this.appUrlConfig.auth.login, this.loginMapper.toDto(loginData)).pipe(
-			map(secret => this.userSecretMapper.fromDto(secret)),
-		);
+		return this.httpClient
+			.post<UserSecretDto>(this.appUrlConfig.auth.login, this.loginMapper.toDto(loginData))
+			.pipe(map(secret => this.userSecretMapper.fromDto(secret)));
+	}
+
+	/**
+	 * Refresh the user secret.
+	 * @param secret User secret.
+	 */
+	public refreshSecret(secret: UserSecret): Observable<UserSecret> {
+		const refreshTokenDto = this.userSecretMapper.toDto(secret).refresh;
+		return this.httpClient
+			.post<UserSecretDto>(this.appUrlConfig.auth.token.refresh, refreshTokenDto)
+			.pipe(map(token => this.userSecretMapper.fromDto(token)));
 	}
 }
