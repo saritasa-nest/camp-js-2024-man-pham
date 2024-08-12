@@ -1,1 +1,80 @@
-<p>register works!</p>
+<div class="header-container">
+	<h1 class="header-title">Greetings</h1>
+	<p class="header-subtitle">Sign up to experience interesting features!</p>
+</div>
+
+<form [formGroup]="registerForm" class="form">
+	<section class="form-control">
+		<label class="form__label">Email</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>email</mat-icon>
+			<input matInput type="email" placeholder="Enter your email" [formControl]="registerForm.controls.email">
+			<!-- <mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
+			</mat-error> -->
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label class="form__label">First name</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<input matInput type="text" placeholder="Enter your first name"
+				[formControl]="registerForm.controls.firstName">
+			<!-- <mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
+			</mat-error> -->
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label class="form__label">Last name</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<input matInput type="email" placeholder="Enter your email" [formControl]="registerForm.controls.lastName">
+			<!-- <mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
+			</mat-error> -->
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label class="form__label">Password</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>lock</mat-icon>
+			<input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
+				[formControl]="registerForm.controls.password">
+			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
+				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</button>
+			<!-- <mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.password)}}</span>
+			</mat-error> -->
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label class="form__label">Confirm Password</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>lock</mat-icon>
+			<input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Re-enter password"
+				[formControl]="registerForm.controls.password">
+			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
+				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
+			</button>
+			<!-- <mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.password)}}</span>
+			</mat-error> -->
+		</mat-form-field>
+	</section>
+
+	<section class="form__actions">
+		<button class="form__button" mat-stroked-button type="submit">
+			<span class="button__label">
+				Create account
+				<mat-icon>arrow_right_alt</mat-icon>
+			</span>
+		</button>
+
+		<div class="form__navigate">
+			Have an account already? <a class="navigate__link" [routerLink]="['../', 'login']">Sign in</a>
+		</div>
+	</section>
