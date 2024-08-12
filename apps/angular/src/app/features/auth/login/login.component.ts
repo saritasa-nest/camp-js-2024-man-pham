@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -9,13 +9,14 @@ import { UserService } from '@js-camp/angular/core/services/user.service';
 import { LoginForm } from '@js-camp/angular/core/models/login-form';
 import { Login } from '@js-camp/core/models/login';
 import { FormErrorService } from '@js-camp/angular/core/services/form-error.service';
-import { NotificationService } from '@js-camp/angular/core/services/notification.service';
+
+import { InputPasswordComponent } from './../../../../shared/components/input-password/input-password.component';
 
 /** Login component. */
 @Component({
 	selector: 'camp-login',
 	standalone: true,
-	imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, RouterLink],
+	imports: [InputPasswordComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, RouterLink],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,25 +26,11 @@ export class LoginComponent {
 
 	private readonly userService = inject(UserService);
 
-	private readonly snackbar = inject(NotificationService);
-
 	/** Form error service. */
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Login form. */
 	protected readonly loginForm = LoginForm.initialize(this.fb);
-
-	/** Hide password flag. */
-	protected readonly hidePassword = signal(true);
-
-	/**
-	 * Handles hide password button click.
-	 * @param event The click event.
-	 *  */
-	protected clickHidePassword(event: MouseEvent): void {
-		this.hidePassword.set(!this.hidePassword());
-		event.stopPropagation();
-	}
 
 	/** Submit handler. */
 	protected onSubmit(): void {

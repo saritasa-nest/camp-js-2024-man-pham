@@ -17,21 +17,11 @@
 
 	<section class="form-control">
 		<label class="form__label">Password</label>
-		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
-			<mat-icon matIconPrefix>lock</mat-icon>
-			<input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
-				[formControl]="loginForm.controls.password">
-			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
-				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
-			</button>
-			<mat-error>
-				<span>{{formErrorService.getErrors(loginForm.controls.password)}}</span>
-			</mat-error>
-		</mat-form-field>
+		<camp-input-password [control]="loginForm.controls.password" />
 	</section>
 
 	<section class="form__actions">
-		<button class="form__button" mat-stroked-button type="submit">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid">
 			<span class="button__label">
 				Sign in
 				<mat-icon>arrow_right_alt</mat-icon>
