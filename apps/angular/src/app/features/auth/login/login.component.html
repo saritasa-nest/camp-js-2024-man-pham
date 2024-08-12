@@ -3,12 +3,12 @@
 	<p class="header-subtitle">Sign in to access to you dashboard.</p>
 </div>
 
-<form [formGroup]="loginForm" class="form">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
 	<section class="form-control">
 		<label class="form__label">Email</label>
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
 			<mat-icon matIconPrefix>email</mat-icon>
-			<input matInput type="email" placeholder="Enter your email" formControlName="email">
+			<input matInput type="email" placeholder="Enter your email" [formControl]="loginForm.controls.email">
 		</mat-form-field>
 	</section>
 
@@ -17,7 +17,7 @@
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
 			<mat-icon matIconPrefix>lock</mat-icon>
 			<input matInput [type]="hidePassword() ? 'password' : 'text'" placeholder="Enter your password"
-				formControlName="password">
+				[formControl]="loginForm.controls.password">
 			<button mat-icon-button matSuffix type="button" (click)="clickHidePassword($event)">
 				<mat-icon>{{hidePassword() ? 'visibility_off' : 'visibility'}}</mat-icon>
 			</button>
