@@ -12,6 +12,8 @@ import { UserSecretMapper } from '@js-camp/core/mappers/user-secret.mapper';
 import { UserSecret } from '@js-camp/core/models/user-secret';
 import { LoginMapper } from '@js-camp/core/mappers/login.mapper';
 import { Login } from '@js-camp/core/models/login';
+import { Register } from '@js-camp/core/models/register';
+import { RegisterMapper } from '@js-camp/core/mappers/register.mapper';
 
 /** Authentication service. */
 @Injectable({
@@ -21,6 +23,8 @@ export class AuthService {
 	private readonly appUrlConfig = inject(AppUrlsConfig);
 
 	private readonly loginMapper = inject(LoginMapper);
+
+	private readonly registerMapper = inject(RegisterMapper);
 
 	private readonly httpClient = inject(HttpClient);
 
@@ -34,6 +38,16 @@ export class AuthService {
 		return this.httpClient
 			.post<UserSecretDto>(this.appUrlConfig.auth.login, this.loginMapper.toDto(loginData))
 			.pipe(map(secret => this.userSecretMapper.fromDto(secret)));
+	}
+
+	/**
+	 * Registers user with the provided credentials.
+	 * @param registerData Registration data of user.
+	 */
+	public register(registerData: Register): Observable<UserSecret> {
+		return this.httpClient.post<UserSecretDto>(this.appUrlConfig.auth.register, this.registerMapper.toDto(registerData)).pipe(
+			map(secret => this.userSecretMapper.fromDto(secret)),
+		);
 	}
 
 	/**
