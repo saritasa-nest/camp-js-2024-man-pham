@@ -20,8 +20,8 @@ export class AppUrlsConfig {
 		login: this.toApi('auth/login/'),
 		register: this.toApi('auth/register/'),
 		token: {
-			refresh: this.toApi('auth/token/refresh'),
-			verify: this.toApi('auth/token/verify'),
+			refresh: this.toApi('auth/token/refresh/'),
+			verify: this.toApi('auth/token/verify/'),
 		},
 	};
 
