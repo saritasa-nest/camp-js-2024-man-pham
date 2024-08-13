@@ -61,7 +61,6 @@ export class LoginComponent {
 		}
 		this.isLoading$.next(true);
 		const loginData = new Login(this.loginForm.getRawValue());
-		this.userService.login(loginData).subscribe();
 		this.userService
 			.login(loginData)
 			.pipe(
