@@ -1,14 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { LoginForm } from '@js-camp/angular/core/models/login-form';
 import { Login } from '@js-camp/core/models/login';
 import { FormErrorService } from '@js-camp/angular/core/services/form-error.service';
+
+import { BehaviorSubject, catchError, finalize } from 'rxjs';
+
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
+import { AsyncPipe } from '@angular/common';
 
 import { InputPasswordComponent } from './../../../../shared/components/input-password/input-password.component';
 
@@ -16,7 +22,16 @@ import { InputPasswordComponent } from './../../../../shared/components/input-pa
 @Component({
 	selector: 'camp-login',
 	standalone: true,
-	imports: [InputPasswordComponent, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, RouterLink],
+	imports: [
+		AsyncPipe,
+		InputPasswordComponent,
+		ReactiveFormsModule,
+		MatFormFieldModule,
+		MatInputModule,
+		MatIconModule,
+		MatButtonModule,
+		RouterLink,
+	],
 	templateUrl: './login.component.html',
 	styleUrl: './login.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,10 +39,17 @@ import { InputPasswordComponent } from './../../../../shared/components/input-pa
 export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 
+	private readonly destroyRef = inject(DestroyRef);
+
 	private readonly userService = inject(UserService);
+
+	private readonly router = inject(Router);
 
 	/** Form error service. */
 	protected readonly formErrorService = inject(FormErrorService);
+
+	/** Loading state. */
+	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
 
 	/** Login form. */
 	protected readonly loginForm = LoginForm.initialize(this.fb);
@@ -37,7 +59,20 @@ export class LoginComponent {
 		if (this.loginForm.invalid) {
 			return;
 		}
+		this.isLoading$.next(true);
 		const loginData = new Login(this.loginForm.getRawValue());
 		this.userService.login(loginData).subscribe();
+		this.userService
+			.login(loginData)
+			.pipe(
+				catchError((_error: unknown) => {
+					throw Error;
+				}),
+				finalize(() => {
+					this.isLoading$.next(false);
+				}),
+				takeUntilDestroyed(this.destroyRef),
+			)
+			.subscribe(() => this.router.navigate(['/']));
 	}
 }
