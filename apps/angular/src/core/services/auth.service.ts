@@ -41,9 +41,8 @@ export class AuthService {
 	 * @param secret User secret.
 	 */
 	public refreshSecret(secret: UserSecret): Observable<UserSecret> {
-		const refreshTokenDto = this.userSecretMapper.toDto(secret).refresh;
 		return this.httpClient
-			.post<UserSecretDto>(this.appUrlConfig.auth.token.refresh, refreshTokenDto)
+			.post<UserSecretDto>(this.appUrlConfig.auth.token.refresh, this.userSecretMapper.toDto(secret))
 			.pipe(map(token => this.userSecretMapper.fromDto(token)));
 	}
 }
