@@ -6,6 +6,10 @@
 	background-color: var(--primary-color);
 }
 
+.anime-form .mdc-button:disabled {
+	opacity: 0.7;
+}
+
 .anime-form .mdc-button .mdc-button__label {
 	color: white;
 }
