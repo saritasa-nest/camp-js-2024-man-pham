@@ -28,12 +28,12 @@ const httpInterceptorProviders = [
 	},
 	{
 		provide: HTTP_INTERCEPTORS,
-		useClass: AuthInterceptor,
+		useClass: RefreshInterceptor,
 		multi: true,
 	},
 	{
 		provide: HTTP_INTERCEPTORS,
-		useClass: RefreshInterceptor,
+		useClass: AuthInterceptor,
 		multi: true,
 	},
 ];
