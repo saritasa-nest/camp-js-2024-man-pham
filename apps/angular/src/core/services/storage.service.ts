@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, defer, filter, fromEvent, map, merge, of, shareReplay, startWith } from 'rxjs';
 
-/**
- * Storage service. Uses `localStorage` underhood.
- */
+/** Storage service. Uses `localStorage` under the hood. */
 @Injectable({
 	providedIn: 'root',
 })
