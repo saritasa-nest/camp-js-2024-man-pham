@@ -4,7 +4,7 @@ export type ApiErrorDto = {
 	/** Code. */
 	readonly code: string;
 
-	/** Detailed message. */
+	/** Detail. */
 	readonly detail: string;
 
 	/** Attribute. */

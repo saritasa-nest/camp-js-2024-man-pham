@@ -1,12 +1,12 @@
 import { Immerable, OmitImmerable } from './immerable';
 
-/** Details of an API error. */
+/** Api error. */
 export class ApiError extends Immerable {
 
-	/** Detailed error message. */
+	/** Error detail. */
 	public readonly detail: string;
 
-	/** Attribute associated with the error (can be null). */
+	/** Attribute. */
 	public readonly attr: string | null;
 
 	public constructor(data: TApiError) {

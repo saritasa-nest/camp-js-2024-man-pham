@@ -6,6 +6,6 @@ export type ApiErrorResponseDto = {
 	/** Type. */
 	readonly type: string;
 
-	/** Error details. */
+	/** List of api errors. */
 	readonly errors: readonly ApiErrorDto[];
 };
