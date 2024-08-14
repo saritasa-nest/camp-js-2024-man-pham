@@ -11,14 +11,19 @@ import { first, map, switchMap } from 'rxjs/operators';
 
 import { UserSecret } from '@js-camp/core/models/user-secret';
 
+import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
+
 import { UserSecretStorageService } from '../services/user-secret-storage.service';
 
 const AUTH_HEADER_KEY = 'Authorization';
 const AUTH_PREFIX = 'Bearer';
 
+type UrlConfig = { [key: string]: string | UrlConfig; } | string;
+
 /** Adds JWT to requests using Authorization HTTP header. */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+	private readonly appUrlConfig = inject(AppUrlsConfig);
 
 	private readonly userSecretStorage = inject(UserSecretStorageService);
 
@@ -27,6 +32,9 @@ export class AuthInterceptor implements HttpInterceptor {
 		req: HttpRequest<unknown>,
 		next: HttpHandler,
 	): Observable<HttpEvent<unknown>> {
+		if (this.shouldInterceptSecretForUrl(req.url, [this.appUrlConfig.auth.login, this.appUrlConfig.anime])) {
+			return next.handle(req);
+		}
 		const userSecret$ = this.userSecretStorage.currentSecret$.pipe(first());
 
 		return userSecret$.pipe(
@@ -54,5 +62,21 @@ export class AuthInterceptor implements HttpInterceptor {
 		userSecret: UserSecret,
 	): HttpHeaders {
 		return headers.set(AUTH_HEADER_KEY, `${AUTH_PREFIX} ${userSecret.accessToken}`);
+	}
+
+	private shouldInterceptSecretForUrl(url: string, configs: UrlConfig[]): boolean {
+		return configs.some(config => this.isUrlInConfig(url, config));
+	}
+
+	private isUrlInConfig(url: string, config: UrlConfig): boolean {
+		if (typeof config === 'string') {
+			return config === url;
+		}
+
+		for (const key of Object.keys(config)) {
+			this.isUrlInConfig(url, config[key]);
+		}
+
+		return false;
 	}
 }
