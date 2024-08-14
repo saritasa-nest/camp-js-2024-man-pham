@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 import { UserSecretDto } from '@js-camp/core/dtos/user-secret.dto';
 
@@ -14,6 +14,8 @@ import { LoginMapper } from '@js-camp/core/mappers/login.mapper';
 import { Login } from '@js-camp/core/models/login';
 import { Register } from '@js-camp/core/models/register';
 import { RegisterMapper } from '@js-camp/core/mappers/register.mapper';
+import { ApiErrorResponseMapper } from '@js-camp/core/mappers/api-error-response.mapper';
+import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 
 /** Authentication service. */
 @Injectable({
@@ -23,6 +25,8 @@ export class AuthService {
 	private readonly appUrlConfig = inject(AppUrlsConfig);
 
 	private readonly loginMapper = inject(LoginMapper);
+
+	private readonly apiErrorResponseMapper = inject(ApiErrorResponseMapper);
 
 	private readonly registerMapper = inject(RegisterMapper);
 
@@ -37,7 +41,10 @@ export class AuthService {
 	public login(loginData: Login): Observable<UserSecret> {
 		return this.httpClient
 			.post<UserSecretDto>(this.appUrlConfig.auth.login, this.loginMapper.toDto(loginData))
-			.pipe(map(secret => this.userSecretMapper.fromDto(secret)));
+			.pipe(
+				catchError((error: unknown) => this.handleError(error)),
+				map(secret => this.userSecretMapper.fromDto(secret)),
+			);
 	}
 
 	/**
@@ -46,6 +53,7 @@ export class AuthService {
 	 */
 	public register(registerData: Register): Observable<UserSecret> {
 		return this.httpClient.post<UserSecretDto>(this.appUrlConfig.auth.register, this.registerMapper.toDto(registerData)).pipe(
+			catchError((error: unknown) => this.handleError(error)),
 			map(secret => this.userSecretMapper.fromDto(secret)),
 		);
 	}
@@ -58,5 +66,13 @@ export class AuthService {
 		return this.httpClient
 			.post<UserSecretDto>(this.appUrlConfig.auth.token.refresh, this.userSecretMapper.toDto(secret))
 			.pipe(map(token => this.userSecretMapper.fromDto(token)));
+	}
+
+	private handleError(error: unknown): Observable<never> {
+		if (error instanceof HttpErrorResponse) {
+			const mappedError = this.apiErrorResponseMapper.fromDto(error.error);
+			return throwError(() => new ApiErrorResponseWithDetails(mappedError));
+		}
+		return throwError(() => new Error('Unknown error'));
 	}
 }
