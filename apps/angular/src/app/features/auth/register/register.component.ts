@@ -13,6 +13,7 @@ import { AsyncPipe } from '@angular/common';
 import { Register } from '@js-camp/core/models/register';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 
 /** Register component. */
 @Component({
@@ -60,7 +61,10 @@ export class RegisterComponent {
 		this.userService
 			.register(registerData)
 			.pipe(
-				catchError((_error: unknown) => {
+				catchError((error: unknown) => {
+					if (error instanceof ApiErrorResponseWithDetails) {
+						this.formErrorService.displayResponseError(this.registerForm, error);
+					}
 					throw Error;
 				}),
 				finalize(() => {

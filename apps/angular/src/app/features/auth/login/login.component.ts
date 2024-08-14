@@ -16,6 +16,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AsyncPipe } from '@angular/common';
 
+import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
+
 import { InputPasswordComponent } from './../../../../shared/components/input-password/input-password.component';
 
 /** Login component. */
@@ -64,7 +66,10 @@ export class LoginComponent {
 		this.userService
 			.login(loginData)
 			.pipe(
-				catchError((_error: unknown) => {
+				catchError((error: unknown) => {
+					if (error instanceof ApiErrorResponseWithDetails) {
+						this.formErrorService.displayResponseError(this.loginForm, error);
+					}
 					throw Error;
 				}),
 				finalize(() => {
