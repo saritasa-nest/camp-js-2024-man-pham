@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { ApiErrorResponseDto } from '../dtos/api-error-response';
+import { ApiErrorResponseDto } from '../dtos/api-error-response.dto';
 import { ApiError } from '../models/api-error';
 import { ApiErrorResponse } from '../models/api-error-response';
 import { TMapperFromDto } from '../models/mapper';
