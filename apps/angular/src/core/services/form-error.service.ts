@@ -8,7 +8,7 @@ const ERROR_MESSAGES: Record<string, string> = {
 	email: 'Enter a valid email address.',
 	minlength: `Below the minimum length required for this field.`,
 	maxlength: `Exceeds the maximum length of this field.`,
-	passwordMatch: 'Passwords do not match.',
+	mustMatch: 'Password does not match.',
 };
 
 /** Form error service. */

@@ -1,4 +1,5 @@
 import { FormGroup, Validators, NonNullableFormBuilder, FormControl } from '@angular/forms';
+import { mustMatch } from '@js-camp/angular/app/shared/validators/must-match';
 
 /** Register form type. */
 export type RegisterForm = {
@@ -26,15 +27,19 @@ export namespace RegisterForm {
 	 * @param fb Non nullable form builder.
 	 */
 	export function initialize(fb: NonNullableFormBuilder): FormGroup<RegisterForm> {
+		const passwordControl = fb.control('', [Validators.required]);
+		const confirmPasswordControl = fb.control('', [Validators.required, mustMatch(passwordControl)]);
+
+		passwordControl.valueChanges.subscribe(() => {
+			confirmPasswordControl.updateValueAndValidity();
+		});
+
 		return fb.group({
-			email: fb.control('', [
-				Validators.required,
-				Validators.email,
-			]),
+			email: fb.control('', [Validators.required, Validators.email]),
 			firstName: fb.control('', [Validators.required]),
 			lastName: fb.control('', [Validators.required]),
-			password: fb.control('', [Validators.required]),
-			confirmPassword: fb.control('', [Validators.required]),
+			password: passwordControl,
+			confirmPassword: confirmPasswordControl,
 		});
 	}
 }
