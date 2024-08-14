@@ -25,7 +25,7 @@ export class AnimeQueryParamsService {
 	}
 
 	/**
-	 * Append provide query params and reset page number params to the URL.
+	 * Append query params and reset page number params to the URL.
 	 * @param params Anime filter params to append.
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
