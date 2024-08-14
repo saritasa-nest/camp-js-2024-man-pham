@@ -1,6 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { FormGroup, AbstractControl } from '@angular/forms';
+import { ApiErrorResponse } from '@js-camp/core/models/api-error-response';
+
+import { NotificationService } from './notification.service';
 
 const ERROR_MESSAGES: Record<string, string> = {
 	default: 'Something went wrong. Please try again later.',
@@ -16,9 +19,36 @@ const ERROR_MESSAGES: Record<string, string> = {
 	providedIn: 'root',
 })
 export class FormErrorService {
+	private readonly notificationService = inject(NotificationService);
 
 	private getErrorMessage(errorKey: string): string {
 		return ERROR_MESSAGES[errorKey] || errorKey;
+	}
+
+	/**
+	 * Handle displaying the errors that are from the server.
+	 * @param form The form.
+	 * @param apiErrorResponse The API error response.
+	 */
+	public displayResponseError(form: FormGroup, apiErrorResponse: ApiErrorResponse): void {
+		if (apiErrorResponse.errors.length === 0) {
+			this.notificationService.showMessage(ERROR_MESSAGES['default']);
+			return;
+		}
+		apiErrorResponse.errors.forEach(error => {
+			const fieldName = error.attr;
+			const message = error.detail;
+
+			if (!fieldName) {
+				this.notificationService.showMessage(message ?? ERROR_MESSAGES['default']);
+				return;
+			}
+			if (form == null || !this.hasFieldName(form, fieldName)) {
+				this.notificationService.showMessage(`Error: ${fieldName} ${message}`);
+			} else {
+				this.setFieldError(form, fieldName, message);
+			}
+		});
 	}
 
 	private findFieldControl(form: FormGroup, fieldName: string): AbstractControl | null {
@@ -35,6 +65,17 @@ export class FormErrorService {
 			});
 		}
 		return control;
+	}
+
+	private setFieldError(form: FormGroup, fieldName: string, message: string): void {
+		const control = this.findFieldControl(form, fieldName);
+		const errors = { ...control?.errors, [message]: true };
+		control?.setErrors(errors);
+	}
+
+	private hasFieldName(form: FormGroup, fieldName: string): boolean {
+		const control = this.findFieldControl(form, fieldName);
+		return control != null;
 	}
 
 	/**
