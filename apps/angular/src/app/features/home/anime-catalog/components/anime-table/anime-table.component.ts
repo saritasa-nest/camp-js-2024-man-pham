@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output, TrackByFunction } from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { TableCellContentComponent } from '@js-camp/angular/shared/components/table-cell-content/table-cell-content.component';
@@ -25,7 +25,7 @@ export class AnimeTableComponent {
 	/** Anime list.*/
 	@Input()
 	public set animeList(values: ReadonlyArray<Anime>) {
-		this.dataSource.data = [...values];
+		this.dataSource = [...values];
 	}
 
 	/** Loading state. */
@@ -59,7 +59,7 @@ export class AnimeTableComponent {
 	protected readonly columns = AnimeColumns;
 
 	/** Table data source. */
-	protected dataSource = new MatTableDataSource<Anime>();
+	protected dataSource: ReadonlyArray<Anime> = [];
 
 	/** Sort event values. */
 	protected sortEvent!: Sort;
@@ -68,13 +68,13 @@ export class AnimeTableComponent {
 	protected readonly displayedColumns: AnimeColumns[] = Object.values(this.columns);
 
 	/**
-	 * Track anime by its id.
-	 * @param _index Item index.
-	 * @param item The anime.
-	 * @returns Anime id.
+	 *  Track object by id.
+	 *  @param key Key of Type.
 	 */
-	protected trackAnime(_index: number, item: Anime): Anime['id'] {
-		return item.id;
+	protected trackBy<T>(key: keyof T): TrackByFunction<T> {
+		return function(_index: number, item: T): T[keyof T] {
+			return item[key];
+		};
 	}
 
 	/**
@@ -87,9 +87,9 @@ export class AnimeTableComponent {
 	}
 
 	/** Generate number array for the template table data source. */
-	protected get templateArray(): number[] {
+	protected get templateArray(): readonly object[] {
 		return Array(this.pageSize)
 			.fill(null)
-			.map((_, index) => index);
+			.map(_ => ({}));
 	}
 }
