@@ -14,3 +14,18 @@ export class ApiErrorResponse extends Immerable {
 }
 
 type TApiErrorResponse = OmitImmerable<ApiErrorResponse>;
+
+/** The API response which implements Error interface. */
+export class ApiErrorResponseWithDetails extends ApiErrorResponse implements Error {
+	/** Error name. */
+	public readonly name: string;
+
+	/** Error message. */
+	public readonly message: string;
+
+	public constructor(data: TApiErrorResponse, message?: string) {
+		super(data);
+		this.name = 'ExtendedApiError';
+		this.message = message ?? 'An API error occurred';
+	}
+}
