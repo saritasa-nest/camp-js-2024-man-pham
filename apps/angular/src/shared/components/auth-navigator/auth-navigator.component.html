@@ -1,13 +1,13 @@
 @if (currentUser$ | async; as user) {
 	<section class="greeting-container">
-		<p class="greeting__message"> Hello,
-			<span class="greeting__user-profile">
-				@if (user.firstName.length + user.lastName.length > 0) {
+		<p class="greeting__message"> Hi,
+			@if (user.firstName.length + user.lastName.length > 0) {
+				<span class="greeting__user-profile">
 					{{ user.firstName }} {{ user.lastName }}
-				} @else {
-					{{ user.email }}
-				}
-			</span>
+				</span>
+			} @else {
+				Have a nice day.
+			}
 		</p>
 		<button mat-raised-button class="button" type="button" (click)="logOut()">Logout</button>
 	</section>
