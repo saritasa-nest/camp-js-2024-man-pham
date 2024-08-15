@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
@@ -25,7 +25,7 @@ import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-f
 @Component({
 	selector: 'camp-anime-catalog',
 	standalone: true,
-	imports: [NgIf, AsyncPipe, AnimeTableComponent, AnimePaginatorComponent, AnimeFilterFormComponent],
+	imports: [AsyncPipe, AnimeTableComponent, AnimePaginatorComponent, AnimeFilterFormComponent],
 	templateUrl: './anime-catalog.component.html',
 	styleUrl: './anime-catalog.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
