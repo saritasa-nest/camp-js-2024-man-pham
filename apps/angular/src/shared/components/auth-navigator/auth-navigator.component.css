@@ -1,0 +1,26 @@
+.button {
+	width: 100%;
+}
+
+.divider {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: var(--spacing-md);
+	margin-block: var(--spacing-sm);
+}
+
+.divider::before,
+.divider::after {
+	content: "";
+	border-top: 1px solid white;
+	flex: 1;
+}
+
+.greeting__message {
+	font-size: var(--font-size-lg);
+}
+
+.greeting__user-profile {
+	font-weight: var(--font-weight-semibold);
+}

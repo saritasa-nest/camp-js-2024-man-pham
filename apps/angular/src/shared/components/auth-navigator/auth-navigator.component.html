@@ -1,11 +1,23 @@
 @if (currentUser$ | async; as user) {
-	@if (user.firstName.length + user.lastName.length > 0) {
-		<div>{{ user.firstName }} {{ user.lastName }}</div>
-	} @else {
-		<span>{{ user.email }}</span>
-	}
-	<button mat-raised-button type="button" (click)="logOut()">Logout</button>
+	<section class="greeting-container">
+		<p class="greeting__message"> Hello,
+			<span class="greeting__user-profile">
+				@if (user.firstName.length + user.lastName.length > 0) {
+					{{ user.firstName }} {{ user.lastName }}
+				} @else {
+					{{ user.email }}
+				}
+			</span>
+		</p>
+		<button mat-raised-button class="button" type="button" (click)="logOut()">Logout</button>
+	</section>
 } @else {
-	<a mat-raised-button [routerLink]="['/auth/login']">Login</a>
-	<a mat-raised-button [routerLink]="['/auth/register']">Register</a>
+	<section class="button-wrapper">
+		<a mat-raised-button class="button" [routerLink]="['/auth/login']">Login</a>
+		<div class="divider">
+			<span>or</span>
+		</div>
+		<a mat-raised-button class="button" [routerLink]="['/auth/register']">Register</a>
+	</section>
 }
+

@@ -6,4 +6,16 @@
 	border-radius: 0;
 	background-color: var(--primary-color);
 	color: var(--primary-contrast-color);
+	padding: var(--spacing-lg);
+}
+
+.sidebar__nav-container {
+	overflow: hidden;
+	display: flex;
+	height: 100%;
+	flex-direction: column;
+}
+
+.sidebar__auth-nav {
+	margin-top: auto;
 }

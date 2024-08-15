@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -9,7 +9,7 @@ import { first } from 'rxjs';
 @Component({
 	selector: 'camp-auth-navigator',
 	standalone: true,
-	imports: [MatButtonModule, AsyncPipe, RouterLink],
+	imports: [MatButtonModule, AsyncPipe, RouterLink, TitleCasePipe],
 	templateUrl: './auth-navigator.component.html',
 	styleUrl: './auth-navigator.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
