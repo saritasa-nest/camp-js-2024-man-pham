@@ -17,8 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AsyncPipe } from '@angular/common';
 
 import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
-
-import { InputPasswordComponent } from './../../../../shared/components/input-password/input-password.component';
+import { InputPasswordComponent } from '@js-camp/angular/shared/components/input-password/input-password.component';
 
 /** Login component. */
 @Component({
