@@ -72,6 +72,6 @@ export class RegisterComponent {
 				}),
 				takeUntilDestroyed(this.destroyRef),
 			)
-			.subscribe(() => this.router.navigate(['/']));
+			.subscribe(() => this.router.navigate(['/'], { replaceUrl: true }));
 	}
 }

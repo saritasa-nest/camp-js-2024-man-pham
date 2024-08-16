@@ -76,6 +76,6 @@ export class LoginComponent {
 				}),
 				takeUntilDestroyed(this.destroyRef),
 			)
-			.subscribe(() => this.router.navigate(['/']));
+			.subscribe(() => this.router.navigate(['/'], { replaceUrl: true }));
 	}
 }
