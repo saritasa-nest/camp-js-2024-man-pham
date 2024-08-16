@@ -38,12 +38,12 @@
 
 	<section class="form-control">
 		<label class="form__label">Password</label>
-		<camp-input-password [control]="registerForm.controls.password" />
+		<camp-input-password [touched]="registerForm.controls.password.touched" [control]="registerForm.controls.password" />
 	</section>
 
 	<section class="form-control">
 		<label class="form__label">Confirm Password</label>
-		<camp-input-password [control]="registerForm.controls.confirmPassword" [placeholder]="'Confirm password'" />
+		<camp-input-password [touched]="registerForm.controls.confirmPassword.touched" [control]="registerForm.controls.confirmPassword" [placeholder]="'Confirm password'" />
 	</section>
 
 	<section class="form__actions">

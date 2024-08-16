@@ -53,6 +53,8 @@ export class RegisterComponent {
 
 	/** Submit handler. */
 	protected onSubmit(): void {
+		this.registerForm.markAllAsTouched();
+
 		if (this.registerForm.invalid) {
 			return;
 		}
