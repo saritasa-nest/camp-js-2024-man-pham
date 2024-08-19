@@ -9,13 +9,15 @@ import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
+import { Router, RouterLink } from '@angular/router';
+
 import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
 
 /** Anime table component. */
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [AnimeNotFoundComponent, DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
+	imports: [AnimeNotFoundComponent, DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent, RouterLink],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -55,6 +57,8 @@ export class AnimeTableComponent {
 
 	private readonly sortEventMapper = inject(AnimeSortEventMapper);
 
+	private readonly router = inject(Router);
+
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
 
@@ -84,6 +88,14 @@ export class AnimeTableComponent {
 	public onSortChange(event: Sort): void {
 		const sortFilterParams = this.sortEventMapper.mapToSortFilterParams(event);
 		this.sortChange.emit(sortFilterParams);
+	}
+
+	/**
+	 * Navigate the selected anime to the detail page.
+	 * @param anime The anime associated with the row.
+	 */
+	protected onRowClick(anime: Anime): void {
+		this.router.navigate([`/anime/${anime.id}`]);
 	}
 
 	/** Generate number array for the template table data source. */
