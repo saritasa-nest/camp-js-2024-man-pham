@@ -1,7 +1,67 @@
-<section class="anime-detail">
+<section class="anime-detail-wrapper">
 	@if (animeDetails$ | async; as animeDetail) {
-	<article class="anime-detail__wrapper mat-elevation-z8">
-		<h2>{{animeDetail.titleJpn}}</h2>
-	</article>
+	<mat-card class="anime-detail mat-elevation-z10">
+		<section class="anime-detail__summary">
+			<section class="anime-detail__image-wrapper">
+				<img mat-card-image class="anime-detail__image" [src]="animeDetail.image"
+					[alt]="animeDetail.imageDescription">
+			</section>
+			<section class="anime-detail__content-wrapper">
+				<mat-card-header>
+					<mat-card-title class="anime-detail__title">
+						<h1>{{animeDetail.titleJpn}}</h1>
+					</mat-card-title>
+					<mat-card-subtitle>{{animeDetail.titleEng | noEmpty}}</mat-card-subtitle>
+				</mat-card-header>
+				<mat-card-content>
+					@if(animeDetail.synopsis){
+					<p class="anime-detail__synopsis">
+						{{animeDetail.synopsis}}
+					</p>
+					}
+				</mat-card-content>
+			</section>
+		</section>
+		<section class="anime-detail__extend">
+			<mat-tab-group animationDuration="500ms">
+				<mat-tab label="Detail">
+					<section class="tab-content-wrapper">
+						<p><span class="anime-detail__label">Type:</span> {{animeDetail.type}}</p>
+						<p><span class="anime-detail__label">Rating:</span> {{animeDetail.rating}}</p>
+						<p><span class="anime-detail__label">Source:</span> {{animeDetail.source}}</p>
+						<p><span class="anime-detail__label">Season:</span> {{animeDetail.season}}</p>
+						<p><span class="anime-detail__label">Status:</span> {{animeDetail.airingStatus === 'on air' ?
+							'Airing' :
+							'Finished'}}</p>
+						<p><span class="anime-detail__label">Airing Date:</span>
+							{{animeDetail.aired.startDate| date:'longDate' | noEmpty}}
+							—
+							{{animeDetail.aired.endDate| date:'longDate' | noEmpty}}
+						</p>
+						@if(animeDetail.studioList.length > 0) {
+						<p><span class="anime-detail__label">Studios:</span>
+							{{getItemNameList(animeDetail.studioList)}}
+						</p>
+						}
+						@if(animeDetail.genreList.length > 0) {
+						<p><span class="anime-detail__label">Genres:</span>
+							{{getItemNameList(animeDetail.genreList)}}
+						</p>
+						}
+					</section>
+				</mat-tab>
+
+				@if(animeDetail.trailerUrl) {
+				<mat-tab label="Trailer">
+					<section class="tab-content-wrapper">
+						<iframe title="trailer" [src]="getAnimeTrailerUrl(animeDetail.trailerUrl)" allowfullscreen
+							class="anime-details__trailer">
+						</iframe>
+					</section>
+				</mat-tab>
+				}
+			</mat-tab-group>
+		</section>
+	</mat-card>
 	}
 </section>
