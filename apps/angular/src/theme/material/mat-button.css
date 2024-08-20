@@ -1,15 +1,15 @@
 /* Button */
-.anime-form .mdc-button {
+.auth-form .mdc-button {
 	height: fit-content;
 	padding: var(--spacing-md);
 	border-radius: var(--border-radius-md);
 	background-color: var(--primary-color);
 }
 
-.anime-form .mdc-button:disabled {
+.auth-form .mdc-button:disabled {
 	opacity: 0.7;
 }
 
-.anime-form .mdc-button .mdc-button__label {
+.auth-form .mdc-button .mdc-button__label {
 	color: white;
 }

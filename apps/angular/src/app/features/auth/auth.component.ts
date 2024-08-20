@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
+/** Authentication layout. */
 @Component({
 	selector: 'camp-auth',
 	standalone: true,

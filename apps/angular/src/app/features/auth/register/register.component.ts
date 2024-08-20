@@ -30,7 +30,7 @@ import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-resp
 		InputPasswordComponent,
 	],
 	templateUrl: './register.component.html',
-	styleUrl: './register.component.css',
+	styleUrls: ['../auth.component.css', './register.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {

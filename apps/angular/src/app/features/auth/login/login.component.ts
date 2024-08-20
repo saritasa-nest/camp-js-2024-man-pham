@@ -34,7 +34,7 @@ import { InputPasswordComponent } from '@js-camp/angular/shared/components/input
 		RouterLink,
 	],
 	templateUrl: './login.component.html',
-	styleUrl: './login.component.css',
+	styleUrls: ['../auth.component.css', './login.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
@@ -50,7 +50,7 @@ export class LoginComponent {
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Loading state. */
-	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
+	protected readonly isLoading$ = new BehaviorSubject(false);
 
 	/** Login form. */
 	protected readonly loginForm = LoginForm.initialize(this.fb);
