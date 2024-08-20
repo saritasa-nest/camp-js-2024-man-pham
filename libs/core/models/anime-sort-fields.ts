@@ -1,4 +1,3 @@
-
 /** Anime sort fields. */
 export enum AnimeSortFields {
 	TitleEng = 'titleEng',

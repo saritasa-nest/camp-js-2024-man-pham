@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { Pagination } from '../models/pagination';
-
-import { PaginationDto } from '../dtos/pagination.dto';
-
-import { TMapperFromDto, TMapperFunction } from '../models/mapper';
+import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
+import { TMapperFromDto, TMapperFunction } from '@js-camp/core/models/mapper';
+import { Pagination } from '@js-camp/core/models/pagination';
 
 /** Pagination mapper. */
 @Injectable({
@@ -20,7 +17,6 @@ export class PaginationMapper {
 		paginationDto: PaginationDto<TDto>,
 		mapper: TMapperFromDto<TDto, TDomain> | TMapperFunction<TDto, TDomain>,
 	): Pagination<TDomain> {
-
 		const mapperFn = typeof mapper === 'function' ? mapper : mapper.fromDto;
 		return new Pagination<TDomain>({
 			totalCount: paginationDto.count,

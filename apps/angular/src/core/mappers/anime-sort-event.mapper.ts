@@ -2,25 +2,17 @@ import { Sort as SortEvent, SortDirection as SortEventDirection } from '@angular
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 import { SortDirection } from '@js-camp/core/models/sort-direction';
-import { Injectable } from '@angular/core';
-import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
+import { inject, Injectable } from '@angular/core';
+import { AnimeColumns } from '@js-camp/core/models/anime-columns';
+
+import { AnimeSortFieldsMapper } from './anime-sort-fields.mapper';
 
 /** Anime sort event mapper. */
 @Injectable({
 	providedIn: 'root',
 })
 export class AnimeSortEventMapper {
-	private readonly MAP_SORT_COLUMNS_TO_SORT_FIELDS: Partial<Record<AnimeColumns, AnimeSortFields>> = {
-		[AnimeColumns.TitleEng]: AnimeSortFields.TitleEng,
-		[AnimeColumns.StartDate]: AnimeSortFields.StartDate,
-		[AnimeColumns.Status]: AnimeSortFields.Status,
-	};
-
-	private readonly MAP_SORT_FIELDS_TO_SORT_COLUMN: Record<AnimeSortFields, AnimeColumns> = {
-		[AnimeSortFields.TitleEng]: AnimeColumns.TitleEng,
-		[AnimeSortFields.StartDate]: AnimeColumns.StartDate,
-		[AnimeSortFields.Status]: AnimeColumns.Status,
-	};
+	private readonly sortFieldsMapper = inject(AnimeSortFieldsMapper);
 
 	/**
 	 * Map sort event values to sort filter params.
@@ -41,7 +33,7 @@ export class AnimeSortEventMapper {
 				sortDirection = null;
 				break;
 		}
-		const field = this.MAP_SORT_COLUMNS_TO_SORT_FIELDS[dto.active as AnimeColumns];
+		const field = this.sortFieldsMapper.MAP_SORT_COLUMNS_TO_SORT_FIELDS[dto.active as AnimeColumns];
 		return {
 			sortField: sortDirection != null && field ? field : null,
 			sortDirection,
@@ -66,7 +58,7 @@ export class AnimeSortEventMapper {
 				sortDirection = '';
 				break;
 		}
-		const field = this.MAP_SORT_FIELDS_TO_SORT_COLUMN[model.sortField as AnimeSortFields];
+		const field = this.sortFieldsMapper.MAP_SORT_FIELDS_TO_SORT_COLUMN[model.sortField as AnimeSortFields];
 		return {
 			direction: sortDirection,
 			active: field,

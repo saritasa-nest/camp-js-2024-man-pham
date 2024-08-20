@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-
-import { AnimeFilterParams } from '../models/anime-filter-params';
-import { TMapper } from '../models/mapper';
-import { DEFAULT_PAGINATION } from '../contants/pagination';
-import { StrictOmit } from '../utils/types/strict-omit';
+import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
+import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
+import { TMapper } from '@js-camp/core/models/mapper';
+import { StrictOmit } from '@js-camp/core/utils/types/strict-omit';
 
 /** Anime query params. */
 export type AnimeQueryParams = Partial<

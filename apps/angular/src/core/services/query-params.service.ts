@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 /** Query param service.*/
@@ -6,7 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 	providedIn: 'root',
 })
 export class QueryParamsService {
-	public constructor(private readonly router: Router, private readonly activatedRoute: ActivatedRoute) {}
+	private readonly router = inject(Router);
+
+	private readonly activatedRoute = inject(ActivatedRoute);
 
 	/**
 	 * Remove undefined fields.

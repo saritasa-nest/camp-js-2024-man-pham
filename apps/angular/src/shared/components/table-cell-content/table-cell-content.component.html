@@ -1,4 +1,6 @@
-<span *ngIf="isLoading; else contentTemplate" campSkeleton class="skeleton"></span>
-<ng-template #contentTemplate>
+@if(isLoading) {
+	<span campSkeleton class="skeleton"></span>
+}
+@else {
 	<ng-content></ng-content>
-</ng-template>
+}
