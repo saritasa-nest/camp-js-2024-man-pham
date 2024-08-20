@@ -1,13 +1,22 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output, TrackByFunction } from '@angular/core';
+import {
+	ChangeDetectionStrategy,
+	Component,
+	EventEmitter,
+	inject,
+	Input,
+	Output,
+	TrackByFunction,
+} from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { TableCellContentComponent } from '@js-camp/angular/shared/components/table-cell-content/table-cell-content.component';
-import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
+import { AnimeColumns } from '@js-camp/core/models/anime-columns';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
+
+import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 
 import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
 
@@ -21,7 +30,6 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeTableComponent {
-
 	/** Anime list.*/
 	@Input()
 	public set animeList(values: ReadonlyArray<Anime>) {

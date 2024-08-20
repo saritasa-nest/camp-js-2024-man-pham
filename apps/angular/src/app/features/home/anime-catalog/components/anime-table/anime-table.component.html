@@ -1,4 +1,4 @@
-<section class="anime__table-container anime-table">
+<section class="anime-table">
 	<table mat-table [dataSource]="isLoading ? templateArray : dataSource" matSort [matSortDisabled]="isLoading"
 		[matSortDirection]="sortEvent.direction" [matSortActive]="sortEvent.active"
 		(matSortChange)="onSortChange($event)" [trackBy]="trackBy('id')">
