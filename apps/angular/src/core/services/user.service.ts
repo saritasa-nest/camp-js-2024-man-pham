@@ -32,7 +32,6 @@ import { UserSecretStorageService } from './user-secret-storage.service';
 	providedIn: 'root',
 })
 export class UserService {
-
 	private readonly authService = inject(AuthService);
 
 	private readonly userApiService = inject(UserApiService);

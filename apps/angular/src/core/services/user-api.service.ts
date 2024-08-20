@@ -7,7 +7,7 @@ import { UserMapper } from '@js-camp/core/mappers/user.mapper';
 import { UserDto } from '@js-camp/core/dtos/user.dto';
 import { User } from '@js-camp/core/models/user';
 
-/** Anime service. */
+/** User API service. */
 @Injectable({
 	providedIn: 'root',
 })
