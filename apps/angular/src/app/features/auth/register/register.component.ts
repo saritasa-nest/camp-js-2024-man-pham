@@ -12,8 +12,8 @@ import { AsyncPipe } from '@angular/common';
 import { Register } from '@js-camp/core/models/register';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 import { mustMatch } from '@js-camp/angular/app/shared/validators/must-match';
+import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 
 /** Register form type. */
 type RegisterForm = {
