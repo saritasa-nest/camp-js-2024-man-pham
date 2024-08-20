@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '@js-camp/angular/core/services/user.service';
-import { LoginForm } from '@js-camp/angular/core/models/login-form';
 import { Login } from '@js-camp/core/models/login';
 import { FormErrorService } from '@js-camp/angular/core/services/form-error.service';
 
@@ -18,6 +17,30 @@ import { AsyncPipe } from '@angular/common';
 
 import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 import { InputPasswordComponent } from '@js-camp/angular/shared/components/input-password/input-password.component';
+
+/** Login form type. */
+type LoginForm = {
+
+	/** Email form field. */
+	readonly email: FormControl<string>;
+
+	/** Password form field. */
+	readonly password: FormControl<string>;
+};
+
+namespace LoginForm {
+
+	/**
+	 * Initializes a login form using FormBuilder.
+	 * @param fb Form builder object.
+	 */
+	export function initialize(fb: NonNullableFormBuilder): FormGroup<LoginForm> {
+		return fb.group({
+			email: fb.control('', { validators: [Validators.required, Validators.email] }),
+			password: fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
+		});
+	}
+}
 
 /** Login component. */
 @Component({
