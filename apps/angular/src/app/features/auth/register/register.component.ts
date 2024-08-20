@@ -1,19 +1,19 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject } from "@angular/core";
-import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { Router, RouterLink } from "@angular/router";
-import { MatButtonModule } from "@angular/material/button";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatInputModule } from "@angular/material/input";
-import { MatIconModule } from "@angular/material/icon";
-import { InputPasswordComponent } from "@js-camp/angular/shared/components/input-password/input-password.component";
-import { FormErrorService } from "@js-camp/angular/core/services/form-error.service";
-import { BehaviorSubject, catchError, finalize } from "rxjs";
-import { AsyncPipe } from "@angular/common";
-import { Register } from "@js-camp/core/models/register";
-import { UserService } from "@js-camp/angular/core/services/user.service";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { ApiErrorResponseWithDetails } from "@js-camp/core/models/api-error-response";
-import { mustMatch } from "@js-camp/angular/app/shared/validators/must-match";
+import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { InputPasswordComponent } from '@js-camp/angular/shared/components/input-password/input-password.component';
+import { FormErrorService } from '@js-camp/angular/core/services/form-error.service';
+import { BehaviorSubject, catchError, finalize } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
+import { Register } from '@js-camp/core/models/register';
+import { UserService } from '@js-camp/angular/core/services/user.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
+import { mustMatch } from '@js-camp/angular/app/shared/validators/must-match';
 
 /** Register form type. */
 type RegisterForm = {
@@ -41,17 +41,17 @@ namespace RegisterForm {
 	 * @param fb Non nullable form builder.
 	 */
 	export function initialize(fb: NonNullableFormBuilder): FormGroup<RegisterForm> {
-		const passwordControl = fb.control("", [Validators.required]);
-		const confirmPasswordControl = fb.control("", [Validators.required, mustMatch(passwordControl)]);
+		const passwordControl = fb.control('', [Validators.required]);
+		const confirmPasswordControl = fb.control('', [Validators.required, mustMatch(passwordControl)]);
 
 		passwordControl.valueChanges.subscribe(() => {
 			confirmPasswordControl.updateValueAndValidity();
 		});
 
 		return fb.group({
-			email: fb.control("", [Validators.required, Validators.email]),
-			firstName: fb.control("", [Validators.required]),
-			lastName: fb.control("", [Validators.required]),
+			email: fb.control('', [Validators.required, Validators.email]),
+			firstName: fb.control('', [Validators.required]),
+			lastName: fb.control('', [Validators.required]),
 			password: passwordControl,
 			confirmPassword: confirmPasswordControl,
 		});
@@ -60,7 +60,7 @@ namespace RegisterForm {
 
 /** Register component. */
 @Component({
-	selector: "camp-register",
+	selector: 'camp-register',
 	standalone: true,
 	imports: [
 		AsyncPipe,
@@ -72,8 +72,8 @@ namespace RegisterForm {
 		RouterLink,
 		InputPasswordComponent,
 	],
-	templateUrl: "./register.component.html",
-	styleUrls: ["../auth.component.css", "./register.component.css"],
+	templateUrl: './register.component.html',
+	styleUrls: ['../auth.component.css', './register.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
@@ -115,8 +115,8 @@ export class RegisterComponent {
 				finalize(() => {
 					this.isLoading$.next(false);
 				}),
-				takeUntilDestroyed(this.destroyRef)
+				takeUntilDestroyed(this.destroyRef),
 			)
-			.subscribe(() => this.router.navigate(["/"], { replaceUrl: true }));
+			.subscribe(() => this.router.navigate(['/'], { replaceUrl: true }));
 	}
 }
