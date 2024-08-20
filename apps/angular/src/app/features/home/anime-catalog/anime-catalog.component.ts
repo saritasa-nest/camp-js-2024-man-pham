@@ -11,7 +11,10 @@ import { PageEvent } from '@angular/material/paginator';
 
 import { AnimeType } from '@js-camp/core/models/anime-type';
 
-import { ANIME_FILTER_PARAMS_PROVIDERS, ANIME_FILTER_PARAMS_TOKEN } from '@js-camp/angular/core/providers/anime-filter-params.provider';
+import {
+	ANIME_FILTER_PARAMS_PROVIDERS,
+	ANIME_FILTER_PARAMS_TOKEN,
+} from '@js-camp/angular/core/providers/anime-filter-params.provider';
 
 import { AnimeQueryParamsService } from '@js-camp/angular/core/services/anime-query-params.service';
 
@@ -59,11 +62,7 @@ export class AnimeCatalogComponent implements OnInit {
 
 	/** Get the filter params. */
 	public ngOnInit(): void {
-		// Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
-		// Add 'implements AfterViewInit' to the class.
-
-		this.initializeFilterParamsSideEffects()
-			.pipe(takeUntilDestroyed(this.destroyRef))
+		this.initializeFilterParamsSideEffects().pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe();
 	}
 
