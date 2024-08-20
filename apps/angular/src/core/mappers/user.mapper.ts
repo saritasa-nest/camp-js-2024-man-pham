@@ -1,13 +1,10 @@
 import { inject, Injectable } from '@angular/core';
+import { UserDto } from '@js-camp/core/dtos/user.dto';
+import { DateTimeMapper } from '@js-camp/core/mappers/date-time.mapper';
+import { TMapper } from '@js-camp/core/models/mapper';
+import { User } from '@js-camp/core/models/user';
 
-import { TMapper } from '../models/mapper';
-
-import { UserDto } from '../dtos/user.dto';
-import { User } from '../models/user';
-
-import { DateTimeMapper } from './date-time.mapper';
-
-/** Anime mapper. */
+/** User mapper. */
 @Injectable({
 	providedIn: 'root',
 })

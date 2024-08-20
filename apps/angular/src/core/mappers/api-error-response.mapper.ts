@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { ApiErrorResponseDto } from '@js-camp/core/dtos/api-error-response.dto';
+import { TMapperFromDto } from '@js-camp/core/models/mapper';
 
-import { ApiErrorResponseDto } from '../dtos/api-error-response.dto';
-import { ApiError } from '../models/api-error';
-import { ApiErrorResponse } from '../models/api-error-response';
-import { TMapperFromDto } from '../models/mapper';
+import { ApiError } from '@js-camp/core/models/api-error';
+import { ApiErrorResponse } from '@js-camp/core/models/api-error-response';
 
 const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
 

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { TMapper } from '../models/mapper';
-import { UserSecretDto } from '../dtos/user-secret.dto';
-import { UserSecret } from '../models/user-secret';
+import { UserSecretDto } from '@js-camp/core/dtos/user-secret.dto';
+import { TMapper } from '@js-camp/core/models/mapper';
+import { UserSecret } from '@js-camp/core/models/user-secret';
 
 /** User secret mapper. */
 @Injectable({
