@@ -9,7 +9,7 @@ import { AnimeType } from '../models/anime-type';
 })
 export class AnimeTypeMapper {
 	/** Map DTO to model. */
-	public MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
+	public readonly MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
 		[AnimeTypeDto.Tv]: AnimeType.Tv,
 		[AnimeTypeDto.Ova]: AnimeType.Ova,
 		[AnimeTypeDto.Movie]: AnimeType.Movie,
@@ -21,7 +21,7 @@ export class AnimeTypeMapper {
 	};
 
 	/** Map model to DTO. */
-	public MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
+	public readonly MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 		[AnimeType.Tv]: AnimeTypeDto.Tv,
 		[AnimeType.Ova]: AnimeTypeDto.Ova,
 		[AnimeType.Movie]: AnimeTypeDto.Movie,
