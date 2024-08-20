@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-
-import { AnimeStatus } from '../models/anime-status';
-import { AnimeStatusDto } from '../dtos/anime-status.dto';
+import { AnimeStatusDto } from '@js-camp/core/dtos/anime-status.dto';
+import { AnimeStatus } from '@js-camp/core/models/anime-status';
 
 /** Anime status mapper. */
 @Injectable({

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-import { TMapper } from '../models/mapper';
+import { TMapper } from '@js-camp/core/models/mapper';
 
 /** Date mapper service. */
 @Injectable({

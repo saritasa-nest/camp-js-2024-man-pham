@@ -3,8 +3,9 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 import { SortDirection } from '@js-camp/core/models/sort-direction';
 import { inject, Injectable } from '@angular/core';
-import { AnimeColumns } from '@js-camp/core/contants/anime-columns';
-import { AnimeSortFieldsMapper } from '@js-camp/core/mappers/anime-sort-fields.mapper';
+import { AnimeColumns } from '@js-camp/core/models/anime-columns';
+
+import { AnimeSortFieldsMapper } from './anime-sort-fields.mapper';
 
 /** Anime sort event mapper. */
 @Injectable({

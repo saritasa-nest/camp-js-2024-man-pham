@@ -1,14 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 
-import { TMapperToDto } from '../models/mapper';
-import { AnimeFilterParams } from '../models/anime-filter-params';
-import { AnimeFilterParamsDto } from '../dtos/anime-filter-params.dto';
-import { AnimeSortFields } from '../models/anime-sort-fields';
-import { AnimeSortFieldsDto } from '../dtos/anime-sort-fields.dto';
-import { SortDirection } from '../models/sort-direction';
+import { AnimeFilterParamsDto } from '@js-camp/core/dtos/anime-filter-params.dto';
+import { AnimeSortFieldsDto } from '@js-camp/core/dtos/anime-sort-fields.dto';
+import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
+import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
+import { TMapperToDto } from '@js-camp/core/models/mapper';
+import { SortDirection } from '@js-camp/core/models/sort-direction';
 
-import { BaseFilterParamsMapper } from './base-filter-params.mapper';
 import { AnimeTypeMapper } from './anime-type.mapper';
+import { BaseFilterParamsMapper } from './base-filter-params.mapper';
 
 const MAP_ANIME_SORT_FIELDS_TO_DTO: Record<AnimeSortFields, AnimeSortFieldsDto> = {
 	[AnimeSortFields.StartDate]: AnimeSortFieldsDto.StartDate,

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-
-import { AnimeColumns } from '../contants/anime-columns';
-import { AnimeSortFields } from '../models/anime-sort-fields';
+import { AnimeColumns } from '@js-camp/core/models/anime-columns';
+import { AnimeSortFields } from '@js-camp/core/models/anime-sort-fields';
 
 /** Anime sort fields mapper. */
 @Injectable({

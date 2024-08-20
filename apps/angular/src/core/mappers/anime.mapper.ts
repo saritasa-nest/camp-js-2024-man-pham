@@ -1,8 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 
-import { Anime } from '../models/anime';
-import { AnimeDto } from '../dtos/anime.dto';
-import { TMapper } from '../models/mapper';
+import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
+
+import { Anime } from '@js-camp/core/models/anime';
+
+import { TMapper } from '@js-camp/core/models/mapper';
 
 import { DateTimeMapper } from './date-time.mapper';
 import { AnimeTypeMapper } from './anime-type.mapper';

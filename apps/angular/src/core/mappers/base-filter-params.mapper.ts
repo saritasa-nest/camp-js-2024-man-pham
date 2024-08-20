@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { TMapperToDto } from '../models/mapper';
-import { BaseFilterParams } from '../models/base-filter-params';
-import { BaseFilterParamsDto } from '../dtos/base-filter-params.dto';
+import { BaseFilterParamsDto } from '@js-camp/core/dtos/base-filter-params.dto';
+import { BaseFilterParams } from '@js-camp/core/models/base-filter-params';
+import { TMapperToDto } from '@js-camp/core/models/mapper';
 
 /** Mapper for filter params. */
 @Injectable({ providedIn: 'root' })

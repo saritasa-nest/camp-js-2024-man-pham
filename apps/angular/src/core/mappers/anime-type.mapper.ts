@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-
-import { AnimeTypeDto } from '../dtos/anime-type.dto';
-import { AnimeType } from '../models/anime-type';
+import { AnimeTypeDto } from '@js-camp/core/dtos/anime-type.dto';
+import { AnimeType } from '@js-camp/core/models/anime-type';
 
 /** Anime type mapper. */
 @Injectable({
