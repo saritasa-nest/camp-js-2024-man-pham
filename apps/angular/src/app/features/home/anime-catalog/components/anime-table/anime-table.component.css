@@ -36,3 +36,12 @@
 	color: var(--badge-font-color);
 	background-color: var(--badge-background-color);
 }
+
+.anime-table__row {
+	cursor: pointer;
+}
+
+.anime-table__row:hover,
+.anime-table__row:focus {
+	background-color: var(--primary-light-color);
+}
