@@ -1,0 +1,26 @@
+<p><span class="label">Type:</span> {{ animeDetail.type }}</p>
+<p><span class="label">Rating:</span> {{ animeDetail.rating }}</p>
+<p><span class="label">Source:</span> {{ animeDetail.source }}</p>
+<p><span class="label">Season:</span> {{ animeDetail.season }}</p>
+<p>
+	<span class="label">Aring Status:</span>
+	{{ animeDetail.airingStatus === "on air" ? "Airing" : "Finished" }}
+</p>
+<p>
+	<span class="label">Broadcasting Dates:</span>
+	{{ animeDetail.aired.startDate | date : "longDate" | noEmpty }}
+	—
+	{{ animeDetail.aired.endDate | date : "longDate" | noEmpty }}
+</p>
+@if(animeDetail.studioList.length > 0) {
+	<p>
+		<span class="label">Studios:</span>
+		{{ getFormattedList(animeDetail.studioList) }}
+	</p>
+}
+@if(animeDetail.genreList.length > 0) {
+	<p>
+		<span class="label">Genres:</span>
+		{{ getFormattedList(animeDetail.genreList) }}
+	</p>
+}
