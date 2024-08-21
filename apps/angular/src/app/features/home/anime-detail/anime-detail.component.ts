@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { AsyncPipe, DatePipe, Location } from '@angular/common';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
@@ -12,7 +12,12 @@ import { AnimeGenre } from '@js-camp/core/models/anime-genre';
 import { AnimeStudio } from '@js-camp/core/models/anime-studio';
 import { MatDialog } from '@angular/material/dialog';
 
+import { MatMiniFabButton } from '@angular/material/button';
+
+import { MatIcon } from '@angular/material/icon';
+
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
+import { AnimeInformationComponent } from './anime-information/anime-information.component';
 
 const EMBDED_LINK = 'https://www.youtube.com/embed/';
 
@@ -20,7 +25,17 @@ const EMBDED_LINK = 'https://www.youtube.com/embed/';
 @Component({
 	selector: 'camp-anime-detail',
 	standalone: true,
-	imports: [AsyncPipe, MatCardModule, NoEmptyPipe, MatTabsModule, DatePipe],
+	imports: [
+		AsyncPipe,
+		MatCardModule,
+		NoEmptyPipe,
+		MatTabsModule,
+		DatePipe,
+		AnimeInformationComponent,
+		RouterLink,
+		MatMiniFabButton,
+		MatIcon,
+	],
 	templateUrl: './anime-detail.component.html',
 	styleUrl: './anime-detail.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,6 +50,8 @@ export class AnimeDetailComponent {
 	private readonly domSanitizer = inject(DomSanitizer);
 
 	private readonly dialog = inject(MatDialog);
+
+	private readonly location = inject(Location);
 
 	/** Anime detail. */
 	protected readonly animeDetails$: Observable<AnimeDetails | null> = this.animeId ?
@@ -66,5 +83,10 @@ export class AnimeDetailComponent {
 			data: { source: imageSource, title },
 			height: '80vh',
 		});
+	}
+
+	/** Go back to the previous page. */
+	protected handleGoBack(): void {
+		this.location.back();
 	}
 }

@@ -22,6 +22,12 @@
 	gap: var(--spacing-lg);
 }
 
+.anime-detail__header {
+	width: 100%;
+	display: block;
+	margin-right: var(--spacing-lg);
+}
+
 .anime-detail__image-wrapper {
 	border-radius: var(--border-radius-sm);
 	width: 300px;
@@ -35,7 +41,7 @@
 	object-fit: fill;
 }
 
-.anime-detail__content-wrapper {
+.anime-detail__main-content {
 	flex: 1 1 0;
 }
 
@@ -50,11 +56,7 @@
 	line-height: 1.6;
 }
 
-.anime-detail__label {
-	font-weight: var(--font-weight-semibold);
-}
-
-.tab-content-wrapper {
+.tab__content-wrapper {
 	padding: var(--spacing-lg);
 }
 

@@ -1,72 +1,52 @@
 <section class="anime-detail-wrapper">
 	@if (animeDetails$ | async; as animeDetail) {
-		<mat-card class="anime-detail mat-elevation-z10">
-			<section class="anime-detail__summary">
-				<section class="anime-detail__image-wrapper">
-					<img mat-card-image class="anime-detail__image" [src]="animeDetail.image"
-						[alt]="animeDetail.imageDescription"
-						(click)="openImageDialog(animeDetail.image, animeDetail.imageDescription)" />
-				</section>
-				<section class="anime-detail__content-wrapper">
-					<mat-card-header>
+	<mat-card class="anime-detail mat-elevation-z10">
+		<section class="anime-detail__summary">
+			<section class="anime-detail__image-wrapper">
+				<img mat-card-image class="anime-detail__image" [src]="animeDetail.image"
+					[alt]="animeDetail.imageDescription"
+					(click)="openImageDialog(animeDetail.image, animeDetail.imageDescription)" />
+			</section>
+			<section class="anime-detail__main-content">
+				<mat-card-header>
+					<section class="anime-detail__header">
 						<mat-card-title class="anime-detail__title">
 							<h1>{{ animeDetail.titleJpn }}</h1>
 						</mat-card-title>
 						<mat-card-subtitle>{{ animeDetail.titleEng | noEmpty }}</mat-card-subtitle>
-					</mat-card-header>
-					@if(animeDetail.synopsis) {
-						<mat-card-content>
-							<p class="anime-detail__synopsis">
-								{{ animeDetail.synopsis }}
-							</p>
-						</mat-card-content>
-					}
-				</section>
+					</section>
+					<button type="button" mat-mini-fab (click)="handleGoBack()">
+						<mat-icon>chevron_left</mat-icon>
+					</button>
+				</mat-card-header>
+				@if(animeDetail.synopsis) {
+				<mat-card-content>
+					<p class="anime-detail__synopsis">
+						{{ animeDetail.synopsis }}
+					</p>
+				</mat-card-content>
+				}
 			</section>
-			<section class="anime-detail__extend">
-				<mat-tab-group animationDuration="500ms">
-					<mat-tab label="Detail">
-						<section class="tab-content-wrapper">
-							<p><span class="anime-detail__label">Type:</span> {{ animeDetail.type }}</p>
-							<p><span class="anime-detail__label">Rating:</span> {{ animeDetail.rating }}</p>
-							<p><span class="anime-detail__label">Source:</span> {{ animeDetail.source }}</p>
-							<p><span class="anime-detail__label">Season:</span> {{ animeDetail.season }}</p>
-							<p>
-								<span class="anime-detail__label">Aring Status:</span>
-								{{ animeDetail.airingStatus === "on air" ? "Airing" : "Finished" }}
-							</p>
-							<p>
-								<span class="anime-detail__label">Broadcasting Dates:</span>
-								{{ animeDetail.aired.startDate | date : "longDate" | noEmpty }}
-								—
-								{{ animeDetail.aired.endDate | date : "longDate" | noEmpty }}
-							</p>
-							@if(animeDetail.studioList.length > 0) {
-								<p>
-									<span class="anime-detail__label">Studios:</span>
-									{{ getItemNameList(animeDetail.studioList) }}
-								</p>
-							}
-							@if(animeDetail.genreList.length > 0) {
-								<p>
-									<span class="anime-detail__label">Genres:</span>
-									{{ getItemNameList(animeDetail.genreList) }}
-								</p>
-							}
-						</section>
-					</mat-tab>
+		</section>
+		<section class="anime-detail__side-content">
+			<mat-tab-group animationDuration="500ms">
+				<mat-tab label="Detail">
+					<section class="tab__content-wrapper">
+						<camp-anime-information [animeDetail]="animeDetail" />
+					</section>
+				</mat-tab>
 
-					@if(animeDetail.trailerUrl) {
-						<mat-tab label="Trailer">
-							<section class="tab-content-wrapper">
-								<iframe title="trailer" [src]="getAnimeTrailerUrl(animeDetail.trailerUrl)" allowfullscreen
-									class="anime-details__trailer">
-								</iframe>
-							</section>
-						</mat-tab>
-					}
-				</mat-tab-group>
-			</section>
-		</mat-card>
+				@if(animeDetail.trailerUrl) {
+				<mat-tab label="Trailer">
+					<section class="tab__content-wrapper">
+						<iframe title="trailer" [src]="getAnimeTrailerUrl(animeDetail.trailerUrl)" allowfullscreen
+							class="anime-details__trailer">
+						</iframe>
+					</section>
+				</mat-tab>
+				}
+			</mat-tab-group>
+		</section>
+	</mat-card>
 	}
 </section>
