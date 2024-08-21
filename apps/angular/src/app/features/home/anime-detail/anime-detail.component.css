@@ -1,11 +1,14 @@
 :host {
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
 	padding-block: var(--spacing-lg);
 }
 
 .anime-detail-wrapper {
+	display: flex;
+	place-content: center;
 	width: var(--container-max-width);
 	max-width: 100%;
 	margin: 0 auto;
@@ -14,6 +17,7 @@
 .anime-detail {
 	padding: var(--spacing-md);
 	gap: var(--spacing-lg);
+	width: 100%;
 }
 
 .anime-detail__summary {

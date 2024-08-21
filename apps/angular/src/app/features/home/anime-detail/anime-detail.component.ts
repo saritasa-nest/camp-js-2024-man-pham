@@ -4,10 +4,11 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, defer, finalize, Observable, of } from 'rxjs';
 import { AnimeDetails } from '@js-camp/core/models/anime-detail';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AnimeGenre } from '@js-camp/core/models/anime-genre';
 import { AnimeStudio } from '@js-camp/core/models/anime-studio';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +16,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatMiniFabButton } from '@angular/material/button';
 
 import { MatIcon } from '@angular/material/icon';
+
+import { SkeletonDirective } from '@js-camp/angular/shared/directives/skeleton/skeleton.directive';
 
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { AnimeInformationComponent } from './anime-information/anime-information.component';
@@ -35,6 +38,8 @@ const EMBDED_LINK = 'https://www.youtube.com/embed/';
 		RouterLink,
 		MatMiniFabButton,
 		MatIcon,
+		SkeletonDirective,
+		MatProgressSpinnerModule,
 	],
 	templateUrl: './anime-detail.component.html',
 	styleUrl: './anime-detail.component.css',
@@ -53,10 +58,17 @@ export class AnimeDetailComponent {
 
 	private readonly location = inject(Location);
 
+	/** Loading state. */
+	protected readonly isLoading$ = new BehaviorSubject(true);
+
 	/** Anime detail. */
-	protected readonly animeDetails$: Observable<AnimeDetails | null> = this.animeId ?
-		this.animeService.getAnimeDetail(this.animeId) :
-		of(null);
+	protected readonly animeDetails$: Observable<AnimeDetails | null>;
+
+	public constructor() {
+		this.animeDetails$ = defer(() => (this.animeId ? this.animeService.getAnimeDetail(this.animeId) : of(null))).pipe(
+			finalize(() => this.isLoading$.next(false)),
+		);
+	}
 
 	/**
 	 * Get anime trailer based on its id.

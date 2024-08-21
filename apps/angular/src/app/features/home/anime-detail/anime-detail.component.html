@@ -1,4 +1,4 @@
-<section class="anime-detail-wrapper">
+<section class="anime-detail-wrapper ">
 	@if (animeDetails$ | async; as animeDetail) {
 	<mat-card class="anime-detail mat-elevation-z10">
 		<section class="anime-detail__summary">
@@ -33,6 +33,7 @@
 				<mat-tab label="Detail">
 					<section class="tab__content-wrapper">
 						<camp-anime-information [animeDetail]="animeDetail" />
+						<div campSkeleton></div>
 					</section>
 				</mat-tab>
 
@@ -48,5 +49,8 @@
 			</mat-tab-group>
 		</section>
 	</mat-card>
+	}
+	@else if(isLoading$ | async) {
+	<mat-spinner />
 	}
 </section>
