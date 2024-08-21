@@ -10,6 +10,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { AnimeGenre } from '@js-camp/core/models/anime-genre';
 import { AnimeStudio } from '@js-camp/core/models/anime-studio';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 
 const EMBDED_LINK = 'https://www.youtube.com/embed/';
 
@@ -31,6 +34,8 @@ export class AnimeDetailComponent {
 
 	private readonly domSanitizer = inject(DomSanitizer);
 
+	private readonly dialog = inject(MatDialog);
+
 	/** Anime detail. */
 	protected readonly animeDetails$: Observable<AnimeDetails | null> = this.animeId ?
 		this.animeService.getAnimeDetail(this.animeId) :
@@ -49,5 +54,17 @@ export class AnimeDetailComponent {
 	 */
 	protected getItemNameList(array: readonly AnimeGenre[] | readonly AnimeStudio[]): string {
 		return array.map((item, index) => `${item.name}${index === array.length - 1 ? '' : ', '}`).join('');
+	}
+
+	/**
+	 * Opens an image dialog.
+	 * @param imageSource The source URL.
+	 * @param title The title.
+	 */
+	protected openImageDialog(imageSource: string | null, title: string): void {
+		this.dialog.open(ImageDialogComponent, {
+			data: { source: imageSource, title },
+			height: '80vh',
+		});
 	}
 }
