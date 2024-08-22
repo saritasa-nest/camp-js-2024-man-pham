@@ -1,25 +1,18 @@
 import { inject, Injectable } from '@angular/core';
 
-import { TMapper } from '../models/mapper';
+import { AnimeDetailDto } from '@js-camp/core/dtos/anime-detail.dto';
+import { AnimeRatingDto } from '@js-camp/core/dtos/anime-rating.dto';
+import { AnimeSeasonDto } from '@js-camp/core/dtos/anime-season.dto';
+import { AnimeSourceDto } from '@js-camp/core/dtos/anime-source.dto';
+import { AnimeDetails } from '@js-camp/core/models/anime-detail';
+import { AnimeRating } from '@js-camp/core/models/anime-rating';
+import { AnimeSeason } from '@js-camp/core/models/anime-season';
+import { AnimeSource } from '@js-camp/core/models/anime-source';
+import { TMapper } from '@js-camp/core/models/mapper';
 
-import { AnimeDetailDto } from '../dtos/anime-detail.dto';
-import { AnimeDetails } from '../models/anime-detail';
-
-import { AnimeSeasonDto } from '../dtos/anime-season.dto';
-
-import { AnimeSeason } from '../models/anime-season';
-
-import { AnimeSourceDto } from '../dtos/anime-source.dto';
-
-import { AnimeSource } from '../models/anime-source';
-
-import { AnimeRatingDto } from '../dtos/anime-rating.dto';
-
-import { AnimeRating } from '../models/anime-rating';
-
-import { AnimeGenreMapper } from './anime-genre.mapper';
-import { AnimeStudioMapper } from './anime-studio.mapper';
 import { AnimeMapper } from './anime.mapper';
+import { AnimeStudioMapper } from './anime-studio.mapper';
+import { AnimeGenreMapper } from './anime-genre.mapper';
 
 const MAP_ANIME_SEASON_FROM_DTO: Record<AnimeSeasonDto, AnimeSeason> = {
 	[AnimeSeasonDto.Spring]: AnimeSeason.Spring,
@@ -102,7 +95,6 @@ const MAP_ANIME_RATING_TO_DTO: Record<AnimeRating, AnimeRatingDto> = {
 	providedIn: 'root',
 })
 export class AnimeDetailMapper implements TMapper<AnimeDetailDto, AnimeDetails> {
-
 	private readonly animeMapper = inject(AnimeMapper);
 
 	private readonly genreMapper = inject(AnimeGenreMapper);

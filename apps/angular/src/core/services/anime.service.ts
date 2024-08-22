@@ -13,7 +13,7 @@ import { AnimeFilterParamsDto } from '@js-camp/core/dtos/anime-filter-params.dto
 
 import { AnimeDetailDto } from '@js-camp/core/dtos/anime-detail.dto';
 
-import { AnimeDetailMapper } from '@js-camp/core/mappers/anime-detail.mapper';
+import { AnimeDetailMapper } from '@js-camp/angular/core/mappers/anime-detail.mapper';
 
 import { AnimeDetails } from '@js-camp/core/models/anime-detail';
 
