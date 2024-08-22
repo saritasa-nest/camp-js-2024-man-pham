@@ -1,8 +1,8 @@
-<ng-container *ngIf="{
- animePage: animePage$ | async,
- isLoading: isLoading$ | async,
- filterParams: filterParams$ | async
-} as data">
+@if({
+	animePage: animePage$ | async,
+	isLoading: isLoading$ | async,
+	filterParams: filterParams$ | async
+}; as data) {
 	<camp-anime-filter-form [isLoading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)"
 		(searchSubmit)="onSearch($event)" [search]="data.filterParams?.search ?? ''"
 		[selectedType]="data.filterParams?.type ?? null"></camp-anime-filter-form>
@@ -15,4 +15,4 @@
 			ng-container [pageNumber]="data.filterParams?.pageNumber ?? 0"
 			(pageChange)="onPageChange($event)"></camp-anime-paginator>
 	</section>
-</ng-container>
+}

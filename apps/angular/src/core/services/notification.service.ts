@@ -6,6 +6,8 @@ const SNACKBAR_OPTIONS = {
 	duration: 5,
 };
 
+const DEFAULT_MILLISECOND = 1000;
+
 /** Notification service. */
 @Injectable({
 	providedIn: 'root',
@@ -20,7 +22,7 @@ export class NotificationService {
 	 */
 	public showMessage(message: string): void {
 		this.snackBar.open(message, SNACKBAR_OPTIONS.action, {
-			duration: SNACKBAR_OPTIONS.duration * 1000,
+			duration: SNACKBAR_OPTIONS.duration * DEFAULT_MILLISECOND,
 			verticalPosition: 'top',
 		});
 	}

@@ -2,20 +2,20 @@
 export type UserDto = {
 
 	/** Email. */
-	email: string;
+	readonly email: string;
 
 	/** First name. */
-	first_name: string;
+	readonly first_name: string;
 
 	/** Last name. */
-	last_name: string;
+	readonly last_name: string;
 
 	/** Avatar. */
-	avatar: string | null;
+	readonly avatar: string | null;
 
 	/** Created. */
-	created: string;
+	readonly created: string;
 
 	/** Modified. */
-	modified: string;
+	readonly modified: string;
 };

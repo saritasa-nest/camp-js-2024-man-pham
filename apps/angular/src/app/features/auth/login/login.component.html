@@ -21,22 +21,24 @@
 	</section>
 
 	<section class="form__actions">
-		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid" [disabled]="isLoading$ | async">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid"
+			[disabled]="isLoading$ | async">
 			@if(isLoading$ | async) {
-				<span class="button__label">
-					Signing in
-				</span>
+			<span class="button__label">
+				Signing in
+			</span>
 			}
 			@else {
-				<span class="button__label">
-					Sign in
-					<mat-icon>arrow_right_alt</mat-icon>
-				</span>
+			<span class="button__label">
+				Sign in
+				<mat-icon>arrow_right_alt</mat-icon>
+			</span>
 			}
 		</button>
 
-		<div class="form__navigate">
-			No account? <a class="navigate__link" [routerLink]="['../', 'register']" replaceUrl="true">Create an account</a>
+		<div class="form__navigate navigate">
+			No account? <a class="navigate__link" [routerLink]="['../', 'register']" replaceUrl="true">Create an
+				account</a>
 		</div>
 	</section>
 </form>

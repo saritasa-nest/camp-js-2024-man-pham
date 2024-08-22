@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-
-import { TMapperToDto } from '../models/mapper';
-import { RegisterDto } from '../dtos/register.dto';
-import { Register } from '../models/register';
+import { RegisterDto } from '@js-camp/core/dtos/register.dto';
+import { TMapperToDto } from '@js-camp/core/models/mapper';
+import { Register } from '@js-camp/core/models/register';
 
 /** Login mapper.  */
 @Injectable({

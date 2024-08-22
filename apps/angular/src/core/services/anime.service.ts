@@ -4,14 +4,10 @@ import { map, Observable } from 'rxjs';
 import { AppUrlsConfig } from '@js-camp/angular/app/shared/app-url';
 import { AnimeDto } from '@js-camp/core/dtos/anime.dto';
 import { PaginationDto } from '@js-camp/core/dtos/pagination.dto';
-import { AnimeMapper } from '@js-camp/core/mappers/anime.mapper';
-import { PaginationMapper } from '@js-camp/core/mappers/pagination.mapper';
 import { Anime } from '@js-camp/core/models/anime';
 import { Pagination } from '@js-camp/core/models/pagination';
 
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
-
-import { AnimeFilterParamsMapper } from '@js-camp/core/mappers/anime-filter-params.mapper';
 
 import { AnimeFilterParamsDto } from '@js-camp/core/dtos/anime-filter-params.dto';
 
@@ -21,6 +17,10 @@ import { AnimeDetailMapper } from '@js-camp/core/mappers/anime-detail.mapper';
 
 import { AnimeDetails } from '@js-camp/core/models/anime-detail';
 
+import { AnimeFilterParamsMapper } from '../mappers/anime-filter-params.mapper';
+import { AnimeMapper } from '../mappers/anime.mapper';
+import { PaginationMapper } from '../mappers/pagination.mapper';
+
 import { HttpParamsService } from './http-params.service';
 
 /** Anime service. */
@@ -28,7 +28,6 @@ import { HttpParamsService } from './http-params.service';
 	providedIn: 'root',
 })
 export class AnimeService {
-
 	private readonly appUrlsConfig = inject(AppUrlsConfig);
 
 	private readonly httpClient = inject(HttpClient);

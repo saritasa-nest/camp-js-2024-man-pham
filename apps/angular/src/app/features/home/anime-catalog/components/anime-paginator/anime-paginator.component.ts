@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
+import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 
 /** Anime Paginator Component. */
 @Component({

@@ -1,5 +1,5 @@
 /* eslint-disable @angular-eslint/no-input-rename */
-import { Directive, ElementRef, HostBinding, Input, OnChanges } from '@angular/core';
+import { Directive, ElementRef, HostBinding, inject, Input, OnChanges } from '@angular/core';
 
 /**
  * Generates random value between specified ranges using linear random generator.
@@ -72,7 +72,7 @@ export class SkeletonDirective implements OnChanges {
 
 	private width: number | null = null;
 
-	public constructor(private readonly elementRef: ElementRef<HTMLElement>) {}
+	private readonly elementRef = inject(ElementRef<HTMLElement>);
 
 	/** @inheritdoc */
 	public ngOnChanges(): void {

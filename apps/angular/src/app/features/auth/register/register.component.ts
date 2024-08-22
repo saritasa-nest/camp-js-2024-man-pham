@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject } from '@angular/core';
-import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RegisterForm } from '@js-camp/angular/core/models/register-form';
+import { FormControl, FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +12,51 @@ import { AsyncPipe } from '@angular/common';
 import { Register } from '@js-camp/core/models/register';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { mustMatch } from '@js-camp/angular/app/shared/validators/must-match';
 import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
+
+/** Register form type. */
+type RegisterForm = {
+
+	/** Email field. */
+	readonly email: FormControl<string>;
+
+	/** First name field. */
+	readonly firstName: FormControl<string>;
+
+	/** Last name field. */
+	readonly lastName: FormControl<string>;
+
+	/** Password field. */
+	readonly password: FormControl<string>;
+
+	/** Confirm password field. */
+	readonly confirmPassword: FormControl<string>;
+};
+
+namespace RegisterForm {
+
+	/**
+	 * Initializes register form.
+	 * @param fb Non nullable form builder.
+	 */
+	export function initialize(fb: NonNullableFormBuilder): FormGroup<RegisterForm> {
+		const passwordControl = fb.control('', [Validators.required]);
+		const confirmPasswordControl = fb.control('', [Validators.required, mustMatch(passwordControl)]);
+
+		passwordControl.valueChanges.subscribe(() => {
+			confirmPasswordControl.updateValueAndValidity();
+		});
+
+		return fb.group({
+			email: fb.control('', [Validators.required, Validators.email]),
+			firstName: fb.control('', [Validators.required]),
+			lastName: fb.control('', [Validators.required]),
+			password: passwordControl,
+			confirmPassword: confirmPasswordControl,
+		});
+	}
+}
 
 /** Register component. */
 @Component({
@@ -30,7 +73,7 @@ import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-resp
 		InputPasswordComponent,
 	],
 	templateUrl: './register.component.html',
-	styleUrl: './register.component.css',
+	styleUrls: ['../auth.component.css', './register.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterComponent {
@@ -49,7 +92,7 @@ export class RegisterComponent {
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Loading state. */
-	protected readonly isLoading$ = new BehaviorSubject<boolean>(false);
+	protected readonly isLoading$ = new BehaviorSubject(false);
 
 	/** Submit handler. */
 	protected onSubmit(): void {

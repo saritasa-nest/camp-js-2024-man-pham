@@ -1,10 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-
-import { AnimeQueryParamsMapper } from '@js-camp/core/mappers/anime-query-params.mapper';
-
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
+import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 
-import { DEFAULT_PAGINATION } from '@js-camp/core/contants/pagination';
+import { AnimeQueryParamsMapper } from '../mappers/anime-query-params.mapper';
 
 import { QueryParamsService } from './query-params.service';
 
@@ -25,7 +23,7 @@ export class AnimeQueryParamsService {
 	}
 
 	/**
-	 * Append provide query params and reset page number params to the URL.
+	 * Append query params and reset page number params to the URL.
 	 * @param params Anime filter params to append.
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
