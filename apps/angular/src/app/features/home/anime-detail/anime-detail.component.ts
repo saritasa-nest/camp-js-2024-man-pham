@@ -21,6 +21,7 @@ import { SkeletonDirective } from '@js-camp/angular/shared/directives/skeleton/s
 
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { AnimeInformationComponent } from './anime-information/anime-information.component';
+import { AnimeNotFoundComponent } from './anime-not-found/anime-not-found.component';
 
 const EMBDED_LINK = 'https://www.youtube.com/embed/';
 
@@ -40,6 +41,7 @@ const EMBDED_LINK = 'https://www.youtube.com/embed/';
 		MatIcon,
 		SkeletonDirective,
 		MatProgressSpinnerModule,
+		AnimeNotFoundComponent,
 	],
 	templateUrl: './anime-detail.component.html',
 	styleUrl: './anime-detail.component.css',
