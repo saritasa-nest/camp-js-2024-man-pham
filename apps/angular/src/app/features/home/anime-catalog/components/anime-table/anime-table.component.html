@@ -63,7 +63,7 @@
 		</ng-container>
 
 		<tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-		<tr mat-row *matRowDef="let row; columns: displayedColumns" class="anime-table__row"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns" class="anime-table__row" (click)="onRowClick(row)"></tr>
 		<tr class="mat-row" *matNoDataRow>
 			<td class="mat-cell" [attr.colspan]="displayedColumns.length">
 				<camp-anime-not-found />
