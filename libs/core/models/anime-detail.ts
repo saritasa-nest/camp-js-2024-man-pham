@@ -27,7 +27,7 @@ export class AnimeDetail extends Anime {
 	public readonly synopsis: string;
 
 	/** Airing status. */
-	public readonly airingStatus: 'on air' | 'off air';
+	public readonly airingStatus: boolean;
 
 	/** Background. */
 	public readonly background: string;

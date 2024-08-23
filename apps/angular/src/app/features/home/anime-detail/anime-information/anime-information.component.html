@@ -4,7 +4,7 @@
 <p><span class="label">Season:</span> {{ animeDetail.season }}</p>
 <p>
 	<span class="label">Aring Status:</span>
-	{{ animeDetail.airingStatus === "on air" ? "Airing" : "Finished" }}
+	{{ animeDetail.airingStatus ? "Airing" : "Finished" }}
 </p>
 <p>
 	<span class="label">Broadcasting Dates:</span>
