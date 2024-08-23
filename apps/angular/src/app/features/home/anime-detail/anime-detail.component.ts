@@ -23,7 +23,7 @@ import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { AnimeInformationComponent } from './anime-information/anime-information.component';
 import { AnimeNotFoundComponent } from './anime-not-found/anime-not-found.component';
 
-const EMBDED_LINK = 'https://www.youtube.com/embed/';
+const EMBEDDED_LINK = 'https://www.youtube.com/embed/';
 
 /** Anime detail component. */
 @Component({
@@ -77,7 +77,7 @@ export class AnimeDetailComponent {
 	 * @param id Anime id.
 	 */
 	protected getAnimeTrailerUrl(id: AnimeDetail['trailerUrl']): SafeResourceUrl {
-		return this.domSanitizer.bypassSecurityTrustResourceUrl(`${EMBDED_LINK}${id}`);
+		return this.domSanitizer.bypassSecurityTrustResourceUrl(`${EMBEDDED_LINK}${id}`);
 	}
 
 	/**
