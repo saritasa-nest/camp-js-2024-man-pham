@@ -20,11 +20,11 @@
 					</button>
 				</mat-card-header>
 				@if(animeDetail.synopsis) {
-				<mat-card-content>
-					<p class="anime-detail__synopsis">
-						{{ animeDetail.synopsis }}
-					</p>
-				</mat-card-content>
+					<mat-card-content>
+						<p class="anime-detail__synopsis">
+							{{ animeDetail.synopsis }}
+						</p>
+					</mat-card-content>
 				}
 			</section>
 		</section>
@@ -38,20 +38,20 @@
 				</mat-tab>
 
 				@if(animeDetail.trailerUrl) {
-				<mat-tab label="Trailer">
-					<section class="tab__content-wrapper">
-						<iframe title="trailer" [src]="getAnimeTrailerUrl(animeDetail.trailerUrl)" allowfullscreen
-							class="anime-details__trailer">
-						</iframe>
-					</section>
-				</mat-tab>
+					<mat-tab label="Trailer">
+						<section class="tab__content-wrapper">
+							<iframe title="trailer" [src]="getAnimeTrailerUrl(animeDetail.trailerUrl)" allowfullscreen
+								class="anime-details__trailer">
+							</iframe>
+						</section>
+					</mat-tab>
 				}
 			</mat-tab-group>
 		</section>
 	</mat-card>
 	}
 	@else if(isLoading$ | async) {
-	<mat-spinner />
+		<mat-spinner />
 	}
 	@else {
 		<camp-anime-not-found />
