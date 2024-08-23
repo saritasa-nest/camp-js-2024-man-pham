@@ -9,7 +9,7 @@ import { AnimeStudio } from './anime-studio';
 import { OmitImmerable } from './immerable';
 
 /** Anime details model. */
-export class AnimeDetails extends Anime {
+export class AnimeDetail extends Anime {
 
 	/** YouTube trailer url. */
 	public readonly trailerUrl: string;
@@ -65,4 +65,4 @@ export class AnimeDetails extends Anime {
 }
 
 /** Anime Type. */
-type TAnimeDetail = StrictOmit<OmitImmerable<AnimeDetails>, 'imageDescription'>;
+type TAnimeDetail = StrictOmit<OmitImmerable<AnimeDetail>, 'imageDescription'>;
