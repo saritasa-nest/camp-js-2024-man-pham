@@ -76,8 +76,9 @@ export class AnimeDetailComponent {
 	 * Get anime trailer based on its id.
 	 * @param id Anime id.
 	 */
-	protected getAnimeTrailerUrl = (id: AnimeDetail['trailerUrl']): SafeResourceUrl =>
-		this.domSanitizer.bypassSecurityTrustResourceUrl(`${EMBDED_LINK}${id}`);
+	protected getAnimeTrailerUrl(id: AnimeDetail['trailerUrl']): SafeResourceUrl {
+		return this.domSanitizer.bypassSecurityTrustResourceUrl(`${EMBDED_LINK}${id}`);
+	}
 
 	/**
 	 * Join array of items into a string containing the item's name.
