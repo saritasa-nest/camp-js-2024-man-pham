@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { AnimeDetails } from '@js-camp/core/models/anime-detail';
+import { AnimeDetail } from '@js-camp/core/models/anime-detail';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { AnimeGenre } from '@js-camp/core/models/anime-genre';
 import { AnimeStudio } from '@js-camp/core/models/anime-studio';
@@ -17,7 +17,7 @@ import { DatePipe } from '@angular/common';
 export class AnimeInformationComponent {
 	/** Anime detail. */
 	@Input()
-	public animeDetail!: AnimeDetails;
+	public animeDetail!: AnimeDetail;
 
 	/**
 	 * Gets formatted list.

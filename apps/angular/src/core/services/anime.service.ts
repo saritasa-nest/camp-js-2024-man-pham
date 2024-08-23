@@ -15,7 +15,7 @@ import { AnimeDetailDto } from '@js-camp/core/dtos/anime-detail.dto';
 
 import { AnimeDetailMapper } from '@js-camp/angular/core/mappers/anime-detail.mapper';
 
-import { AnimeDetails } from '@js-camp/core/models/anime-detail';
+import { AnimeDetail } from '@js-camp/core/models/anime-detail';
 
 import { AnimeFilterParamsMapper } from '../mappers/anime-filter-params.mapper';
 import { AnimeMapper } from '../mappers/anime.mapper';
@@ -66,7 +66,7 @@ export class AnimeService {
 	 *  Get the anime with the given id.
 	 * @param id Anime id.
 	 */
-	public getAnimeDetail(id: string): Observable<AnimeDetails> {
+	public getAnimeDetail(id: string): Observable<AnimeDetail> {
 		return this.httpClient
 			.get<AnimeDetailDto>(this.appUrlsConfig.anime.detail(id))
 			.pipe(map(detailDto => this.animeDetailMapper.fromDto(detailDto)));

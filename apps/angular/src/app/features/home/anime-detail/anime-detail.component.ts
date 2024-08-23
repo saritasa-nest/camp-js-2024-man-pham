@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
 import { BehaviorSubject, defer, finalize, Observable, of } from 'rxjs';
-import { AnimeDetails } from '@js-camp/core/models/anime-detail';
+import { AnimeDetail } from '@js-camp/core/models/anime-detail';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NoEmptyPipe } from '@js-camp/angular/core/pipes/no-empty.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -64,7 +64,7 @@ export class AnimeDetailComponent {
 	protected readonly isLoading$ = new BehaviorSubject(true);
 
 	/** Anime detail. */
-	protected readonly animeDetails$: Observable<AnimeDetails | null>;
+	protected readonly animeDetails$: Observable<AnimeDetail | null>;
 
 	public constructor() {
 		this.animeDetails$ = defer(() => (this.animeId ? this.animeService.getAnimeDetail(this.animeId) : of(null))).pipe(
@@ -76,7 +76,7 @@ export class AnimeDetailComponent {
 	 * Get anime trailer based on its id.
 	 * @param id Anime id.
 	 */
-	protected getAnimeTrailerUrl = (id: AnimeDetails['trailerUrl']): SafeResourceUrl =>
+	protected getAnimeTrailerUrl = (id: AnimeDetail['trailerUrl']): SafeResourceUrl =>
 		this.domSanitizer.bypassSecurityTrustResourceUrl(`${EMBDED_LINK}${id}`);
 
 	/**
@@ -84,7 +84,7 @@ export class AnimeDetailComponent {
 	 * @param array Array of items.
 	 */
 	protected getItemNameList(array: readonly AnimeGenre[] | readonly AnimeStudio[]): string {
-		return array.map((item, index) => `${item.name}${index === array.length - 1 ? '' : ', '}`).join('');
+		return array.map(item => item.name).join(', ');
 	}
 
 	/**
