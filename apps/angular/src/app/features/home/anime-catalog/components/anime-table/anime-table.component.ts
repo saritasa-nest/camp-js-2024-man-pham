@@ -113,6 +113,17 @@ export class AnimeTableComponent {
 		this.router.navigate([`/anime/${anime.id}`]);
 	}
 
+	/**
+	 * Handles a keydown event on a table row.
+	 * @param event The keyboard event.
+	 * @param anime The anime associated with the row.
+	 */
+	protected handleKeydown(event: KeyboardEvent, anime: Anime): void {
+		if (event.key === 'Enter') {
+			this.onRowClick(anime);
+		}
+	}
+
 	/** Generate number array for the template table data source. */
 	protected get templateArray(): readonly object[] {
 		return Array(this.pageSize)

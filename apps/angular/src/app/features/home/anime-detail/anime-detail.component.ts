@@ -64,10 +64,10 @@ export class AnimeDetailComponent {
 	protected readonly isLoading$ = new BehaviorSubject(true);
 
 	/** Anime detail. */
-	protected readonly animeDetails$: Observable<AnimeDetail | null>;
+	protected readonly animeDetail$: Observable<AnimeDetail | null>;
 
 	public constructor() {
-		this.animeDetails$ = defer(() => (this.animeId ? this.animeService.getAnimeDetail(this.animeId) : of(null))).pipe(
+		this.animeDetail$ = defer(() => (this.animeId ? this.animeService.getAnimeDetail(this.animeId) : of(null))).pipe(
 			finalize(() => this.isLoading$.next(false)),
 		);
 	}
@@ -97,6 +97,18 @@ export class AnimeDetailComponent {
 			data: { source: imageSource, title },
 			height: '80vh',
 		});
+	}
+
+	/**
+	 * Handles a keydown event on a image.
+	 * @param event The keyboard event.
+	 * @param imageSource Image source.
+	 * @param title Japanese title.
+	 */
+	protected handleKeydown(event: KeyboardEvent, imageSource: string | null, title: string): void {
+		if (event.key === 'Enter') {
+			this.openImageDialog(imageSource, title);
+		}
 	}
 
 	/** Go back to the previous page. */
