@@ -78,8 +78,8 @@ export class AnimeTableComponent {
 	private readonly sortEventMapper = inject(AnimeSortEventMapper);
 
 	/**
-	 *  Track object by id.
-	 *  @param key Key of Type.
+	 *  Track element by a given key.
+	 *  @param key Key of element.
 	 */
 	protected trackBy<T>(key: keyof T): TrackByFunction<T> {
 		return function(_index: number, item: T): T[keyof T] {
