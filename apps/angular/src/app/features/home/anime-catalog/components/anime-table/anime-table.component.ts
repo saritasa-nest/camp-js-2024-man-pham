@@ -33,21 +33,21 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 })
 export class AnimeTableComponent {
 	/** Anime list.*/
-	@Input()
+	@Input({ required: true })
 	public set animeList(values: ReadonlyArray<Anime>) {
 		this.dataSource = [...values];
 	}
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Page size. */
-	@Input()
+	@Input({ required: true })
 	public pageSize = DEFAULT_PAGINATION.pageSize;
 
 	/** Sort params. */
-	@Input()
+	@Input({ required: true })
 	public set sortParams(values: AnimeFilterParams.Sort | null) {
 		if (values?.sortDirection && values.sortField) {
 			this.sortEvent = this.sortEventMapper.mapToSortEvent(values);

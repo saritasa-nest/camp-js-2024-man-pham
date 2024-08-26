@@ -18,15 +18,15 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class AnimeFilterFormComponent {
 	/** Selected type by the user. */
-	@Input()
+	@Input({ required: true })
 	public selectedType: AnimeType | null = null;
 
 	/** Searched result by the user. */
-	@Input()
+	@Input({ required: true })
 	public search: string | null = null;
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Event emitter for submitting search. */

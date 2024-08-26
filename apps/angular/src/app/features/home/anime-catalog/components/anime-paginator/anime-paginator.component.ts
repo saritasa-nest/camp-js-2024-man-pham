@@ -12,19 +12,19 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 })
 export class AnimePaginatorComponent {
 	/** Amount of items per page. */
-	@Input()
+	@Input({ required: true })
 	public pageSize = DEFAULT_PAGINATION.pageSize;
 
 	/** Total amount of fetched items. */
-	@Input()
+	@Input({ required: true })
 	public pageNumber = DEFAULT_PAGINATION.pageNumber;
 
 	/** Total amount of fetched items. */
-	@Input()
+	@Input({ required: true })
 	public totalCount = 0;
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Event emitter for page changing. */
