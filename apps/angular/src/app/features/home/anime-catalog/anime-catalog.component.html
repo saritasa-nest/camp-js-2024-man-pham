@@ -1,7 +1,7 @@
 @if({
 	animePage: animePage$ | async,
 	isLoading: isLoading$ | async,
-	filterParams: filterParams$ | async
+	filterParams: filter$ | async
 }; as data) {
 	<camp-anime-filter-form [isLoading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)"
 		(searchSubmit)="onSearch($event)" [search]="data.filterParams?.search ?? ''"
