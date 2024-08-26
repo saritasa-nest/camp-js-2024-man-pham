@@ -20,9 +20,9 @@ const MAP_ANIME_SORT_FIELDS_TO_DTO: Record<AnimeSortFields, AnimeSortFieldsDto> 
 @Injectable({ providedIn: 'root' })
 export class AnimeFilterParamsMapper
 implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
-	private baseFilterMapper = inject(BaseFilterParamsMapper);
+	private readonly baseFilterMapper = inject(BaseFilterParamsMapper);
 
-	private typeMapper = inject(AnimeTypeMapper);
+	private readonly typeMapper = inject(AnimeTypeMapper);
 
 	/** @inheritdoc */
 	public toDto(model: AnimeFilterParams.Combined): AnimeFilterParamsDto.Combined {
