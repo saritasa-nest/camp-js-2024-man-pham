@@ -22,6 +22,7 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
 import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-filter-form.component';
+
 /** Anime catalog. */
 @Component({
 	selector: 'camp-anime-catalog',
