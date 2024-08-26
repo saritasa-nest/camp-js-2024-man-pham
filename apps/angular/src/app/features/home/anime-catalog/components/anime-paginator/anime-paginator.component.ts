@@ -11,7 +11,6 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimePaginatorComponent {
-
 	/** Amount of items per page. */
 	@Input()
 	public pageSize = DEFAULT_PAGINATION.pageSize;

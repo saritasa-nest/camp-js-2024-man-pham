@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeFilterFormComponent {
-
 	/** Selected type by the user. */
 	@Input()
 	public selectedType: AnimeType | null = null;

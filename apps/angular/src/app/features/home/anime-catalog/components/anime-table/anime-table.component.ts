@@ -61,8 +61,6 @@ export class AnimeTableComponent {
 	@Output()
 	public sortChange = new EventEmitter<AnimeFilterParams.Sort>();
 
-	private readonly sortEventMapper = inject(AnimeSortEventMapper);
-
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
 
@@ -74,6 +72,8 @@ export class AnimeTableComponent {
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: AnimeColumns[] = Object.values(this.columns);
+
+	private readonly sortEventMapper = inject(AnimeSortEventMapper);
 
 	/**
 	 *  Track object by id.
@@ -89,7 +89,7 @@ export class AnimeTableComponent {
 	 * Emit sort value.
 	 * @param event Sort event.
 	 */
-	public onSortChange(event: Sort): void {
+	protected onSortChange(event: Sort): void {
 		const sortFilterParams = this.sortEventMapper.mapToSortFilterParams(event);
 		this.sortChange.emit(sortFilterParams);
 	}

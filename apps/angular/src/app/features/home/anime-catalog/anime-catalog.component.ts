@@ -35,14 +35,6 @@ import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-f
 	providers: [...ANIME_FILTER_PARAMS_PROVIDERS],
 })
 export class AnimeCatalogComponent implements OnInit {
-	private readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
-
-	private readonly animeQueryParams = inject(AnimeQueryParamsService);
-
-	private readonly animeService = inject(AnimeService);
-
-	private readonly destroyRef = inject(DestroyRef);
-
 	/** Loading state when fetching data. */
 	protected readonly isLoading$ = new BehaviorSubject(false);
 
@@ -51,6 +43,14 @@ export class AnimeCatalogComponent implements OnInit {
 
 	/** Filter params. */
 	protected filterParams$ = new BehaviorSubject<AnimeFilterParams.Combined | null>(null);
+
+	private readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
+
+	private readonly animeQueryParams = inject(AnimeQueryParamsService);
+
+	private readonly animeService = inject(AnimeService);
+
+	private readonly destroyRef = inject(DestroyRef);
 
 	public constructor() {
 		this.animePage$ = this.filter$.pipe(
@@ -64,15 +64,6 @@ export class AnimeCatalogComponent implements OnInit {
 	public ngOnInit(): void {
 		this.initializeFilterParamsSideEffects().pipe(takeUntilDestroyed(this.destroyRef))
 			.subscribe();
-	}
-
-	private initializeFilterParamsSideEffects(): Observable<void> {
-		return this.filter$.pipe(
-			tap(params => {
-				this.filterParams$.next(params);
-			}),
-			ignoreElements(),
-		);
 	}
 
 	/** Get sort params. */
@@ -92,7 +83,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * Event handler for page changing.
 	 * @param event The page event.
 	 */
-	public onPageChange(event: PageEvent): void {
+	protected onPageChange(event: PageEvent): void {
 		this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 
@@ -118,5 +109,14 @@ export class AnimeCatalogComponent implements OnInit {
 	 */
 	protected onSortChange(event: AnimeFilterParams.Sort): void {
 		this.animeQueryParams.appendParamsAndResetPageNumber(event);
+	}
+
+	private initializeFilterParamsSideEffects(): Observable<void> {
+		return this.filter$.pipe(
+			tap(params => {
+				this.filterParams$.next(params);
+			}),
+			ignoreElements(),
+		);
 	}
 }
