@@ -31,11 +31,11 @@ export class AnimeFilterFormComponent {
 
 	/** Event emitter for submitting search. */
 	@Output()
-	public searchSubmit = new EventEmitter<string | null>();
+	public readonly searchSubmit = new EventEmitter<string | null>();
 
 	/** Event emitter for type changing. */
 	@Output()
-	public typeChange = new EventEmitter<AnimeType | null>();
+	public readonly typeChange = new EventEmitter<AnimeType | null>();
 
 	/** Anime type values. */
 	protected readonly animeTypes = Object.values(AnimeType);

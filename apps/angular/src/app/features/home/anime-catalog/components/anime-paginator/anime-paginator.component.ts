@@ -29,7 +29,7 @@ export class AnimePaginatorComponent {
 
 	/** Event emitter for page changing. */
 	@Output()
-	public pageChange = new EventEmitter<PageEvent>();
+	public readonly pageChange = new EventEmitter<PageEvent>();
 
 	/** Page size options. */
 	protected pageSizeOptions = [5, 10, 20] as const;

@@ -18,6 +18,8 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 
+import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
+
 import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
 
 /** Anime table component. */
@@ -42,7 +44,7 @@ export class AnimeTableComponent {
 
 	/** Page size. */
 	@Input()
-	public pageSize = 0;
+	public pageSize = DEFAULT_PAGINATION.pageSize;
 
 	/** Sort params. */
 	@Input()
@@ -59,7 +61,7 @@ export class AnimeTableComponent {
 
 	/** Event emitter for sorting. */
 	@Output()
-	public sortChange = new EventEmitter<AnimeFilterParams.Sort>();
+	public readonly sortChange = new EventEmitter<AnimeFilterParams.Sort>();
 
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
