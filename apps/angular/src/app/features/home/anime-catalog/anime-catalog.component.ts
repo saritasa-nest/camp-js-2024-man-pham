@@ -43,6 +43,9 @@ export class AnimeCatalogComponent {
 	/** Filter params. */
 	protected readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
 
+	/** Sort params. */
+	protected readonly sortParams$: Observable<AnimeFilterParams.Sort>;
+
 	private readonly animeQueryParams = inject(AnimeQueryParamsService);
 
 	private readonly animeService = inject(AnimeService);
@@ -53,11 +56,8 @@ export class AnimeCatalogComponent {
 			switchMap(filterParams =>
 				this.animeService.getAnime(filterParams).pipe(finalize(() => this.isLoading$.next(false)))),
 		);
-	}
 
-	/** Get sort params. */
-	protected get sortParams$(): Observable<AnimeFilterParams.Sort> {
-		return this.filter$.pipe(
+		this.sortParams$ = this.filter$.pipe(
 			map(params => {
 				const sortParams: AnimeFilterParams.Sort = {
 					sortDirection: params?.sortDirection ?? null,
