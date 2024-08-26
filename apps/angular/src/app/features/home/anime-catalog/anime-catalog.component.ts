@@ -4,7 +4,7 @@ import { AsyncPipe } from '@angular/common';
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-import { BehaviorSubject, finalize, map, Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, finalize, first, map, Observable, switchMap, tap } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 
@@ -22,7 +22,6 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 import { AnimeTableComponent } from './components/anime-table/anime-table.component';
 import { AnimePaginatorComponent } from './components/anime-paginator/anime-paginator.component';
 import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-filter-form.component';
-
 /** Anime catalog. */
 @Component({
 	selector: 'camp-anime-catalog',
@@ -70,10 +69,22 @@ export class AnimeCatalogComponent {
 
 	/**
 	 * Event handler for page changing.
+	 * Navigate to the first page if the page size is changed.
 	 * @param event The page event.
 	 */
 	protected onPageChange(event: PageEvent): void {
-		this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
+		this.filter$
+			.pipe(
+				first(),
+				tap(currentParams => {
+					if (event.pageSize === currentParams.pageSize) {
+						this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
+					} else {
+						this.animeQueryParams.appendParamsAndResetPageNumber({ pageSize: event.pageSize });
+					}
+				}),
+			)
+			.subscribe();
 	}
 
 	/**
