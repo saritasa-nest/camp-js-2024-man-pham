@@ -7,6 +7,7 @@ import {
 	Input,
 	Output,
 	TrackByFunction,
+	OnInit,
 } from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -31,7 +32,7 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeTableComponent {
+export class AnimeTableComponent implements OnInit {
 	/** Anime list.*/
 	@Input({ required: true })
 	public set animeList(values: ReadonlyArray<Anime>) {
@@ -46,18 +47,9 @@ export class AnimeTableComponent {
 	@Input({ required: true })
 	public pageSize = DEFAULT_PAGINATION.pageSize;
 
-	/** Sort params. */
+	/** Sort params test. */
 	@Input({ required: true })
-	public set sortParams(values: AnimeFilterParams.Sort | null) {
-		if (values?.sortDirection && values.sortField) {
-			this.sortEvent = this.sortEventMapper.mapToSortEvent(values);
-		} else {
-			this.sortEvent = {
-				active: '',
-				direction: '',
-			};
-		}
-	}
+	public sortParams: AnimeFilterParams.Sort | null = null;
 
 	/** Event emitter for sorting. */
 	@Output()
@@ -70,12 +62,22 @@ export class AnimeTableComponent {
 	protected dataSource: ReadonlyArray<Anime> = [];
 
 	/** Sort event values. */
-	protected sortEvent!: Sort;
+	protected sortEvent: Sort = {
+		active: '',
+		direction: '',
+	};
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: AnimeColumns[] = Object.values(this.columns);
 
 	private readonly sortEventMapper = inject(AnimeSortEventMapper);
+
+	/** Side effects when initialize component. */
+	public ngOnInit(): void {
+		if (this.sortParams?.sortDirection && this.sortParams.sortField) {
+			this.sortEvent = this.sortEventMapper.mapToSortEvent(this.sortParams);
+		}
+	}
 
 	/**
 	 *  Track element by a given key.
