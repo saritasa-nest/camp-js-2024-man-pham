@@ -45,23 +45,29 @@ export class AnimeSortEventMapper {
 	 * @param model Sort filter params.
 	 * @returns Sort event values.
 	 */
-	public mapToSortEvent(model: Partial<AnimeFilterParams.Sort>): SortEvent {
-		let sortDirection: SortEventDirection;
-		switch (model.sortDirection) {
-			case SortDirection.Ascending:
-				sortDirection = 'asc';
-				break;
-			case SortDirection.Descending:
-				sortDirection = 'desc';
-				break;
-			default:
-				sortDirection = '';
-				break;
+	public mapToSortEvent(model: Partial<AnimeFilterParams.Sort> | null): SortEvent {
+		if (model) {
+			let sortDirection: SortEventDirection;
+			switch (model.sortDirection) {
+				case SortDirection.Ascending:
+					sortDirection = 'asc';
+					break;
+				case SortDirection.Descending:
+					sortDirection = 'desc';
+					break;
+				default:
+					sortDirection = '';
+					break;
+			}
+			const field = this.sortFieldsMapper.MAP_SORT_FIELDS_TO_SORT_COLUMN[model.sortField as AnimeSortFields];
+			return {
+				direction: sortDirection,
+				active: field,
+			};
 		}
-		const field = this.sortFieldsMapper.MAP_SORT_FIELDS_TO_SORT_COLUMN[model.sortField as AnimeSortFields];
 		return {
-			direction: sortDirection,
-			active: field,
+			active: '',
+			direction: '',
 		};
 	}
 }

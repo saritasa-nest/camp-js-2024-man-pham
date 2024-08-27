@@ -74,9 +74,7 @@ export class AnimeTableComponent implements OnInit {
 
 	/** Side effects when initialize component. */
 	public ngOnInit(): void {
-		if (this.sortParams?.sortDirection && this.sortParams.sortField) {
-			this.sortEvent = this.sortEventMapper.mapToSortEvent(this.sortParams);
-		}
+		this.sortEvent = this.sortEventMapper.mapToSortEvent(this.sortParams);
 	}
 
 	/**
