@@ -1,16 +1,16 @@
 @if({
 	animePage: animePage$ | async,
-	isLoading: isLoading$ | async,
+	isLoading: (isLoading$ | async) ?? false,
 	filterParams: filter$ | async
 }; as data) {
-	<camp-anime-filter-form [isLoading]="data.isLoading ?? false" (typeChange)="onSelectionChange($event)"
+	<camp-anime-filter-form [isLoading]="data.isLoading" (typeChange)="onSelectionChange($event)"
 		(searchSubmit)="onSearch($event)" [search]="data.filterParams?.search ?? ''"
 		[selectedType]="data.filterParams?.type ?? null"></camp-anime-filter-form>
 	<section class="mat-elevation-z8">
-		<camp-anime-table [animeList]="data.animePage ? data.animePage.items : []" [isLoading]="data.isLoading ?? false"
+		<camp-anime-table [animeList]="data.animePage ? data.animePage.items : []" [isLoading]="data.isLoading"
 			[sortParams]="sortParams$ | async" [pageSize]="data.filterParams?.pageSize ?? 0"
 			(sortChange)="onSortChange($event)"></camp-anime-table>
-		<camp-anime-paginator [isLoading]="data.isLoading ?? false"
+		<camp-anime-paginator [isLoading]="data.isLoading"
 			[totalCount]="data.animePage ? data.animePage.totalCount : 0" [pageSize]="data.filterParams?.pageSize ?? 10"
 			ng-container [pageNumber]="data.filterParams?.pageNumber ?? 0"
 			(pageChange)="onPageChange($event)"></camp-anime-paginator>
