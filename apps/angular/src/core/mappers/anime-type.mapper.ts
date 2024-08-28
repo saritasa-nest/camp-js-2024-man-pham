@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AnimeTypeDto } from '@js-camp/core/dtos/anime-type.dto';
 import { AnimeType } from '@js-camp/core/models/anime-type';
+import { TMapper } from '@js-camp/core/models/mapper';
 
 /** Anime type mapper. */
 @Injectable({
 	providedIn: 'root',
 })
-export class AnimeTypeMapper {
-	/** Map DTO to model. */
-	public readonly MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
+export class AnimeTypeMapper implements TMapper<AnimeTypeDto, AnimeType> {
+	private readonly MAP_ANIME_TYPE_FROM_DTO: Record<AnimeTypeDto, AnimeType> = {
 		[AnimeTypeDto.Tv]: AnimeType.Tv,
 		[AnimeTypeDto.Ova]: AnimeType.Ova,
 		[AnimeTypeDto.Movie]: AnimeType.Movie,
@@ -19,8 +19,7 @@ export class AnimeTypeMapper {
 		[AnimeTypeDto.PromotionalVideos]: AnimeType.PromotionalVideos,
 	};
 
-	/** Map model to DTO. */
-	public readonly MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
+	private readonly MAP_ANIME_TYPE_TO_DTO: Record<AnimeType, AnimeTypeDto> = {
 		[AnimeType.Tv]: AnimeTypeDto.Tv,
 		[AnimeType.Ova]: AnimeTypeDto.Ova,
 		[AnimeType.Movie]: AnimeTypeDto.Movie,
@@ -30,4 +29,14 @@ export class AnimeTypeMapper {
 		[AnimeType.Unknown]: AnimeTypeDto.Unknown,
 		[AnimeType.PromotionalVideos]: AnimeTypeDto.PromotionalVideos,
 	};
+
+	/** @inheritdoc */
+	public fromDto(dto: AnimeTypeDto): AnimeType {
+		return this.MAP_ANIME_TYPE_FROM_DTO[dto];
+	}
+
+	/** @inheritdoc */
+	public toDto(model: AnimeType): AnimeTypeDto {
+		return this.MAP_ANIME_TYPE_TO_DTO[model];
+	}
 }
