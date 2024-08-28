@@ -17,26 +17,25 @@ import { MatIconModule } from '@angular/material/icon';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeFilterFormComponent {
-
 	/** Selected type by the user. */
-	@Input()
+	@Input({ required: true })
 	public selectedType: AnimeType | null = null;
 
 	/** Searched result by the user. */
-	@Input()
+	@Input({ required: true })
 	public search: string | null = null;
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Event emitter for submitting search. */
 	@Output()
-	public searchSubmit = new EventEmitter<string | null>();
+	public readonly searchSubmit = new EventEmitter<string | null>();
 
 	/** Event emitter for type changing. */
 	@Output()
-	public typeChange = new EventEmitter<AnimeType | null>();
+	public readonly typeChange = new EventEmitter<AnimeType | null>();
 
 	/** Anime type values. */
 	protected readonly animeTypes = Object.values(AnimeType);

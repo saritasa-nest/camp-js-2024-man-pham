@@ -11,26 +11,25 @@ import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimePaginatorComponent {
-
 	/** Amount of items per page. */
-	@Input()
+	@Input({ required: true })
 	public pageSize = DEFAULT_PAGINATION.pageSize;
 
 	/** Total amount of fetched items. */
-	@Input()
+	@Input({ required: true })
 	public pageNumber = DEFAULT_PAGINATION.pageNumber;
 
 	/** Total amount of fetched items. */
-	@Input()
+	@Input({ required: true })
 	public totalCount = 0;
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Event emitter for page changing. */
 	@Output()
-	public pageChange = new EventEmitter<PageEvent>();
+	public readonly pageChange = new EventEmitter<PageEvent>();
 
 	/** Page size options. */
 	protected pageSizeOptions = [5, 10, 20] as const;

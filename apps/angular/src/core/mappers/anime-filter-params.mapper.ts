@@ -20,9 +20,18 @@ const MAP_ANIME_SORT_FIELDS_TO_DTO: Record<AnimeSortFields, AnimeSortFieldsDto> 
 @Injectable({ providedIn: 'root' })
 export class AnimeFilterParamsMapper
 implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combined> {
-	private baseFilterMapper = inject(BaseFilterParamsMapper);
+	private readonly baseFilterMapper = inject(BaseFilterParamsMapper);
 
-	private typeMapper = inject(AnimeTypeMapper);
+	private readonly typeMapper = inject(AnimeTypeMapper);
+
+	/** @inheritdoc */
+	public toDto(model: AnimeFilterParams.Combined): AnimeFilterParamsDto.Combined {
+		return {
+			...this.baseFilterMapper.toDto(model),
+			...this.mapOrderingOptionToDto(model),
+			...this.mapTypeOptionToDto(model),
+		};
+	}
 
 	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeFilterParamsDto.Sort | null {
 		if (model.sortDirection && model.sortField) {
@@ -42,14 +51,5 @@ implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combine
 			};
 		}
 		return null;
-	}
-
-	/** @inheritdoc */
-	public toDto(model: AnimeFilterParams.Combined): AnimeFilterParamsDto.Combined {
-		return {
-			...this.baseFilterMapper.toDto(model),
-			...this.mapOrderingOptionToDto(model),
-			...this.mapTypeOptionToDto(model),
-		};
 	}
 }
