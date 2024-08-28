@@ -4,7 +4,7 @@ import { SortDirection } from '@js-camp/core/models/sort-direction';
 import { inject, Injectable } from '@angular/core';
 import { AnimeColumns } from '@js-camp/core/models/anime-columns';
 
-import { isEnum } from '../guards/is-enum';
+import { assertValueInEnum } from '../guards/assert-value-in-enum';
 
 import { AnimeSortFieldsMapper } from './anime-sort-fields.mapper';
 
@@ -36,13 +36,13 @@ export class AnimeSortEventMapper {
 					break;
 			}
 
-			if (isEnum(AnimeColumns, event.active)) {
-				const field = this.sortFieldsMapper.toSortFields(event.active);
-				return {
-					sortField: field ?? null,
-					sortDirection,
-				};
-			}
+			assertValueInEnum(event.active, AnimeColumns);
+
+			const field = this.sortFieldsMapper.toSortFields(event.active);
+			return {
+				sortField: field ?? null,
+				sortDirection,
+			};
 		}
 		return {
 			sortField: null,
