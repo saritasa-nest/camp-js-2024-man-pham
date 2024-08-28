@@ -34,7 +34,7 @@ implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combine
 	}
 
 	private mapOrderingOptionToDto(model: AnimeFilterParams.Sort): AnimeFilterParamsDto.Sort | null {
-		if (model.sortDirection && model.sortField) {
+		if (model.sortDirection != null && model.sortField != null) {
 			const fieldDto = MAP_ANIME_SORT_FIELDS_TO_DTO[model.sortField];
 			return {
 				ordering: model.sortDirection === SortDirection.Descending ? `-${fieldDto}` : fieldDto,
@@ -45,7 +45,7 @@ implements TMapperToDto<AnimeFilterParamsDto.Combined, AnimeFilterParams.Combine
 	}
 
 	private mapTypeOptionToDto(model: AnimeFilterParams.Type): AnimeFilterParamsDto.Type | null {
-		if (model.type) {
+		if (model.type != null) {
 			return {
 				type: this.typeMapper.MAP_ANIME_TYPE_TO_DTO[model.type],
 			};

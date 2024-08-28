@@ -46,7 +46,7 @@ export class AnimeSortEventMapper {
 	 * @returns Sort event values.
 	 */
 	public mapToSortEvent(model: Partial<AnimeFilterParams.Sort> | null): SortEvent {
-		if (model) {
+		if (model != null) {
 			let sortDirection: SortEventDirection;
 			switch (model.sortDirection) {
 				case SortDirection.Ascending:
