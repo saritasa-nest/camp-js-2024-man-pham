@@ -13,8 +13,7 @@ import { SkeletonDirective } from '../../directives/skeleton/skeleton.directive'
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableCellContentComponent {
-
 	/** Whether cell is loading or not. */
 	@Input()
-	public isLoading: Boolean | null = false;
+	public isLoading: boolean | null = false;
 }
