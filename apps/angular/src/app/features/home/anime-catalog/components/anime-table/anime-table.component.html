@@ -1,5 +1,5 @@
 <section class="anime-table">
-	<table mat-table [dataSource]="isLoading ? templateArray : dataSource" matSort [matSortDisabled]="isLoading"
+	<table mat-table [dataSource]="isLoading ? templateArray : animeList" matSort [matSortDisabled]="isLoading"
 		[matSortDirection]="sortEvent.direction" [matSortActive]="sortEvent.active"
 		(matSortChange)="onSortChange($event)" [trackBy]="trackBy('id')">
 		<ng-container [matColumnDef]="columns.Image">

@@ -35,9 +35,7 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 export class AnimeTableComponent implements OnInit {
 	/** Anime list.*/
 	@Input({ required: true })
-	public set animeList(values: ReadonlyArray<Anime>) {
-		this.dataSource = [...values];
-	}
+	public animeList: ReadonlyArray<Anime> = [];
 
 	/** Loading state. */
 	@Input({ required: true })
@@ -57,9 +55,6 @@ export class AnimeTableComponent implements OnInit {
 
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
-
-	/** Table data source. */
-	protected dataSource: ReadonlyArray<Anime> = [];
 
 	/** Sort event values. */
 	protected sortEvent: Sort = {
