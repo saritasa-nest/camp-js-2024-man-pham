@@ -9,10 +9,10 @@ export type AnimeQueryParams = Partial<
 StrictOmit<AnimeFilterParams.Combined, 'pageNumber' | 'pageSize'> & {
 
 	/** Page number query param. */
-	pageNumber: string | null;
+	readonly pageNumber: string | null;
 
 	/** Page size query param. */
-	pageSize: string | null;
+	readonly pageSize: string | null;
 }
 >;
 
