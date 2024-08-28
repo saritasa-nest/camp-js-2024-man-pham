@@ -27,7 +27,7 @@ function animeFiltersFactory(activatedRoute: ActivatedRoute): Observable<AnimeFi
 	const animeQueryParamsMapper = inject(AnimeQueryParamsMapper);
 
 	return activatedRoute.queryParams.pipe(
-		map((params: AnimeQueryParams) => animeQueryParamsMapper.fromDto(params)),
+		map((params: AnimeQueryParams) => animeQueryParamsMapper.toFilterParams(params)),
 		shareReplay({ refCount: true, bufferSize: 1 }),
 	);
 }

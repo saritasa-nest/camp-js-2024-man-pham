@@ -26,17 +26,6 @@ export class QueryParamsService {
 	}
 
 	/**
-	 * Append provide query params and reset page number params to the URL.
-	 * @param params Params to append.
-	 * @param defaultPageNumber The default page number to reset to.
-	 * The `params` argument uses `any` for flexibility, allowing various types of values.
-	 */
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public appendParamsAndResetPageNumber(params: Record<string, any>, defaultPageNumber: number): void {
-		return this.append({ ...params, pageNumber: defaultPageNumber });
-	}
-
-	/**
 	 * Remove undefined fields.
 	 * @param obj Object to remove.
 	 */
