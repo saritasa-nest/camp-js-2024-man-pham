@@ -12,10 +12,10 @@ export namespace BaseFilterParams {
 	export type Pagination = {
 
 		/** Offset. */
-		pageNumber: number | null;
+		readonly pageNumber: number | null;
 
 		/** Page size. */
-		pageSize: number | null;
+		readonly pageSize: number | null;
 	};
 
 	/** Combined params. */

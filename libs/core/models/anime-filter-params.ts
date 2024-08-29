@@ -10,17 +10,17 @@ export namespace AnimeFilterParams {
 	export type Sort = {
 
 		/** Field. */
-		sortField: AnimeSortFields | null;
+		readonly sortField: AnimeSortFields | null;
 
 		/** Direction. */
-		sortDirection: SortDirection | null;
+		readonly sortDirection: SortDirection | null;
 	};
 
 	/** Anime Type. */
 	export type Type = {
 
 		/** Order. */
-		type: AnimeType | null;
+		readonly type: AnimeType | null;
 	};
 
 	/** Anime query params. */

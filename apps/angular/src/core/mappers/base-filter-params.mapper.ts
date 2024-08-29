@@ -15,7 +15,7 @@ export class BaseFilterParamsMapper implements TMapperToDto<BaseFilterParamsDto.
 	}
 
 	private mapPaginationOptionsToDto(model: BaseFilterParams.Pagination): BaseFilterParamsDto.Pagination | null {
-		if (model.pageNumber !== null && model.pageSize !== null) {
+		if (model.pageNumber != null && model.pageSize != null) {
 			return {
 				offset: model.pageNumber * model.pageSize,
 				limit: model.pageSize,
@@ -25,7 +25,7 @@ export class BaseFilterParamsMapper implements TMapperToDto<BaseFilterParamsDto.
 	}
 
 	private mapSearchOptionsToDto(model: BaseFilterParams.Search): BaseFilterParamsDto.Search | null {
-		if (model.search) {
+		if (model.search != null) {
 			return {
 				search: model.search,
 			};
