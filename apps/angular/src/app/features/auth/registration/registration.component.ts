@@ -73,7 +73,7 @@ namespace RegistrationForm {
 		PasswordInputComponent,
 	],
 	templateUrl: './registration.component.html',
-	styleUrls: ['../auth.component.css', './registration.component.css'],
+	styleUrls: ['../auth.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent {
