@@ -40,6 +40,10 @@ export class InputPasswordComponent implements OnInit {
 	@Input()
 	public placeholder = 'Enter your password';
 
+	/** Input id. */
+	@Input()
+	public id = '';
+
 	private readonly changeDetector = inject(ChangeDetectorRef);
 
 	private readonly destroyRef = inject(DestroyRef);
