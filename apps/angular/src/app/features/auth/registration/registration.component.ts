@@ -60,7 +60,7 @@ namespace RegistrationForm {
 
 /** Register component. */
 @Component({
-	selector: 'camp-register',
+	selector: 'camp-registration',
 	standalone: true,
 	imports: [
 		AsyncPipe,
@@ -72,11 +72,11 @@ namespace RegistrationForm {
 		RouterLink,
 		PasswordInputComponent,
 	],
-	templateUrl: './register.component.html',
-	styleUrls: ['../auth.component.css'],
+	templateUrl: './registration.component.html',
+	styleUrls: ['../auth.component.css', './registration.component.css'],
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegisterComponent {
+export class RegistrationComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 
 	private readonly destroyRef = inject(DestroyRef);
