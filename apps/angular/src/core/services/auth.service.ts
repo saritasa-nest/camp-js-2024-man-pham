@@ -11,12 +11,13 @@ import { UserSecretMapper } from '@js-camp/angular/core/mappers/user-secret.mapp
 
 import { UserSecret } from '@js-camp/core/models/user-secret';
 import { Login } from '@js-camp/core/models/login';
-import { Register } from '@js-camp/core/models/register';
 import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 
+import { Registration } from '@js-camp/core/models/registration';
+
 import { ApiErrorResponseMapper } from '../mappers/api-error-response.mapper';
-import { RegisterMapper } from '../mappers/register.mapper';
 import { LoginMapper } from '../mappers/login.mapper';
+import { RegistrationMapper } from '../mappers/registration.mapper';
 
 /** Authentication service. */
 @Injectable({
@@ -29,7 +30,7 @@ export class AuthService {
 
 	private readonly apiErrorResponseMapper = inject(ApiErrorResponseMapper);
 
-	private readonly registerMapper = inject(RegisterMapper);
+	private readonly registrationMapper = inject(RegistrationMapper);
 
 	private readonly httpClient = inject(HttpClient);
 
@@ -48,11 +49,11 @@ export class AuthService {
 
 	/**
 	 * Registers user with the provided credentials.
-	 * @param registerData Registration data of user.
+	 * @param registrationData Registration data of user.
 	 */
-	public register(registerData: Register): Observable<UserSecret> {
+	public register(registrationData: Registration): Observable<UserSecret> {
 		return this.httpClient
-			.post<UserSecretDto>(this.appUrlConfig.auth.register, this.registerMapper.toDto(registerData))
+			.post<UserSecretDto>(this.appUrlConfig.auth.register, this.registrationMapper.toDto(registrationData))
 			.pipe(
 				catchError((error: unknown) => this.handleError(error)),
 				map(secret => this.userSecretMapper.fromDto(secret)),
