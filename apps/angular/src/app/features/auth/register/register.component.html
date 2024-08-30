@@ -5,10 +5,11 @@
 
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
 	<section class="form-control">
-		<label class="form__label">Email</label>
+		<label for="email" class="form__label">Email</label>
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
 			<mat-icon matIconPrefix>email</mat-icon>
-			<input matInput type="email" placeholder="Enter your email" [formControl]="registerForm.controls.email">
+			<input matInput type="email" id="email" placeholder="Enter your email"
+				[formControl]="registerForm.controls.email">
 			<mat-error>
 				<span>{{formErrorService.getErrors(registerForm.controls.email)}}</span>
 			</mat-error>
@@ -16,37 +17,40 @@
 	</section>
 
 	<section class="form-control">
-		<label class="form__label">First name</label>
+		<label for="first-name" class="form__label">First name</label>
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
-			<input matInput type="text" placeholder="Enter your first name"
+			<input matInput type="text" id="first-name" placeholder="Enter your first name"
 				[formControl]="registerForm.controls.firstName">
 			<mat-error>
-				<span>{{formErrorService.getErrors(registerForm.controls.email)}}</span>
+				<span>{{formErrorService.getErrors(registerForm.controls.firstName)}}</span>
 			</mat-error>
 		</mat-form-field>
 	</section>
 
 	<section class="form-control">
-		<label class="form__label">Last name</label>
+		<label for="last-name" class="form__label">Last name</label>
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
-			<input matInput type="email" placeholder="Enter your email" [formControl]="registerForm.controls.lastName">
+			<input matInput id="last-name" type="text" placeholder="Enter your last name"
+				[formControl]="registerForm.controls.lastName">
 			<mat-error>
-				<span>{{formErrorService.getErrors(registerForm.controls.email)}}</span>
+				<span>{{formErrorService.getErrors(registerForm.controls.lastName)}}</span>
 			</mat-error>
 		</mat-form-field>
 	</section>
 
 	<section class="form-control">
-		<label class="form__label">Password</label>
-		<camp-input-password [touched]="registerForm.controls.password.touched" [control]="registerForm.controls.password" />
+		<label for="password" class="form__label">Password</label>
+		<camp-input-password [id]="'password'" [touched]="registerForm.controls.password.touched"
+			[control]="registerForm.controls.password" />
 	</section>
 
 	<section class="form-control">
-		<label class="form__label">Confirm Password</label>
-		<camp-input-password [touched]="registerForm.controls.confirmPassword.touched" [control]="registerForm.controls.confirmPassword" [placeholder]="'Confirm password'" />
+		<label for="confirm-password" class="form__label">Confirm Password</label>
+		<camp-input-password [id]="'confirm-password'" [touched]="registerForm.controls.confirmPassword.touched"
+			[control]="registerForm.controls.confirmPassword" [placeholder]="'Confirm password'" />
 	</section>
 
-	<section class="form__actions">
+	<div class="form__actions">
 		<button class="form__button" mat-stroked-button type="submit">
 			@if(isLoading$ | async) {
 			<span class="button__label">
@@ -62,6 +66,7 @@
 		</button>
 
 		<div class="form__navigate navigate">
-			Have an account already? <a class="navigate__link" [routerLink]="['../', 'login']" replaceUrl="true">Sign in</a>
+			Have an account already? <a class="navigate__link" [routerLink]="['../', 'login']" replaceUrl="true">Sign
+				in</a>
 		</div>
-	</section>
+	</div>
