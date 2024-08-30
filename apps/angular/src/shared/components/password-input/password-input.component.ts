@@ -19,14 +19,14 @@ import { tap } from 'rxjs';
 
 /** Input with password type. */
 @Component({
-	selector: 'camp-input-password',
+	selector: 'camp-password-input',
 	standalone: true,
 	imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule],
-	templateUrl: './input-password.component.html',
-	styleUrl: './input-password.component.css',
+	templateUrl: './password-input.component.html',
+	styleUrl: './password-input.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputPasswordComponent implements OnInit {
+export class PasswordInputComponent implements OnInit {
 
 	/** Password form control. */
 	@Input()
@@ -70,7 +70,7 @@ export class InputPasswordComponent implements OnInit {
 	 * Handles hide password button click.
 	 * @param event The click event.
 	 *  */
-	protected clickHidePassword(event: MouseEvent): void {
+	protected handleClickHidePasswordButton(event: MouseEvent): void {
 		this.hidePassword.update(prev => !prev);
 		event.stopPropagation();
 	}
