@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { RegisterDto } from '@js-camp/core/dtos/register.dto';
+import { RegistrationDto } from '@js-camp/core/dtos/registration.dto';
 import { TMapperToDto } from '@js-camp/core/models/mapper';
-import { Register } from '@js-camp/core/models/register';
+import { Registration } from '@js-camp/core/models/registration';
 
 /** Login mapper.  */
 @Injectable({
 	providedIn: 'root',
 })
-export class RegisterMapper implements TMapperToDto<RegisterDto, Register> {
+export class RegistrationMapper implements TMapperToDto<RegistrationDto, Registration> {
 	/** @inheritdoc */
-	public toDto(model: Register): RegisterDto {
+	public toDto(model: Registration): RegistrationDto {
 		return {
 			email: model.email,
 			password: model.password,
