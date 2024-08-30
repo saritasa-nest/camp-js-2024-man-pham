@@ -1,5 +1,5 @@
-/** Register DTO. */
-export type RegisterDto = {
+/** Registration DTO. */
+export type RegistrationDto = {
 
 	/** Email. */
 	email: string;
