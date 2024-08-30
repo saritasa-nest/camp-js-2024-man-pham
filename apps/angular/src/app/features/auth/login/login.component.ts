@@ -15,8 +15,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AsyncPipe } from '@angular/common';
 
-import { InputPasswordComponent } from '@js-camp/angular/shared/components/input-password/input-password.component';
 import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
+import { PasswordInputComponent } from '@js-camp/angular/shared/components/password-input/password-input.component';
 
 /** Login form type. */
 type LoginForm = {
@@ -48,7 +48,7 @@ namespace LoginForm {
 	standalone: true,
 	imports: [
 		AsyncPipe,
-		InputPasswordComponent,
+		PasswordInputComponent,
 		ReactiveFormsModule,
 		MatFormFieldModule,
 		MatInputModule,
@@ -63,20 +63,20 @@ namespace LoginForm {
 export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 
+	/** Login form. */
+	protected readonly loginForm = LoginForm.initialize(this.fb);
+
+	/** Loading state. */
+	protected readonly isLoading$ = new BehaviorSubject(false);
+
+	/** Form error service. */
+	protected readonly formErrorService = inject(FormErrorService);
+
 	private readonly destroyRef = inject(DestroyRef);
 
 	private readonly userService = inject(UserService);
 
 	private readonly router = inject(Router);
-
-	/** Form error service. */
-	protected readonly formErrorService = inject(FormErrorService);
-
-	/** Loading state. */
-	protected readonly isLoading$ = new BehaviorSubject(false);
-
-	/** Login form. */
-	protected readonly loginForm = LoginForm.initialize(this.fb);
 
 	/** Submit handler. */
 	protected onSubmit(): void {
