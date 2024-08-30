@@ -20,7 +20,7 @@ import { Login } from '@js-camp/core/models/login';
 
 import { User } from '@js-camp/core/models/user';
 
-import { Register } from '@js-camp/core/models/register';
+import { Registration } from '@js-camp/core/models/registration';
 
 import { UserApiService } from './user-api.service';
 
@@ -78,10 +78,10 @@ export class UserService {
 
 	/**
 	 * Create new account via service.
-	 * @param registerData Register data.
+	 * @param registrationData Registration data.
 	 */
-	public register(registerData: Register): Observable<void> {
-		return this.authService.register(registerData).pipe(this.saveSecretAndWaitForAuthorized());
+	public register(registrationData: Registration): Observable<void> {
+		return this.authService.register(registrationData).pipe(this.saveSecretAndWaitForAuthorized());
 	}
 
 	/** Logs the current user. */
