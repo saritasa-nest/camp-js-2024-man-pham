@@ -1,5 +1,5 @@
 @if (currentUser$ | async; as user) {
-	<section class="greeting-container">
+	<div class="greeting-container">
 		<p class="greeting__message"> Hi,
 			@if (user.firstName.length + user.lastName.length > 0) {
 				<span class="greeting__user-profile">
@@ -10,14 +10,14 @@
 			}
 		</p>
 		<button mat-raised-button class="button" type="button" (click)="handleClickLogoutButton()">Logout</button>
-	</section>
+	</div>
 } @else {
-	<section class="button-wrapper">
+	<div class="button-wrapper">
 		<a mat-raised-button class="button" [routerLink]="['/auth/login']">Login</a>
 		<div class="divider">
 			<span>or</span>
 		</div>
 		<a mat-raised-button class="button" [routerLink]="['/auth/register']">Register</a>
-	</section>
+	</div>
 }
 
