@@ -46,7 +46,7 @@ export class AnimeCatalogComponent {
 	/** Sort params. */
 	protected readonly sortParams$: Observable<AnimeFilterParams.Sort>;
 
-	private readonly animeQueryParams = inject(AnimeQueryParamsService);
+	private readonly animeQueryParamsService = inject(AnimeQueryParamsService);
 
 	private readonly animeService = inject(AnimeService);
 
@@ -74,18 +74,7 @@ export class AnimeCatalogComponent {
 	 * @param event The page event.
 	 */
 	protected onPageChange(event: PageEvent): void {
-		this.filter$
-			.pipe(
-				first(),
-				tap(currentParams => {
-					if (event.pageSize === currentParams.pageSize) {
-						this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
-					} else {
-						this.animeQueryParams.appendParamsAndResetPageNumber({ pageSize: event.pageSize });
-					}
-				}),
-			)
-			.subscribe();
+		this.updateQueryParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 
 	/**
@@ -93,7 +82,7 @@ export class AnimeCatalogComponent {
 	 * @param event The selected type.
 	 */
 	protected onSelectionChange(event: AnimeType | null): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber({ type: event });
+		this.updateQueryParams({ type: event }, true);
 	}
 
 	/**
@@ -101,7 +90,7 @@ export class AnimeCatalogComponent {
 	 * @param event The searching input.
 	 */
 	protected onSearch(event: string | null): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber({ search: event });
+		this.updateQueryParams({ search: event }, true);
 	}
 
 	/**
@@ -109,6 +98,29 @@ export class AnimeCatalogComponent {
 	 * @param event The sorting event values.
 	 */
 	protected onSortChange(event: AnimeFilterParams.Sort): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber(event);
+		this.updateQueryParams(event, true);
+	}
+
+	private updateQueryParams(params: Partial<AnimeFilterParams.Combined>, resetPageNumber?: boolean): void {
+		this.filter$
+			.pipe(
+				first(),
+				map(currentParams => {
+					const newParams: AnimeFilterParams.Combined = { ...currentParams, ...params };
+
+					const isPageSizeChanged = params.pageSize != null && params.pageSize !== currentParams.pageSize;
+					const isResetPageNumberNeeded = isPageSizeChanged || resetPageNumber;
+
+					return { newParams, isResetPageNumberNeeded };
+				}),
+				tap(({ newParams, isResetPageNumberNeeded }) => {
+					if (isResetPageNumberNeeded) {
+						this.animeQueryParamsService.appendParamsAndResetPageNumber(newParams);
+					} else {
+						this.animeQueryParamsService.append(newParams);
+					}
+				}),
+			)
+			.subscribe();
 	}
 }
