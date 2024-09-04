@@ -23,8 +23,7 @@
 	</section>
 
 	<div class="form__actions">
-		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid"
-			[disabled]="isLoading$ | async">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="isLoading$ | async">
 			@if(isLoading$ | async) {
 				<span class="button__label">
 					Signing in
