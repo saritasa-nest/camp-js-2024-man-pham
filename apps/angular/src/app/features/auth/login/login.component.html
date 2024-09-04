@@ -26,15 +26,15 @@
 		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid"
 			[disabled]="isLoading$ | async">
 			@if(isLoading$ | async) {
-			<span class="button__label">
-				Signing in
-			</span>
+				<span class="button__label">
+					Signing in
+				</span>
 			}
 			@else {
-			<span class="button__label">
-				Sign in
-				<mat-icon>arrow_right_alt</mat-icon>
-			</span>
+				<span class="button__label">
+					Sign in
+					<mat-icon>arrow_right_alt</mat-icon>
+				</span>
 			}
 		</button>
 
