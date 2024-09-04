@@ -15,7 +15,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AsyncPipe } from '@angular/common';
 
-import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 import { PasswordInputComponent } from '@js-camp/angular/shared/components/password-input/password-input.component';
 
 /** Login form type. */
@@ -27,20 +26,6 @@ type LoginForm = {
 	/** Password form field. */
 	readonly password: FormControl<string>;
 };
-
-namespace LoginForm {
-
-	/**
-	 * Initializes a login form using FormBuilder.
-	 * @param fb Form builder object.
-	 */
-	export function initialize(fb: NonNullableFormBuilder): FormGroup<LoginForm> {
-		return fb.group({
-			email: fb.control('', { validators: [Validators.required, Validators.email] }),
-			password: fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
-		});
-	}
-}
 
 /** Login component. */
 @Component({
@@ -64,7 +49,7 @@ export class LoginComponent {
 	private readonly fb = inject(NonNullableFormBuilder);
 
 	/** Login form. */
-	protected readonly loginForm = LoginForm.initialize(this.fb);
+	protected readonly loginForm: FormGroup<LoginForm>;
 
 	/** Loading state. */
 	protected readonly isLoading$ = new BehaviorSubject(false);
@@ -77,6 +62,10 @@ export class LoginComponent {
 	private readonly userService = inject(UserService);
 
 	private readonly router = inject(Router);
+
+	public constructor() {
+		this.loginForm = this.initializeForm();
+	}
 
 	/** Submit handler. */
 	protected onSubmit(): void {
@@ -91,9 +80,7 @@ export class LoginComponent {
 			.login(loginData)
 			.pipe(
 				catchError((error: unknown) => {
-					if (error instanceof ApiErrorResponseWithDetails) {
-						this.formErrorService.displayResponseError(this.loginForm, error);
-					}
+					this.formErrorService.handleResponseError(this.loginForm, error);
 					throw Error;
 				}),
 				finalize(() => {
@@ -102,5 +89,12 @@ export class LoginComponent {
 				takeUntilDestroyed(this.destroyRef),
 			)
 			.subscribe(() => this.router.navigate(['/'], { replaceUrl: true }));
+	}
+
+	private initializeForm(): FormGroup<LoginForm> {
+		return this.fb.group({
+			email: this.fb.control('', { validators: [Validators.required, Validators.email] }),
+			password: this.fb.control('', { validators: [Validators.required, Validators.minLength(8)] }),
+		});
 	}
 }

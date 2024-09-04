@@ -11,7 +11,6 @@ import { AsyncPipe } from '@angular/common';
 import { UserService } from '@js-camp/angular/core/services/user.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { mustMatch } from '@js-camp/angular/app/shared/validators/must-match';
-import { ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 import { PasswordInputComponent } from '@js-camp/angular/shared/components/password-input/password-input.component';
 import { Registration } from '@js-camp/core/models/registration';
 
@@ -33,30 +32,6 @@ type RegistrationForm = {
 	/** Confirm password field. */
 	readonly confirmPassword: FormControl<string>;
 };
-
-namespace RegistrationForm {
-
-	/**
-	 * Initializes register form.
-	 * @param fb Non nullable form builder.
-	 */
-	export function initialize(fb: NonNullableFormBuilder): FormGroup<RegistrationForm> {
-		const passwordControl = fb.control('', [Validators.required]);
-		const confirmPasswordControl = fb.control('', [Validators.required, mustMatch(passwordControl)]);
-
-		passwordControl.valueChanges.subscribe(() => {
-			confirmPasswordControl.updateValueAndValidity();
-		});
-
-		return fb.group({
-			email: fb.control('', [Validators.required, Validators.email]),
-			firstName: fb.control('', [Validators.required]),
-			lastName: fb.control('', [Validators.required]),
-			password: passwordControl,
-			confirmPassword: confirmPasswordControl,
-		});
-	}
-}
 
 /** Register component. */
 @Component({
@@ -86,13 +61,17 @@ export class RegistrationComponent {
 	private readonly router = inject(Router);
 
 	/** Register form group. */
-	protected readonly registrationForm = RegistrationForm.initialize(this.fb);
+	protected readonly registrationForm: FormGroup<RegistrationForm>;
 
 	/** Form error service. */
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Loading state. */
 	protected readonly isLoading$ = new BehaviorSubject(false);
+
+	public constructor() {
+		this.registrationForm = this.initializeForm();
+	}
 
 	/** Submit handler. */
 	protected onSubmit(): void {
@@ -107,9 +86,7 @@ export class RegistrationComponent {
 			.register(registrationData)
 			.pipe(
 				catchError((error: unknown) => {
-					if (error instanceof ApiErrorResponseWithDetails) {
-						this.formErrorService.displayResponseError(this.registrationForm, error);
-					}
+					this.formErrorService.handleResponseError(this.registrationForm, error);
 					throw Error;
 				}),
 				finalize(() => {
@@ -118,5 +95,22 @@ export class RegistrationComponent {
 				takeUntilDestroyed(this.destroyRef),
 			)
 			.subscribe(() => this.router.navigate(['/'], { replaceUrl: true }));
+	}
+
+	private initializeForm(): FormGroup<RegistrationForm> {
+		const passwordControl = this.fb.control('', [Validators.required]);
+		const confirmPasswordControl = this.fb.control('', [Validators.required, mustMatch(passwordControl)]);
+
+		passwordControl.valueChanges.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
+			confirmPasswordControl.updateValueAndValidity();
+		});
+
+		return this.fb.group({
+			email: this.fb.control('', [Validators.required, Validators.email]),
+			firstName: this.fb.control('', [Validators.required]),
+			lastName: this.fb.control('', [Validators.required]),
+			password: passwordControl,
+			confirmPassword: confirmPasswordControl,
+		});
 	}
 }
