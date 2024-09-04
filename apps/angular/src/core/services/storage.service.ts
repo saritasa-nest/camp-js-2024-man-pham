@@ -9,11 +9,7 @@ export class StorageService {
 	/** Emits the key of the changed value. */
 	private readonly valueChangedSubject$ = new BehaviorSubject<string>('');
 
-	private readonly localStorage: Storage;
-
-	public constructor() {
-		this.localStorage = window.localStorage;
-	}
+	private readonly localStorage = window.localStorage;
 
 	/**
 	 * Save data to storage.
