@@ -1,7 +1,7 @@
 import { ApiError } from './api-error';
 import { Immerable, OmitImmerable } from './immerable';
 
-/** API error. */
+/** API error response. */
 export class ApiErrorResponse extends Immerable {
 
 	/** Array of error details. */
@@ -17,6 +17,7 @@ type TApiErrorResponse = OmitImmerable<ApiErrorResponse>;
 
 /** The API response which implements Error interface. */
 export class ApiErrorResponseWithDetails extends ApiErrorResponse implements Error {
+
 	/** Error name. */
 	public readonly name: string;
 

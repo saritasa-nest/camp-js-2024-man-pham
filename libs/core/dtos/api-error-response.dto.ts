@@ -1,6 +1,6 @@
 import { ApiErrorDto } from './api-error.dto';
 
-/** API error DTO. */
+/** API error response DTO. */
 export type ApiErrorResponseDto = {
 
 	/** Type. */
