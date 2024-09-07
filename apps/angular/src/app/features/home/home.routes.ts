@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 import { authGuard } from '@js-camp/angular/core/guards/auth.guard';
 
@@ -6,14 +5,12 @@ import { authGuard } from '@js-camp/angular/core/guards/auth.guard';
 export const homeRoutes: Routes = [
 	{
 		path: '',
-		loadComponent: () =>
-			import('./home.component').then(c => c.HomeComponent),
+		loadComponent: () => import('./home.component').then(c => c.HomeComponent),
 		children: [
 			{
 				path: '',
 				title: 'Anime Catalog',
-				loadComponent: () =>
-					import('./anime-catalog/anime-catalog.component').then(c => c.AnimeCatalogComponent),
+				loadComponent: () => import('./anime-catalog/anime-catalog.component').then(c => c.AnimeCatalogComponent),
 			},
 			{
 				path: 'anime/:id',
@@ -23,6 +20,5 @@ export const homeRoutes: Routes = [
 				canMatch: [authGuard({ isAuthorized: true })],
 			},
 		],
-
 	},
 ];

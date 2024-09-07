@@ -12,10 +12,10 @@ const USER_SECRET_STORAGE_KEY = 'user';
 	providedIn: 'root',
 })
 export class UserSecretStorageService {
-	private readonly storageService = inject(StorageService);
-
 	/** Secret info of current user. */
 	public readonly currentSecret$: Observable<UserSecret | null>;
+
+	private readonly storageService = inject(StorageService);
 
 	public constructor() {
 		this.currentSecret$ = this.storageService.get(USER_SECRET_STORAGE_KEY);

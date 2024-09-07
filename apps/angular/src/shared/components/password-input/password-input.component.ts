@@ -19,15 +19,14 @@ import { tap } from 'rxjs';
 
 /** Input with password type. */
 @Component({
-	selector: 'camp-input-password',
+	selector: 'camp-password-input',
 	standalone: true,
 	imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule],
-	templateUrl: './input-password.component.html',
-	styleUrl: './input-password.component.css',
+	templateUrl: './password-input.component.html',
+	styleUrl: './password-input.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class InputPasswordComponent implements OnInit {
-
+export class PasswordInputComponent implements OnInit {
 	/** Password form control. */
 	@Input()
 	public control = new FormControl();
@@ -40,15 +39,19 @@ export class InputPasswordComponent implements OnInit {
 	@Input()
 	public placeholder = 'Enter your password';
 
-	private readonly changeDetector = inject(ChangeDetectorRef);
-
-	private readonly destroyRef = inject(DestroyRef);
+	/** Input id. */
+	@Input()
+	public id = '';
 
 	/** Form error. */
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Hide password flag. */
 	protected readonly hidePassword = signal(true);
+
+	private readonly changeDetector = inject(ChangeDetectorRef);
+
+	private readonly destroyRef = inject(DestroyRef);
 
 	/** Side effect to ensure checking the input when its status changed. */
 	public ngOnInit(): void {
@@ -66,7 +69,7 @@ export class InputPasswordComponent implements OnInit {
 	 * Handles hide password button click.
 	 * @param event The click event.
 	 *  */
-	protected clickHidePassword(event: MouseEvent): void {
+	protected handleClickHidePasswordButton(event: MouseEvent): void {
 		this.hidePassword.update(prev => !prev);
 		event.stopPropagation();
 	}

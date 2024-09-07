@@ -5,10 +5,11 @@
 
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
 	<section class="form-control">
-		<label class="form__label">Email</label>
+		<label for="email" class="form__label">Email</label>
 		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
 			<mat-icon matIconPrefix>email</mat-icon>
-			<input matInput type="email" placeholder="Enter your email" [formControl]="loginForm.controls.email">
+			<input matInput type="email" placeholder="Enter your email" id="email"
+				[formControl]="loginForm.controls.email">
 			<mat-error>
 				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
 			</mat-error>
@@ -16,23 +17,23 @@
 	</section>
 
 	<section class="form-control">
-		<label class="form__label">Password</label>
-		<camp-input-password [touched]="loginForm.controls.password.touched" [control]="loginForm.controls.password" />
+		<label for="password" class="form__label">Password</label>
+		<camp-password-input [id]="'password'" [touched]="loginForm.controls.password.touched"
+			[control]="loginForm.controls.password" />
 	</section>
 
-	<section class="form__actions">
-		<button class="form__button" mat-stroked-button type="submit" [disabled]="loginForm.invalid"
-			[disabled]="isLoading$ | async">
+	<div class="form__actions">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="isLoading$ | async">
 			@if(isLoading$ | async) {
-			<span class="button__label">
-				Signing in
-			</span>
+				<span class="button__label">
+					Signing in
+				</span>
 			}
 			@else {
-			<span class="button__label">
-				Sign in
-				<mat-icon>arrow_right_alt</mat-icon>
-			</span>
+				<span class="button__label">
+					Sign in
+					<mat-icon>arrow_right_alt</mat-icon>
+				</span>
 			}
 		</button>
 
@@ -40,5 +41,5 @@
 			No account? <a class="navigate__link" [routerLink]="['../', 'register']" replaceUrl="true">Create an
 				account</a>
 		</div>
-	</section>
+	</div>
 </form>

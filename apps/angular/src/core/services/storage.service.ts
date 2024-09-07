@@ -6,14 +6,9 @@ import { BehaviorSubject, Observable, defer, filter, fromEvent, map, merge, of, 
 	providedIn: 'root',
 })
 export class StorageService {
-	/** Emits the key of the changed value. */
 	private readonly valueChangedSubject$ = new BehaviorSubject<string>('');
 
-	private readonly localStorage: Storage;
-
-	public constructor() {
-		this.localStorage = window.localStorage;
-	}
+	private readonly localStorage = window.localStorage;
 
 	/**
 	 * Save data to storage.
@@ -40,6 +35,18 @@ export class StorageService {
 			startWith(this.obtainFromStorageByKey<T>(key)),
 			shareReplay({ refCount: true, bufferSize: 1 }),
 		);
+	}
+
+	/**
+	 * Removed data from storage.
+	 * @param key Key.
+	 */
+	public remove(key: string): Observable<void> {
+		return defer(() => {
+			this.localStorage.removeItem(key);
+			this.valueChangedSubject$.next(key);
+			return of(undefined);
+		});
 	}
 
 	private watchStorageChangeByKey(keyToWatch: string): Observable<void> {
@@ -69,17 +76,5 @@ export class StorageService {
 		} catch {
 			return null;
 		}
-	}
-
-	/**
-	 * Removed data from storage.
-	 * @param key Key.
-	 */
-	public remove(key: string): Observable<void> {
-		return defer(() => {
-			this.localStorage.removeItem(key);
-			this.valueChangedSubject$.next(key);
-			return of(undefined);
-		});
 	}
 }

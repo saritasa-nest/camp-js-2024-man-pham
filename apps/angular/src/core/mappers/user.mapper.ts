@@ -19,8 +19,8 @@ export class UserMapper implements TMapper<UserDto, User> {
 			firstName: dto.first_name,
 			lastName: dto.last_name,
 			avatar: dto.avatar ?? '',
-			createdDate: this.dateTimeMapper.fromDto(dto.created),
-			modifiedDate: this.dateTimeMapper.fromDto(dto.modified),
+			createdAt: this.dateTimeMapper.fromDto(dto.created),
+			modifiedAt: this.dateTimeMapper.fromDto(dto.modified),
 		});
 	}
 
@@ -31,8 +31,8 @@ export class UserMapper implements TMapper<UserDto, User> {
 			first_name: model.firstName,
 			last_name: model.lastName,
 			avatar: model.avatar,
-			created: this.dateTimeMapper.toDto(model.createdDate),
-			modified: this.dateTimeMapper.toDto(model.modifiedDate),
+			created: this.dateTimeMapper.toDto(model.createdAt),
+			modified: this.dateTimeMapper.toDto(model.modifiedAt),
 		};
 	}
 }

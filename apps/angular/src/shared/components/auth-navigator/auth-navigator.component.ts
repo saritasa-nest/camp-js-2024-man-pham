@@ -21,7 +21,7 @@ export class AuthNavigatorComponent {
 	protected readonly currentUser$ = this.userService.currentUser$;
 
 	/** Logs the user out. */
-	protected logOut(): void {
+	protected handleClickLogoutButton(): void {
 		this.userService.logout().pipe(first())
 			.subscribe();
 	}

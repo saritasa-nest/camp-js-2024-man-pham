@@ -7,6 +7,7 @@ import {
 	Input,
 	Output,
 	TrackByFunction,
+	OnInit,
 } from '@angular/core';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
@@ -18,6 +19,8 @@ import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
 import { Router, RouterLink } from '@angular/router';
 import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
+
+import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
 
 import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.component';
 
@@ -38,57 +41,51 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AnimeTableComponent {
+export class AnimeTableComponent implements OnInit {
 	/** Anime list.*/
-	@Input()
-	public set animeList(values: ReadonlyArray<Anime>) {
-		this.dataSource = [...values];
-	}
+	@Input({ required: true })
+	public animeList: ReadonlyArray<Anime> = [];
 
 	/** Loading state. */
-	@Input()
+	@Input({ required: true })
 	public isLoading = false;
 
 	/** Page size. */
-	@Input()
-	public pageSize = 0;
+	@Input({ required: true })
+	public pageSize = DEFAULT_PAGINATION.pageSize;
 
-	/** Sort params. */
-	@Input()
-	public set sortParams(values: AnimeFilterParams.Sort | null) {
-		if (values?.sortDirection && values.sortField) {
-			this.sortEvent = this.sortEventMapper.mapToSortEvent(values);
-		} else {
-			this.sortEvent = {
-				active: '',
-				direction: '',
-			};
-		}
-	}
+	/** Sort params test. */
+	@Input({ required: true })
+	public sortParams: AnimeFilterParams.Sort | null = null;
 
 	/** Event emitter for sorting. */
 	@Output()
-	public sortChange = new EventEmitter<AnimeFilterParams.Sort>();
-
-	private readonly sortEventMapper = inject(AnimeSortEventMapper);
+	public readonly sortChange = new EventEmitter<AnimeFilterParams.Sort>();
 
 	private readonly router = inject(Router);
 
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
 
-	/** Table data source. */
-	protected dataSource: ReadonlyArray<Anime> = [];
-
 	/** Sort event values. */
-	protected sortEvent!: Sort;
+	protected sortEvent: Sort = {
+		active: '',
+		direction: '',
+	};
 
 	/** Displayed columns. */
 	protected readonly displayedColumns: AnimeColumns[] = Object.values(this.columns);
 
+	private readonly sortEventMapper = inject(AnimeSortEventMapper);
+
+	/** Side effects when initialize component. */
+	public ngOnInit(): void {
+		this.sortEvent = this.sortEventMapper.mapToSortEvent(this.sortParams);
+	}
+
 	/**
-	 *  Track object by id.
-	 *  @param key Key of Type.
+	 *  Track element by a given key.
+	 *  @param key Key of element.
 	 */
 	protected trackBy<T>(key: keyof T): TrackByFunction<T> {
 		return function(_index: number, item: T): T[keyof T] {
@@ -100,7 +97,7 @@ export class AnimeTableComponent {
 	 * Emit sort value.
 	 * @param event Sort event.
 	 */
-	public onSortChange(event: Sort): void {
+	protected onSortChange(event: Sort): void {
 		const sortFilterParams = this.sortEventMapper.mapToSortFilterParams(event);
 		this.sortChange.emit(sortFilterParams);
 	}

@@ -8,8 +8,10 @@
 }
 
 .content-wrapper {
-	display: block;
+	--content-wrapper-min-width: 400px;
+
 	width: 30%;
+	min-width: var(--content-wrapper-min-width);
 	background-color: var(--background-color);
 	padding: var(--spacing-xl);
 	border-radius: var(--border-radius-md);
@@ -17,11 +19,12 @@
 
 .header-container {
 	text-align: center;
-	display: block;
 }
 
 .header-title {
-	font-size: 40px;
+	--header-title-font-size: 40px;
+
+	font-size: var(--header-title-font-size);
 	color: var(--primary-color);
 }
 

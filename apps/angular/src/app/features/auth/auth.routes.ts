@@ -15,7 +15,7 @@ export const authRoutes: Routes = [
 			{
 				path: 'register',
 				title: 'Register',
-				loadComponent: () => import('./register/register.component').then(c => c.RegisterComponent),
+				loadComponent: () => import('./registration/registration.component').then(c => c.RegistrationComponent),
 			},
 		],
 	},

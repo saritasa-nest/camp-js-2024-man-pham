@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 import { Pagination } from '@js-camp/core/models/pagination';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeService } from '@js-camp/angular/core/services/anime.service';
-import { BehaviorSubject, finalize, ignoreElements, map, Observable, switchMap, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { BehaviorSubject, finalize, first, map, Observable, switchMap, tap } from 'rxjs';
 
 import { PageEvent } from '@angular/material/paginator';
 
@@ -34,15 +33,7 @@ import { AnimeFilterFormComponent } from './components/anime-filter-form/anime-f
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	providers: [...ANIME_FILTER_PARAMS_PROVIDERS],
 })
-export class AnimeCatalogComponent implements OnInit {
-	private readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
-
-	private readonly animeQueryParams = inject(AnimeQueryParamsService);
-
-	private readonly animeService = inject(AnimeService);
-
-	private readonly destroyRef = inject(DestroyRef);
-
+export class AnimeCatalogComponent {
 	/** Loading state when fetching data. */
 	protected readonly isLoading$ = new BehaviorSubject(false);
 
@@ -50,7 +41,14 @@ export class AnimeCatalogComponent implements OnInit {
 	protected readonly animePage$: Observable<Pagination<Anime>>;
 
 	/** Filter params. */
-	protected filterParams$ = new BehaviorSubject<AnimeFilterParams.Combined | null>(null);
+	protected readonly filter$ = inject(ANIME_FILTER_PARAMS_TOKEN);
+
+	/** Sort params. */
+	protected readonly sortParams$: Observable<AnimeFilterParams.Sort>;
+
+	private readonly animeQueryParamsService = inject(AnimeQueryParamsService);
+
+	private readonly animeService = inject(AnimeService);
 
 	public constructor() {
 		this.animePage$ = this.filter$.pipe(
@@ -58,26 +56,8 @@ export class AnimeCatalogComponent implements OnInit {
 			switchMap(filterParams =>
 				this.animeService.getAnime(filterParams).pipe(finalize(() => this.isLoading$.next(false)))),
 		);
-	}
 
-	/** Get the filter params. */
-	public ngOnInit(): void {
-		this.initializeFilterParamsSideEffects().pipe(takeUntilDestroyed(this.destroyRef))
-			.subscribe();
-	}
-
-	private initializeFilterParamsSideEffects(): Observable<void> {
-		return this.filter$.pipe(
-			tap(params => {
-				this.filterParams$.next(params);
-			}),
-			ignoreElements(),
-		);
-	}
-
-	/** Get sort params. */
-	protected get sortParams$(): Observable<AnimeFilterParams.Sort> {
-		return this.filterParams$.pipe(
+		this.sortParams$ = this.filter$.pipe(
 			map(params => {
 				const sortParams: AnimeFilterParams.Sort = {
 					sortDirection: params?.sortDirection ?? null,
@@ -90,10 +70,11 @@ export class AnimeCatalogComponent implements OnInit {
 
 	/**
 	 * Event handler for page changing.
+	 * Navigate to the first page if the page size is changed.
 	 * @param event The page event.
 	 */
-	public onPageChange(event: PageEvent): void {
-		this.animeQueryParams.append({ pageNumber: event.pageIndex, pageSize: event.pageSize });
+	protected onPageChange(event: PageEvent): void {
+		this.updateQueryParams({ pageNumber: event.pageIndex, pageSize: event.pageSize });
 	}
 
 	/**
@@ -101,7 +82,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The selected type.
 	 */
 	protected onSelectionChange(event: AnimeType | null): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber({ type: event });
+		this.updateQueryParams({ type: event }, true);
 	}
 
 	/**
@@ -109,7 +90,7 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The searching input.
 	 */
 	protected onSearch(event: string | null): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber({ search: event });
+		this.updateQueryParams({ search: event }, true);
 	}
 
 	/**
@@ -117,6 +98,29 @@ export class AnimeCatalogComponent implements OnInit {
 	 * @param event The sorting event values.
 	 */
 	protected onSortChange(event: AnimeFilterParams.Sort): void {
-		this.animeQueryParams.appendParamsAndResetPageNumber(event);
+		this.updateQueryParams(event, true);
+	}
+
+	private updateQueryParams(params: Partial<AnimeFilterParams.Combined>, resetPageNumber?: boolean): void {
+		this.filter$
+			.pipe(
+				first(),
+				map(currentParams => {
+					const newParams: AnimeFilterParams.Combined = { ...currentParams, ...params };
+
+					const isPageSizeChanged = params.pageSize != null && params.pageSize !== currentParams.pageSize;
+					const isResetPageNumberNeeded = isPageSizeChanged || resetPageNumber;
+
+					return { newParams, isResetPageNumberNeeded };
+				}),
+				tap(({ newParams, isResetPageNumberNeeded }) => {
+					if (isResetPageNumberNeeded) {
+						this.animeQueryParamsService.appendParamsAndResetPageNumber(newParams);
+					} else {
+						this.animeQueryParamsService.append(newParams);
+					}
+				}),
+			)
+			.subscribe();
 	}
 }

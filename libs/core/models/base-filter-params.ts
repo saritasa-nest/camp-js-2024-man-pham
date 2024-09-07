@@ -5,17 +5,17 @@ export namespace BaseFilterParams {
 	export type Search = {
 
 		/** Search filter. */
-		search: string | null;
+		readonly search: string | null;
 	};
 
 	/** Pagination. */
 	export type Pagination = {
 
 		/** Offset. */
-		pageNumber: number | null;
+		readonly pageNumber: number | null;
 
 		/** Page size. */
-		pageSize: number | null;
+		readonly pageSize: number | null;
 	};
 
 	/** Combined params. */

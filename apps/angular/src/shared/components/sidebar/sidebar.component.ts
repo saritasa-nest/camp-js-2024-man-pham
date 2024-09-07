@@ -3,7 +3,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AuthNavigatorComponent } from '../auth-navigator/auth-navigator.component';
 
-// TODO (Man Pham): Develop sidebar features.
 /** Sidebar. */
 @Component({
 	selector: 'camp-sidebar',

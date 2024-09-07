@@ -7,18 +7,7 @@ import { Directive, ElementRef, HostBinding, inject, Input, OnChanges } from '@a
  * @param min Min.
  */
 export function generateRandomInRange(max: number, min: number): number {
-	const { crypto } = window;
-	const range = max - min;
-	const array = new Uint32Array(1);
-
-	// Generate a secure random value
-	crypto.getRandomValues(array);
-
-	// Normalize the random value to a range between 0 and 1
-	const randomValue = array[0] / (Number.MAX_SAFE_INTEGER + 1);
-
-	// Scale and shift the normalized value to the desired range
-	return min + randomValue * range;
+	return Math.random() * (max - min) + min;
 }
 
 /** The directive applies a skeleton class whenever the passed value is void. */

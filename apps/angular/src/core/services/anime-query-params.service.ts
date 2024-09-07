@@ -18,7 +18,7 @@ export class AnimeQueryParamsService {
 	 * @param params Anime filter params.
 	 */
 	public append(params: Partial<AnimeFilterParams.Combined>): void {
-		const queryParams = this.animeQueryParamsMapper.toDto(params);
+		const queryParams = this.animeQueryParamsMapper.toQueryParams(params);
 		this.queryParamsService.append(queryParams);
 	}
 
@@ -27,7 +27,7 @@ export class AnimeQueryParamsService {
 	 * @param params Anime filter params to append.
 	 */
 	public appendParamsAndResetPageNumber(params: Partial<AnimeFilterParams.Combined>): void {
-		const queryParams = this.animeQueryParamsMapper.toDto(params);
-		this.queryParamsService.appendParamsAndResetPageNumber(queryParams, DEFAULT_PAGINATION.pageNumber);
+		const queryParams = this.animeQueryParamsMapper.toQueryParams({ ...params, pageNumber: DEFAULT_PAGINATION.pageNumber });
+		this.queryParamsService.append(queryParams);
 	}
 }

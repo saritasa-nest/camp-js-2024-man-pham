@@ -42,11 +42,6 @@ export class AnimeService {
 
 	private readonly httpParamsService = inject(HttpParamsService);
 
-	private getHttpParams(filterParams: AnimeFilterParams.Combined): HttpParams {
-		const filterParamsDto = this.animeFilterParamsMapper.toDto(filterParams);
-		return this.httpParamsService.buildHttpParamsFromDto<AnimeFilterParamsDto.Combined>(filterParamsDto);
-	}
-
 	/**
 	 * Get the anime page.
 	 * @param filterParams Filter params.
@@ -70,5 +65,10 @@ export class AnimeService {
 		return this.httpClient
 			.get<AnimeDetailDto>(this.appUrlsConfig.anime.detail(id))
 			.pipe(map(detailDto => this.animeDetailMapper.fromDto(detailDto)));
+	}
+
+	private getHttpParams(filterParams: AnimeFilterParams.Combined): HttpParams {
+		const filterParamsDto = this.animeFilterParamsMapper.toDto(filterParams);
+		return this.httpParamsService.buildHttpParamsFromDto<AnimeFilterParamsDto.Combined>(filterParamsDto);
 	}
 }

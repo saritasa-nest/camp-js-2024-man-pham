@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
 import { FormGroup, AbstractControl } from '@angular/forms';
-import { ApiErrorResponse } from '@js-camp/core/models/api-error-response';
+import { ApiErrorResponse, ApiErrorResponseWithDetails } from '@js-camp/core/models/api-error-response';
 
 import { NotificationService } from './notification.service';
 
@@ -21,61 +21,15 @@ const ERROR_MESSAGES: Record<string, string> = {
 export class FormErrorService {
 	private readonly notificationService = inject(NotificationService);
 
-	private getErrorMessage(errorKey: string): string {
-		return ERROR_MESSAGES[errorKey] || errorKey;
-	}
-
 	/**
 	 * Handle displaying the errors that are from the server.
 	 * @param form The form.
-	 * @param apiErrorResponse The API error response.
+	 * @param error The error response.
 	 */
-	public displayResponseError(form: FormGroup, apiErrorResponse: ApiErrorResponse): void {
-		if (apiErrorResponse.errors.length === 0) {
-			this.notificationService.showMessage(ERROR_MESSAGES['default']);
-			return;
+	public handleResponseError(form: FormGroup, error: unknown): void {
+		if (error instanceof ApiErrorResponseWithDetails) {
+			this.displayResponseError(form, error);
 		}
-		apiErrorResponse.errors.forEach(error => {
-			const fieldName = error.attr;
-			const message = error.detail;
-
-			if (!fieldName) {
-				this.notificationService.showMessage(message ?? ERROR_MESSAGES['default']);
-				return;
-			}
-			if (form == null || !this.hasFieldName(form, fieldName)) {
-				this.notificationService.showMessage(`Error: ${fieldName} ${message}`);
-			} else {
-				this.setFieldError(form, fieldName, message);
-			}
-		});
-	}
-
-	private findFieldControl(form: FormGroup, fieldName: string): AbstractControl | null {
-		let control = form.get(fieldName);
-		if (!control) {
-			Object.keys(form.controls).forEach(key => {
-				const groupControl = form.get(key);
-				if (groupControl instanceof FormGroup) {
-					const nestedControl = this.findFieldControl(groupControl, fieldName);
-					if (nestedControl) {
-						control = nestedControl;
-					}
-				}
-			});
-		}
-		return control;
-	}
-
-	private setFieldError(form: FormGroup, fieldName: string, message: string): void {
-		const control = this.findFieldControl(form, fieldName);
-		const errors = { ...control?.errors, [message]: true };
-		control?.setErrors(errors);
-	}
-
-	private hasFieldName(form: FormGroup, fieldName: string): boolean {
-		const control = this.findFieldControl(form, fieldName);
-		return control != null;
 	}
 
 	/**
@@ -107,5 +61,57 @@ export class FormErrorService {
 		} else {
 			form.updateValueAndValidity();
 		}
+	}
+
+	private displayResponseError(form: FormGroup, apiErrorResponse: ApiErrorResponse): void {
+		if (apiErrorResponse.errors.length === 0) {
+			this.notificationService.showMessage(ERROR_MESSAGES['default']);
+			return;
+		}
+		apiErrorResponse.errors.forEach(error => {
+			const fieldName = error.attr;
+			const message = error.detail;
+
+			if (!fieldName) {
+				this.notificationService.showMessage(message ?? ERROR_MESSAGES['default']);
+				return;
+			}
+			if (form == null || !this.hasFieldName(form, fieldName)) {
+				this.notificationService.showMessage(`Error: ${fieldName} ${message}`);
+			} else {
+				this.setFieldError(form, fieldName, message);
+			}
+		});
+	}
+
+	private getErrorMessage(errorKey: string): string {
+		return ERROR_MESSAGES[errorKey] || errorKey;
+	}
+
+	private findFieldControl(form: FormGroup, fieldName: string): AbstractControl | null {
+		let control = form.get(fieldName);
+		if (!control) {
+			Object.keys(form.controls).forEach(key => {
+				const groupControl = form.get(key);
+				if (groupControl instanceof FormGroup) {
+					const nestedControl = this.findFieldControl(groupControl, fieldName);
+					if (nestedControl) {
+						control = nestedControl;
+					}
+				}
+			});
+		}
+		return control;
+	}
+
+	private setFieldError(form: FormGroup, fieldName: string, message: string): void {
+		const control = this.findFieldControl(form, fieldName);
+		const errors = { ...control?.errors, [message]: true };
+		control?.setErrors(errors);
+	}
+
+	private hasFieldName(form: FormGroup, fieldName: string): boolean {
+		const control = this.findFieldControl(form, fieldName);
+		return control != null;
 	}
 }
