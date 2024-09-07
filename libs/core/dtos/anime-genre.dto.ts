@@ -1,4 +1,4 @@
-/** Anime Genre DTO. */
+/** Anime genre DTO. */
 export type AnimeGenreDto = {
 
 	/** Id. */

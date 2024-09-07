@@ -38,9 +38,9 @@ export type AnimeDetailDto = AnimeDto & {
 	/** Broadcast timezone. */
 	readonly broadcast_timezone: string;
 
-	/** List of studio dtos. */
+	/** List of studio DTOs. */
 	readonly studios_data: readonly AnimeStudioDto[];
 
-	/** List of genre dtos. */
+	/** List of genre DTOs. */
 	readonly genres_data: readonly AnimeGenreDto[];
 };
