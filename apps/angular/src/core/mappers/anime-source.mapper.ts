@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AnimeSourceDto } from '@js-camp/core/dtos/anime-source.dto';
 import { AnimeSource } from '@js-camp/core/models/anime-source';
+import { TMapper } from '@js-camp/core/models/mapper';
 
 /** Anime source mapper. */
 @Injectable({
 	providedIn: 'root',
 })
-export class AnimeSourceMapper {
-	/** Map DTO to model. */
-	public readonly MAP_ANIME_SOURCE_FROM_DTO: Record<AnimeSourceDto, AnimeSource> = {
+export class AnimeSourceMapper implements TMapper<AnimeSourceDto, AnimeSource> {
+	private readonly MAP_ANIME_SOURCE_FROM_DTO: Record<AnimeSourceDto, AnimeSource> = {
 		[AnimeSourceDto.Book]: AnimeSource.Book,
 		[AnimeSourceDto.CardGame]: AnimeSource.CardGame,
 		[AnimeSourceDto.FourKomaManga]: AnimeSource.FourKomaManga,
@@ -28,8 +28,7 @@ export class AnimeSourceMapper {
 		[AnimeSourceDto.WebNovel]: AnimeSource.WebNovel,
 	};
 
-	/** Map model to DTO. */
-	public readonly MAP_ANIME_SOURCE_TO_DTO: Record<AnimeSource, AnimeSourceDto> = {
+	private readonly MAP_ANIME_SOURCE_TO_DTO: Record<AnimeSource, AnimeSourceDto> = {
 		[AnimeSource.Book]: AnimeSourceDto.Book,
 		[AnimeSource.CardGame]: AnimeSourceDto.CardGame,
 		[AnimeSource.FourKomaManga]: AnimeSourceDto.FourKomaManga,
@@ -48,4 +47,14 @@ export class AnimeSourceMapper {
 		[AnimeSource.WebManga]: AnimeSourceDto.WebManga,
 		[AnimeSource.WebNovel]: AnimeSourceDto.WebNovel,
 	};
+
+	/** @inheritdoc */
+	public fromDto(dto: AnimeSourceDto): AnimeSource {
+		return this.MAP_ANIME_SOURCE_FROM_DTO[dto];
+	}
+
+	/** @inheritdoc */
+	public toDto(model: AnimeSource): AnimeSourceDto {
+		return this.MAP_ANIME_SOURCE_TO_DTO[model];
+	}
 }
