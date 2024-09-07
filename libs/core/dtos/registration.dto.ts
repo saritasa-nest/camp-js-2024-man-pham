@@ -2,14 +2,14 @@
 export type RegistrationDto = {
 
 	/** Email. */
-	email: string;
+	readonly email: string;
 
 	/** First name. */
-	first_name: string;
+	readonly first_name: string;
 
 	/** Last name. */
-	last_name: string;
+	readonly last_name: string;
 
 	/** Password. */
-	password: string;
+	readonly password: string;
 };
