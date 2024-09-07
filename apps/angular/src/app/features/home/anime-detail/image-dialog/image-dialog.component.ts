@@ -4,10 +4,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 type ImageDialogData = {
 
 	/** Source. */
-	source: string | null;
+	readonly source: string | null;
 
 	/** Title. */
-	title: string;
+	readonly title: string;
 };
 
 /** Image dialog component. */
