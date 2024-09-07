@@ -5,7 +5,7 @@ export namespace BaseFilterParams {
 	export type Search = {
 
 		/** Search filter. */
-		search: string | null;
+		readonly search: string | null;
 	};
 
 	/** Pagination. */

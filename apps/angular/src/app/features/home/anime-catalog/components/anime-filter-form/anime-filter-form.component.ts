@@ -45,7 +45,7 @@ export class AnimeFilterFormComponent {
 	 * @param event The selected type.
 	 */
 	protected onSelectionChange(event: MatSelectChange): void {
-		if (event.value) {
+		if (event.value != null) {
 			this.typeChange.emit(event.value);
 		} else {
 			this.typeChange.emit(null);
@@ -57,7 +57,7 @@ export class AnimeFilterFormComponent {
 	 * @param event The search request value.
 	 */
 	protected onSearch(): void {
-		if (this.search && this.search.length > 0) {
+		if (this.search != null && this.search.length > 0) {
 			this.searchSubmit.emit(this.search);
 		} else {
 			this.searchSubmit.emit(null);

@@ -41,15 +41,13 @@ export class AnimeQueryParamsMapper {
 	 */
 	public toQueryParams(filterParams: Partial<AnimeFilterParams.Combined>): AnimeQueryParams {
 		return {
-			type: filterParams.type !== undefined ? filterParams.type : undefined,
+			type: filterParams.type ?? null,
 			pageNumber:
-				filterParams.pageNumber != null && filterParams.pageNumber >= 0 ?
-					filterParams.pageNumber.toString() :
-					undefined,
-			pageSize: filterParams.pageSize != null ? filterParams.pageSize.toString() : undefined,
-			search: filterParams.search !== undefined ? filterParams.search : undefined,
-			sortField: filterParams.sortField !== undefined ? filterParams.sortField : undefined,
-			sortDirection: filterParams.sortDirection !== undefined ? filterParams.sortDirection : undefined,
+				filterParams.pageNumber != null && filterParams.pageNumber >= 0 ? filterParams.pageNumber.toString() : null,
+			pageSize: filterParams.pageSize != null ? filterParams.pageSize.toString() : null,
+			search: filterParams.search ?? null,
+			sortField: filterParams.sortField && filterParams.sortDirection ? filterParams.sortField : null,
+			sortDirection: filterParams.sortDirection ?? null,
 		};
 	}
 }
