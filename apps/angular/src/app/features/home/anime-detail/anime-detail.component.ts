@@ -48,23 +48,23 @@ const EMBEDDED_LINK = 'https://www.youtube.com/embed/';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AnimeDetailComponent {
+	/** Loading state. */
+	protected readonly isLoading$ = new BehaviorSubject(true);
+
+	/** Anime detail. */
+	protected readonly animeDetail$: Observable<AnimeDetail | null>;
+
 	private readonly route = inject(ActivatedRoute);
 
-	private readonly animeService = inject(AnimeService);
-
 	private readonly animeId = this.route.snapshot.paramMap.get('id');
+
+	private readonly animeService = inject(AnimeService);
 
 	private readonly domSanitizer = inject(DomSanitizer);
 
 	private readonly dialog = inject(MatDialog);
 
 	private readonly location = inject(Location);
-
-	/** Loading state. */
-	protected readonly isLoading$ = new BehaviorSubject(true);
-
-	/** Anime detail. */
-	protected readonly animeDetail$: Observable<AnimeDetail | null>;
 
 	public constructor() {
 		this.animeDetail$ = defer(() => (this.animeId ? this.animeService.getAnimeDetail(this.animeId) : of(null))).pipe(
