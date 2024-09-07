@@ -1,0 +1,22 @@
+<div class="filter-form">
+	<mat-form-field appearance="outline" subscriptSizing="dynamic">
+		<mat-label>Anime type</mat-label>
+		<mat-select [disabled]="isLoading" [(value)]="selectedType" (selectionChange)="onSelectionChange($event)">
+			<mat-option [value]="">
+				All
+			</mat-option>
+			@for (type of animeTypes; track type) {
+				<mat-option [value]="type">
+					{{ type }}
+				</mat-option>
+			}
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field appearance="outline" subscriptSizing="dynamic">
+		<mat-label>Search</mat-label>
+		<input [disabled]="isLoading" matInput [(ngModel)]="search" placeholder="An anime name..." />
+		<button [disabled]="isLoading" mat-icon-button matSuffix type="button" (click)="onSearch()">
+			<mat-icon>edit</mat-icon>
+		</button>
+	</mat-form-field>
+</div>

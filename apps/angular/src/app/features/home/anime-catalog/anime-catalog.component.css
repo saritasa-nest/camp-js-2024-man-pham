@@ -1,0 +1,4 @@
+:host {
+	padding-block-end: var(--spacing-xl);
+	display: block;
+}

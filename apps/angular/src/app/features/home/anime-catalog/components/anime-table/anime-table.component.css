@@ -1,0 +1,38 @@
+.anime__title {
+	word-wrap: break-word;
+	white-space: unset;
+	width: 20%;
+	overflow-wrap: break-word;
+	color: var(--primary-color);
+	font-weight: var(--font-weight-medium);
+}
+
+.anime__image-cell {
+	display: flex;
+	justify-content: center;
+	padding-block: var(--spacing-sm);
+}
+
+.anime__image-container {
+	--image-size: 150px;
+
+	width: var(--image-size);
+	height: var(--image-size);
+}
+
+.anime__image {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+.anime__badge {
+	--badge-font-color: #464f60;
+	--badge-background-color: #e9edf5;
+
+	padding: 1px var(--spacing-sm);
+	font-weight: var(--font-weight-medium);
+	border-radius: var(--border-radius-xsm);
+	color: var(--badge-font-color);
+	background-color: var(--badge-background-color);
+}

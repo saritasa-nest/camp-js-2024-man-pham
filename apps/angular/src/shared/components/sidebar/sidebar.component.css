@@ -1,0 +1,9 @@
+.sidebar__container {
+	height: 100%;
+}
+
+.sidebar {
+	border-radius: 0;
+	background-color: var(--primary-color);
+	color: var(--primary-contrast-color);
+}

@@ -1,9 +1,12 @@
+import { StrictOmit } from './../utils/types/strict-omit';
 import { DateTimeRange } from './datetime-range';
 
 import { AnimeStatus } from './anime-status';
 import { AnimeType } from './anime-type';
 
 import { Immerable, OmitImmerable } from './immerable';
+
+const ANIME_IMAGE_FALLBACK_DESCRIPTION = 'Anime image';
 
 /** Anime class. */
 export class Anime extends Immerable {
@@ -47,9 +50,12 @@ export class Anime extends Immerable {
 	/** List of genres. */
 	public readonly genres: readonly number[];
 
-	public constructor(
-		data: TAnime,
-	) {
+	/** Get description for anime image. */
+	public get imageDescription(): string {
+		return this.titleEng || this.titleJpn || ANIME_IMAGE_FALLBACK_DESCRIPTION;
+	}
+
+	public constructor(data: TAnime) {
 		super();
 		this.id = data.id;
 		this.createdDate = data.createdDate;
@@ -68,4 +74,4 @@ export class Anime extends Immerable {
 }
 
 /** Anime Type. */
-type TAnime = OmitImmerable<Anime>;
+type TAnime = StrictOmit<OmitImmerable<Anime>, 'imageDescription'>;

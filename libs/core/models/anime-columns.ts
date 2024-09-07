@@ -2,7 +2,7 @@
 export enum AnimeColumns {
 	Image = 'image',
 	TitleEng = 'titleEng',
-	TileJpn = 'titleJpn',
+	TitleJpn = 'titleJpn',
 	StartDate = 'startDate',
 	Type = 'type',
 	Status = 'status',
