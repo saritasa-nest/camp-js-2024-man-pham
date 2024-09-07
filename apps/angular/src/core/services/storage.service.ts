@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, defer, filter, fromEvent, map, merge, of, 
 	providedIn: 'root',
 })
 export class StorageService {
-	/** Emits the key of the changed value. */
 	private readonly valueChangedSubject$ = new BehaviorSubject<string>('');
 
 	private readonly localStorage = window.localStorage;
@@ -38,6 +37,18 @@ export class StorageService {
 		);
 	}
 
+	/**
+	 * Removed data from storage.
+	 * @param key Key.
+	 */
+	public remove(key: string): Observable<void> {
+		return defer(() => {
+			this.localStorage.removeItem(key);
+			this.valueChangedSubject$.next(key);
+			return of(undefined);
+		});
+	}
+
 	private watchStorageChangeByKey(keyToWatch: string): Observable<void> {
 		const otherPageChange$ = fromEvent(window, 'storage').pipe(
 			filter((event): event is StorageEvent => event instanceof StorageEvent),
@@ -65,17 +76,5 @@ export class StorageService {
 		} catch {
 			return null;
 		}
-	}
-
-	/**
-	 * Removed data from storage.
-	 * @param key Key.
-	 */
-	public remove(key: string): Observable<void> {
-		return defer(() => {
-			this.localStorage.removeItem(key);
-			this.valueChangedSubject$.next(key);
-			return of(undefined);
-		});
 	}
 }

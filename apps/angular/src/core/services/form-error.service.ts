@@ -32,6 +32,37 @@ export class FormErrorService {
 		}
 	}
 
+	/**
+	 * Get the errors of the control.
+	 * @param control Form control.
+	 */
+	public getErrors(control: AbstractControl): string {
+		const errors = { ...control.errors, ...control.parent?.errors };
+		if (!errors) {
+			return '';
+		}
+
+		return Object.keys(errors)
+			.map(errorKey => this.getErrorMessage(errorKey))
+			.join(' ');
+	}
+
+	/**
+	 * Clears errors for a specific field or the entire form.
+	 * @param form Form group.
+	 * @param fieldName Specific field name.
+	 */
+	public clearErrors(form: FormGroup, fieldName?: string): void {
+		if (fieldName) {
+			const control = this.findFieldControl(form, fieldName);
+			if (control) {
+				control.setErrors(null);
+			}
+		} else {
+			form.updateValueAndValidity();
+		}
+	}
+
 	private displayResponseError(form: FormGroup, apiErrorResponse: ApiErrorResponse): void {
 		if (apiErrorResponse.errors.length === 0) {
 			this.notificationService.showMessage(ERROR_MESSAGES['default']);
@@ -82,36 +113,5 @@ export class FormErrorService {
 	private hasFieldName(form: FormGroup, fieldName: string): boolean {
 		const control = this.findFieldControl(form, fieldName);
 		return control != null;
-	}
-
-	/**
-	 * Get the errors of the control.
-	 * @param control Form control.
-	 */
-	public getErrors(control: AbstractControl): string {
-		const errors = { ...control.errors, ...control.parent?.errors };
-		if (!errors) {
-			return '';
-		}
-
-		return Object.keys(errors)
-			.map(errorKey => this.getErrorMessage(errorKey))
-			.join(' ');
-	}
-
-	/**
-	 * Clears errors for a specific field or the entire form.
-	 * @param form Form group.
-	 * @param fieldName Specific field name.
-	 */
-	public clearErrors(form: FormGroup, fieldName?: string): void {
-		if (fieldName) {
-			const control = this.findFieldControl(form, fieldName);
-			if (control) {
-				control.setErrors(null);
-			}
-		} else {
-			form.updateValueAndValidity();
-		}
 	}
 }

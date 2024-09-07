@@ -3,7 +3,7 @@ import { RegistrationDto } from '@js-camp/core/dtos/registration.dto';
 import { TMapperToDto } from '@js-camp/core/models/mapper';
 import { Registration } from '@js-camp/core/models/registration';
 
-/** Login mapper.  */
+/** Registration mapper.  */
 @Injectable({
 	providedIn: 'root',
 })

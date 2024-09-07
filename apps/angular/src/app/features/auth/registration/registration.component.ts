@@ -52,14 +52,6 @@ type RegistrationForm = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegistrationComponent {
-	private readonly fb = inject(NonNullableFormBuilder);
-
-	private readonly destroyRef = inject(DestroyRef);
-
-	private readonly userService = inject(UserService);
-
-	private readonly router = inject(Router);
-
 	/** Register form group. */
 	protected readonly registrationForm: FormGroup<RegistrationForm>;
 
@@ -68,6 +60,14 @@ export class RegistrationComponent {
 
 	/** Loading state. */
 	protected readonly isLoading$ = new BehaviorSubject(false);
+
+	private readonly fb = inject(NonNullableFormBuilder);
+
+	private readonly destroyRef = inject(DestroyRef);
+
+	private readonly userService = inject(UserService);
+
+	private readonly router = inject(Router);
 
 	public constructor() {
 		this.registrationForm = this.initializeForm();

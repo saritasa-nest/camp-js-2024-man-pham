@@ -13,7 +13,6 @@ const DEFAULT_MILLISECOND = 1000;
 	providedIn: 'root',
 })
 export class NotificationService {
-	/** Snackbar instance. */
 	private readonly snackBar = inject(MatSnackBar);
 
 	/**

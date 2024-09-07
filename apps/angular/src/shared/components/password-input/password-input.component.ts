@@ -27,7 +27,6 @@ import { tap } from 'rxjs';
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PasswordInputComponent implements OnInit {
-
 	/** Password form control. */
 	@Input()
 	public control = new FormControl();
@@ -44,15 +43,15 @@ export class PasswordInputComponent implements OnInit {
 	@Input()
 	public id = '';
 
-	private readonly changeDetector = inject(ChangeDetectorRef);
-
-	private readonly destroyRef = inject(DestroyRef);
-
 	/** Form error. */
 	protected readonly formErrorService = inject(FormErrorService);
 
 	/** Hide password flag. */
 	protected readonly hidePassword = signal(true);
+
+	private readonly changeDetector = inject(ChangeDetectorRef);
+
+	private readonly destroyRef = inject(DestroyRef);
 
 	/** Side effect to ensure checking the input when its status changed. */
 	public ngOnInit(): void {

@@ -46,8 +46,6 @@ type LoginForm = {
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent {
-	private readonly fb = inject(NonNullableFormBuilder);
-
 	/** Login form. */
 	protected readonly loginForm: FormGroup<LoginForm>;
 
@@ -62,6 +60,8 @@ export class LoginComponent {
 	private readonly userService = inject(UserService);
 
 	private readonly router = inject(Router);
+
+	private readonly fb = inject(NonNullableFormBuilder);
 
 	public constructor() {
 		this.loginForm = this.initializeForm();

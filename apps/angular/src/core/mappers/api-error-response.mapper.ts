@@ -10,7 +10,7 @@ const DEFAULT_ERROR_MESSAGE = 'Something went wrong. Please try again later.';
 const AUTH_ERROR_CODES = ['no_active_account'];
 const AUTH_ERROR_ATTRS = ['email', 'password', 'first_name', 'last_name', 'avatar'];
 
-/** Api response mapper. */
+/** Api error response mapper. */
 @Injectable({ providedIn: 'root' })
 export class ApiErrorResponseMapper implements TMapperFromDto<ApiErrorResponseDto, ApiErrorResponse> {
 
