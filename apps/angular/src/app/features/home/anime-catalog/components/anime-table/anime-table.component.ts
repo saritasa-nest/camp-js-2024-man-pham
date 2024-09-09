@@ -17,6 +17,7 @@ import { AnimeColumns } from '@js-camp/core/models/anime-columns';
 import { Anime } from '@js-camp/core/models/anime';
 import { AnimeFilterParams } from '@js-camp/core/models/anime-filter-params';
 
+import { Router, RouterLink } from '@angular/router';
 import { AnimeSortEventMapper } from '@js-camp/angular/core/mappers/anime-sort-event.mapper';
 
 import { DEFAULT_PAGINATION } from '@js-camp/core/models/default-pagination';
@@ -27,7 +28,15 @@ import { AnimeNotFoundComponent } from './../anime-not-found/anime-not-found.com
 @Component({
 	selector: 'camp-anime-table',
 	standalone: true,
-	imports: [AnimeNotFoundComponent, DatePipe, MatTableModule, NoEmptyPipe, MatSortModule, TableCellContentComponent],
+	imports: [
+		AnimeNotFoundComponent,
+		DatePipe,
+		MatTableModule,
+		NoEmptyPipe,
+		MatSortModule,
+		TableCellContentComponent,
+		RouterLink,
+	],
 	templateUrl: './anime-table.component.html',
 	styleUrl: './anime-table.component.css',
 	changeDetection: ChangeDetectionStrategy.OnPush,
@@ -52,6 +61,8 @@ export class AnimeTableComponent implements OnInit {
 	/** Event emitter for sorting. */
 	@Output()
 	public readonly sortChange = new EventEmitter<AnimeFilterParams.Sort>();
+
+	private readonly router = inject(Router);
 
 	/** Anime column ids. */
 	protected readonly columns = AnimeColumns;
@@ -89,6 +100,25 @@ export class AnimeTableComponent implements OnInit {
 	protected onSortChange(event: Sort): void {
 		const sortFilterParams = this.sortEventMapper.mapToSortFilterParams(event);
 		this.sortChange.emit(sortFilterParams);
+	}
+
+	/**
+	 * Navigate the selected anime to the detail page.
+	 * @param anime The anime associated with the row.
+	 */
+	protected onRowClick(anime: Anime): void {
+		this.router.navigate([`/anime/${anime.id}`]);
+	}
+
+	/**
+	 * Handles a keydown event on a table row.
+	 * @param event The keyboard event.
+	 * @param anime The anime associated with the row.
+	 */
+	protected handleKeydown(event: KeyboardEvent, anime: Anime): void {
+		if (event.key === 'Enter') {
+			this.onRowClick(anime);
+		}
 	}
 
 	/** Generate number array for the template table data source. */

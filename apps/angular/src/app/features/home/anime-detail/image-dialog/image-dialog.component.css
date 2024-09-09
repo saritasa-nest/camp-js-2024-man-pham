@@ -1,0 +1,12 @@
+.dialog-wrapper {
+	height: 100%;
+	aspect-ratio: 3/4;
+	display: flex;
+	place-content: center;
+}
+
+.dialog__image {
+	height: 100%;
+	width: 100%;
+	object-fit: fill;
+}

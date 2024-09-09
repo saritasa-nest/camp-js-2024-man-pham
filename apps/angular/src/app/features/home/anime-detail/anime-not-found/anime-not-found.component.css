@@ -1,0 +1,32 @@
+.not-found {
+	display: flex;
+	align-items: center;
+	gap: var(--spacing-lg);
+	color: var(--error-color);
+}
+
+.not-found__icon {
+	--icon-size: 180px;
+
+	font-size: var(--icon-size);
+	width: var(--icon-size);
+	height: var(--icon-size);
+}
+
+.not-found__title {
+	font-size: 2.5rem;
+}
+
+.not-found__message {
+	margin-bottom: 0;
+	margin-top: var(--spacing-md);
+	font-size: var(--font-size-lg);
+}
+
+.not-found__link {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--spacing-sm);
+	color: inherit;
+	font-weight: var(--font-weight-medium);
+}
