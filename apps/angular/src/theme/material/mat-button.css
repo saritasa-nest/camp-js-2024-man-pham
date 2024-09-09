@@ -1,0 +1,15 @@
+/* Button */
+.auth .mdc-button {
+	height: fit-content;
+	padding: var(--spacing-md);
+	border-radius: var(--border-radius-md);
+	background-color: var(--primary-color);
+}
+
+.auth .mdc-button:disabled {
+	opacity: 0.7;
+}
+
+.auth .mdc-button .mdc-button__label {
+	color: white;
+}

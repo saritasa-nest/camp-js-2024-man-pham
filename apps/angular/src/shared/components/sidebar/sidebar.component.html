@@ -1,6 +1,11 @@
-<!-- TODO (Man Pham): Develop sidebar content. -->
 <mat-sidenav-container class="sidebar__container">
-	<mat-sidenav mode="side" opened class="sidebar">Sidenav content</mat-sidenav>
+	<mat-sidenav mode="side" opened class="sidebar">
+		<section class="sidebar__nav-container">
+			<section class="sidebar__auth-nav">
+				<camp-auth-navigator />
+			</section>
+		</section>
+	</mat-sidenav>
 	<mat-sidenav-content>
 		<ng-content></ng-content>
 	</mat-sidenav-content>

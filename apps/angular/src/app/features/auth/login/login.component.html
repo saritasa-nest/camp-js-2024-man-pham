@@ -1,0 +1,45 @@
+<div class="header-container">
+	<h1 class="header-title">Welcome back</h1>
+	<p class="header-subtitle">Sign in to access to you dashboard.</p>
+</div>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+	<section class="form-control">
+		<label for="email" class="form__label">Email</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>email</mat-icon>
+			<input matInput type="email" placeholder="Enter your email" id="email"
+				[formControl]="loginForm.controls.email">
+			<mat-error>
+				<span>{{formErrorService.getErrors(loginForm.controls.email)}}</span>
+			</mat-error>
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label for="password" class="form__label">Password</label>
+		<camp-password-input [id]="'password'" [touched]="loginForm.controls.password.touched"
+			[control]="loginForm.controls.password" />
+	</section>
+
+	<div class="form__actions">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="isLoading$ | async">
+			@if(isLoading$ | async) {
+				<span class="button__label">
+					Signing in
+				</span>
+			}
+			@else {
+				<span class="button__label">
+					Sign in
+					<mat-icon>arrow_right_alt</mat-icon>
+				</span>
+			}
+		</button>
+
+		<div class="form__navigate navigate">
+			No account? <a class="navigate__link" [routerLink]="['../', 'register']" replaceUrl="true">Create an
+				account</a>
+		</div>
+	</div>
+</form>

@@ -1,0 +1,72 @@
+<div class="header-container">
+	<h1 class="header-title">Greetings</h1>
+	<p class="header-subtitle">Sign up to experience interesting features!</p>
+</div>
+
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="form">
+	<section class="form-control">
+		<label for="email" class="form__label">Email</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<mat-icon matIconPrefix>email</mat-icon>
+			<input matInput type="email" id="email" placeholder="Enter your email"
+				[formControl]="registrationForm.controls.email">
+			<mat-error>
+				<span>{{formErrorService.getErrors(registrationForm.controls.email)}}</span>
+			</mat-error>
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label for="first-name" class="form__label">First name</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<input matInput type="text" id="first-name" placeholder="Enter your first name"
+				[formControl]="registrationForm.controls.firstName">
+			<mat-error>
+				<span>{{formErrorService.getErrors(registrationForm.controls.firstName)}}</span>
+			</mat-error>
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label for="last-name" class="form__label">Last name</label>
+		<mat-form-field subscriptSizing="dynamic" appearance="outline" class="form__input-field">
+			<input matInput id="last-name" type="text" placeholder="Enter your last name"
+				[formControl]="registrationForm.controls.lastName">
+			<mat-error>
+				<span>{{formErrorService.getErrors(registrationForm.controls.lastName)}}</span>
+			</mat-error>
+		</mat-form-field>
+	</section>
+
+	<section class="form-control">
+		<label for="password" class="form__label">Password</label>
+		<camp-password-input [id]="'password'" [touched]="registrationForm.controls.password.touched"
+			[control]="registrationForm.controls.password" />
+	</section>
+
+	<section class="form-control">
+		<label for="confirm-password" class="form__label">Confirm Password</label>
+		<camp-password-input [id]="'confirm-password'" [touched]="registrationForm.controls.confirmPassword.touched"
+			[control]="registrationForm.controls.confirmPassword" [placeholder]="'Confirm password'" />
+	</section>
+
+	<div class="form__actions">
+		<button class="form__button" mat-stroked-button type="submit" [disabled]="isLoading$ | async">
+			@if(isLoading$ | async) {
+				<span class="button__label">
+					Creating
+				</span>
+			}
+			@else {
+				<span class="button__label">
+					Create account
+					<mat-icon>arrow_right_alt</mat-icon>
+				</span>
+			}
+		</button>
+
+		<div class="form__navigate navigate">
+			Have an account already? <a class="navigate__link" [routerLink]="['../', 'login']" replaceUrl="true">Sign
+				in</a>
+		</div>
+	</div>
