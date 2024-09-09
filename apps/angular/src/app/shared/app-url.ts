@@ -12,7 +12,7 @@ export class AppUrlsConfig {
 
 	/** Anime-related routes. */
 	public readonly anime = {
-		list: this.toApi('anime/anime/'),
+		list: this.toApi('anime/'),
 	};
 
 	/**
